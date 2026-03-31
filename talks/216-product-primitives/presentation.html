@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 20px;
+    line-height: 1.8;
+    padding: 3rem 1.5rem;
+    max-width: 740px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem -16rem;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    max-width: 1800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+</style>
+</head>
+<body>
+<h1>Product Primitives: The New Material of Design Systems</h1>
+
+<p><strong>Speaker</strong>: Yesenia Perez-Cruz -- Design Systems Consultant, Expressive Design Systems (ex-Shopify Polaris lead, 5 years)</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 47 min</p>
+
+<hr>
+
+<h2>The Problem: Design Systems Answer the Wrong Question</h2>
+
+<p>Yesenia opens with a provocation: today's design systems answer "what's the best component to display this data?" -- but never "what's the best experience for <em>this user</em> in <em>this moment</em>?"</p>
+
+<figure><img src="frame-0150.jpg" alt="The shape of UI today" loading="lazy"><figcaption>The shape of UI today</figcaption></figure>
+
+<p>She uses Shopify's discount creation form as the example she knows best. Her team spent years iterating on whether the discount type should be a choice list, a select dropdown, or a modal. But that was never the question users cared about.</p>
+
+<p>The real problem: <strong>user needs vary enormously, but everyone gets the same middle-ground form.</strong> A day-one user needs guidance and exploration. A day-100 user needs shortcuts and power tools. A shop owner creates one discount; an enterprise user bulk-extends 30 at once. Without the ability to adapt, the form is simultaneously too complex for beginners and too inefficient for power users.</p>
+
+<figure><img src="frame-0270.jpg" alt="User needs spectrum: exploring vs. precise" loading="lazy"><figcaption>User needs spectrum: exploring vs. precise</figcaption></figure>
+
+<hr>
+
+<h2>Intent-Based UI: What If the Interface Adapted to the Task?</h2>
+
+<p>AI makes intent-based adaptation possible. Yesenia shows examples already live in Claude: ask for a recipe and you get a recipe card with food photography and a timer. Ask to prioritize tasks and you get a sortable ranking list. Ask to draft an email and you get an embedded compose box. The UI shape adapts to the <em>intent</em>, not a fixed template.</p>
+
+<p>She then applies this to Shopify. Today, creating a 10% discount for a product requires navigating away, filling out a long form, finding the product in a list, and navigating back. What if you could just say "create a 10% off discount code for this product" and get a compact confirmation view right where you are?</p>
+
+<figure><img src="frame-0390.jpg" alt="Intent-driven UI: user states goal, gets tailored confirmation" loading="lazy"><figcaption>Intent-driven UI: user states goal, gets tailored confirmation</figcaption></figure>
+
+<p>Or extending 30 discount expiration dates: today that's 30 individual click-through flows. With intent-based UI, you'd say "extend all June discounts to July 1st" and get a bulk editing surface with a highlighted column showing the changed dates.</p>
+
+<hr>
+
+<h2>The Shift: From Directive UI to Intent-Driven UI</h2>
+
+<p>This is the core thesis slide. Today's design systems give you building blocks for <strong>directive UI</strong> -- users navigate to pages, fill out fields, click buttons. Design systems provide the components to build those pages.</p>
+
+<figure><img src="frame-0630.jpg" alt="Today = Directive UI vs. Future = Intent-Driven UI" loading="lazy"><figcaption>Today = Directive UI vs. Future = Intent-Driven UI</figcaption></figure>
+
+<p>Future design systems need to provide building blocks for <strong>intent-driven UI</strong>, where a user states a goal and AI composes the right surface. The critical difference: intent-driven UI is centered around <strong>the objects users manipulate</strong> (discounts, orders, tasks), not the components they click. The output becomes the defining material, not the input.</p>
+
+<hr>
+
+<h2>The "Before" Demo: AI Without Product Context</h2>
+
+<p>To prove the point, Yesenia gives Claude Code access to the Polaris component library (via MCP) and asks it to build two UIs:</p>
+
+<ol><li>"Build a UI for confirming changes to a discount code"</li><li>"Build a UI for extending expiration dates on 30 discount codes"</li></ol>
+<p><strong>Result: both come out as the same resource-detail page layout.</strong> The association between "discount" and "page with cards" is so strong that Claude can't break out of it. It just lists components it used: warning banner, index table, checkbox, sidebar, modal, status badges.</p>
+
+<figure><img src="frame-0750.jpg" alt="Demo without context: same layout for both tasks" loading="lazy"><figcaption>Demo without context: same layout for both tasks</figcaption></figure>
+
+<hr>
+
+<h2>The Framework: Product Primitives + Surfaces + Intent Signals</h2>
+
+<p>The missing context has three layers:</p>
+
+<h3>1. Product Primitives</h3>
+
+<p>The objects users create and manipulate: discounts, orders, tasks, events, customers, products, collections. Each needs a defined anatomy, lifecycle states, relationships, and rules for how it appears across surfaces.</p>
+
+<figure><img src="frame-0810.jpg" alt="Product Primitives definition and examples" loading="lazy"><figcaption>Product Primitives definition and examples</figcaption></figure>
+
+<p>Yesenia zooms into a discount primitive's documentation:</p>
+
+<ul><li><strong>Anatomy</strong>: Visual signifier (icon + color), title, discount type, value, code, conditions, schedule, usage limits, performance metrics</li><li><strong>States &amp; Transitions</strong>: Draft, Scheduled, Active, Paused, Expired -- with rules for which transitions are allowed</li><li><strong>Relationships</strong>: Which objects are upstream/downstream? A discount targets products; a task relates to a project and an owner</li></ul>
+<figure><img src="frame-0870.jpg" alt="Discount primitive anatomy documentation" loading="lazy"><figcaption>Discount primitive anatomy documentation</figcaption></figure>
+
+<p>She highlights that relationships are an untapped opportunity. Today's flat navigation puts collections and products at the same hierarchy level, even though collections sit "above" products. Intent-driven UI could visualize these relationships much more clearly.</p>
+
+<h3>2. Surfaces</h3>
+
+<p>Context-aware containers that adapt how a primitive appears based on intent. Not static page layouts. Examples:</p>
+
+<ul><li><strong>Canvas</strong>: Fully editable, high-fidelity view for composing/exploring</li><li><strong>Confirmation</strong>: Review changes before committing, with diff views and impact statements</li><li><strong>Batch</strong>: Spreadsheet-style bulk editing</li><li><strong>Summary</strong>: Compact read-only overview</li></ul>
+<p>Each surface has documented anatomy, rules, and compatible primitives.</p>
+
+<figure><img src="frame-0990.jpg" alt="Surface documentation: Confirmation surface with live example" loading="lazy"><figcaption>Surface documentation: Confirmation surface with live example</figcaption></figure>
+
+<h3>3. Intent Signals</h3>
+
+<p>How AI decides which surface to compose. Signals include:</p>
+
+<ul><li><strong>Account age + first visit</strong> to discounts = learning intent = canvas surface for guided exploration</li><li><strong>"Extend all June discounts to July"</strong> = bulk editing intent = batch surface</li><li><strong>Number of existing discounts</strong> = experience level signal</li><li><strong>Scope of the request</strong> = scale signal</li></ul>
+<hr>
+
+<h2>The "After" Demo: AI With Product Context</h2>
+
+<p>Same Polaris component library, same prompts -- but now with markdown context pages describing primitives, surfaces, and intent signals.</p>
+
+<p><strong>Prompt 1: "Build a UI for confirming changes to a discount code"</strong></p>
+
+<p>With context, Claude builds a compact modal (not a full page!) with the discount signifier, a diff view showing changed values in red/green, unchanged fields, and an impact summary. It correctly identified that a confirmation task doesn't need a full page of empty real estate.</p>
+
+<figure><img src="frame-1110.jpg" alt="With context: confirmation modal with diff view" loading="lazy"><figcaption>With context: confirmation modal with diff view</figcaption></figure>
+
+<p><strong>Prompt 2: "Build a UI for extending expiration dates on 30 discount codes"</strong></p>
+
+<p>Claude builds a proper batch editing surface with a highlighted column for the new end dates. But the most interesting part: <strong>it invented a bulk date picker component that didn't exist anywhere</strong> in the documentation. It had enough context about the task to compose a new, appropriate control -- a "select all + apply date" interaction pattern.</p>
+
+<p>The key difference in Claude's own reasoning: without context, it just listed components. With context, it detected a "batch intent," chose a "batch surface," and made strategic decisions about density, layout, and interaction patterns.</p>
+
+<figure><img src="frame-1230.jpg" alt="Without vs. with context: Claude's reasoning comparison" loading="lazy"><figcaption>Without vs. with context: Claude's reasoning comparison</figcaption></figure>
+
+<hr>
+
+<h2>New Roles: Grammar vs. Vocabulary</h2>
+
+<p>This redefines who does what in a design system organization:</p>
+
+<p><strong>Design system team defines the Grammar:</strong></p>
+<ul><li>Surface types (canvas, confirmation, batch, discovery)</li><li>Surface anatomy (what a confirmation surface needs: signifier, diff view, impact summary)</li><li>Required metadata schema for all primitives</li><li>Interaction patterns (diff views, inline editing, bulk selection)</li><li>Composition rules (how primitives nest, relate, and co-appear)</li></ul>
+<p><strong>Domain teams supply the Vocabulary:</strong></p>
+<ul><li>Their specific product primitives (discount types, order fields, customer segments)</li><li>Business rules and state machines</li><li>Relationship mappings (discount targets product, task belongs to project)</li></ul>
+<p>When you combine grammar and vocabulary, <strong>AI can compose sentences</strong>: a confirmation surface + a discount primitive = a diff view showing changed values. A batch surface + an order primitive = a spreadsheet of orders with bulk fulfillment actions.</p>
+
+<figure><img src="frame-1530.jpg" alt="Grammar (DS team) + Vocabulary (Domain teams) = AI composes sentences" loading="lazy"><figcaption>Grammar (DS team) + Vocabulary (Domain teams) = AI composes sentences</figcaption></figure>
+
+<hr>
+
+<h2>How to Start</h2>
+
+<p>Yesenia closes with practical starting points:</p>
+
+<ol><li><strong>Identify your core product primitives</strong> -- every product has a handful that define what it is</li><li><strong>Map their relationships</strong> -- what's upstream, what's downstream, what nests inside what</li><li><strong>Establish visual signifiers</strong> -- you can do this today without any AI wiring. Just think about how to make your core objects visually recognizable at a glance</li><li><strong>Find where layouts fail users</strong> -- where does flat navigation hide important relationships? Where are power-user layouts too complex for new users?</li><li><strong>Start small</strong> -- she's currently working with a client starting with just 3 primitives and a surface system that imagines the existing pages don't change, but you can pull up a "portable" version of an object from another context</li></ol>
+<p>The big reframe: <strong>design systems have always taught you how to pick components, but never how to tailor an experience for a specific user need.</strong> Product primitives are the missing layer that makes that possible.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On tooling</strong>: Yesenia started by prototyping ideal solutions, then worked backwards to break them into primitives and surfaces. She built documentation pages first (her "safe place"), then asked Claude to convert them to markdown that AI could consume.</p>
+
+<p><strong>On starting without AI</strong>: The mindset shift is the precursor, not the technology. You can start thinking about "portable objects" and "surfaces" today. Shopify started de-emphasizing back buttons in favor of object signifiers before any AI was involved.</p>
+
+<p><strong>On accessibility</strong>: The biggest risk is changing things on users who've built muscle memory. Intent-driven UI should be a <em>response</em> to user actions, not unsolicited rearrangement. If default surfaces are tailored to permissions and experience level, they should be stable -- not shifting on every visit.</p>
+
+<p><strong>On scaling across teams</strong>: Use templates with required metadata schemas so domain teams can fill in their primitives consistently. Start with a narrow scope (3 primitives, a few surfaces) and iterate based on how well AI handles the context.</p>
+
+</body>
+</html>
