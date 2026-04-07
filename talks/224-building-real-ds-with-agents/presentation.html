@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>224-building-real-ds-with-agents</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>Building Real Design Systems with Agents</h1>
+
+<p><strong>Speaker</strong>: Jan Six -- Principal Product Designer, GitHub (co-creator of Token Studio)</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 49 min</p>
+
+<hr>
+
+<h2>Should Designers Code? The Question That Won't Die</h2>
+
+<p>Jan Six opens with the perennial question displayed in a terminal window: <strong>"should designers code?"</strong> It is a question that has resurfaced every year for as long as he can remember, and one that shaped his own career. He started as a designer in an agency, then taught himself to code around 2017. The motivation was never that he enjoyed writing code for its own sake. It was that he wanted to <strong>own the outcome</strong> -- to ship the experience he had envisioned rather than watch it get lost in translation between design and engineering.</p>
+
+<figure><img src="img/frame-0120.jpg" alt="Should designers code -- the eternal question" loading="lazy"><figcaption>Should designers code -- the eternal question</figcaption></figure>
+
+<p>Code was a means to an end. The real goal was simpler: <strong>building things.</strong> He wanted to make ideas real, and he did not want the absence of engineering skills to be the barrier. So he took courses, built side projects, and tracked his progress through commits. When Figma launched its plugin ecosystem, he jumped on it -- scratching his own itch by automating repetitive design tasks with custom plugins.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="Building things -- the real motivation" loading="lazy"><figcaption>Building things -- the real motivation</figcaption></figure>
+
+<p>Around the same time, a tool called <strong>Modulz</strong> appeared -- a code-based design tool launched on Kickstarter that promised all the benefits of code with the manipulation model of a design tool. Jan got a lifetime license. The product eventually shut down, but its legacy lives on: part of the founding team went on to create <strong>Radix</strong> (later acquired by WorkOS), while another co-founder, Steven, continued the vision with <strong>Paper</strong>, a code-based design tool that lets designers build with agents on a canvas.</p>
+
+<figure><img src="img/frame-0300.jpg" alt="Base UI and Paper -- the legacy of Modulz" loading="lazy"><figcaption>Base UI and Paper -- the legacy of Modulz</figcaption></figure>
+
+<hr>
+
+<h2>The AI Timeline: From Autocomplete to Software Factory</h2>
+
+<p>Jan traces the timeline from his learning-to-code days around 2020 through the rapid acceleration of AI tooling: GPT-3, GitHub Copilot autocomplete, ChatGPT, GPT-4, Cursor, Devin, Claude Code, and everything that followed. The friction that once required months of self-study to overcome has largely evaporated. <strong>Designers no longer need to learn to code to build production-quality experiences.</strong> Understanding the material still matters, but the doors are open to far more people than before.</p>
+
+<p>He references Dan Shipper's model of <strong>the evolution of AI-assisted software development</strong>, which progresses from "spicy autocomplete" (Level 0) through a coding intern, junior developer, developer, senior developer, and eventually a <strong>software factory</strong> (Level 5) -- where the human describes the destination and the system handles everything else. Many teams, including his own at GitHub, have reached a point where no human is writing the majority of the code. It is still useful to write code at times, but the balance has shifted decisively.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="The evolution of AI-assisted software development -- six levels from autocomplete to software factory" loading="lazy"><figcaption>The evolution of AI-assisted software development -- six levels from autocomplete to software factory</figcaption></figure>
+
+<hr>
+
+<h2>A New Consumer: Agents as Design System Users</h2>
+
+<p>Design systems historically had a clear audience: <strong>humans</strong>. Whether the consumer was a PM, designer, or engineer, the system was designed to be read, understood, and implemented by a person. That assumption no longer holds. With agents writing an increasing share of production code, the design system has a <strong>new persona it must speak to: the agent</strong>.</p>
+
+<figure><img src="img/frame-0480.jpg" alt="Design systems served humans -- now they must serve agents too" loading="lazy"><figcaption>Design systems served humans -- now they must serve agents too</figcaption></figure>
+
+<p>Jan shows data from GitHub on the number of pull requests created by coding agents. While the absolute number of agent-created PRs is still smaller than human-created ones, the trend line is unmistakable. And the human-created PRs themselves are increasingly <strong>AI-enhanced</strong> -- developers working with Copilot, Claude Code, or Cursor rather than writing code unaided.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Chart showing the rise in agent-created PRs on GitHub" loading="lazy"><figcaption>Chart showing the rise in agent-created PRs on GitHub</figcaption></figure>
+
+<p>At the same time, tools like <strong>Lovable, Bolt, V0, and Replit</strong> make it trivially easy for anyone to prototype. But they all converge on the same stack -- shadcn/ui, Tailwind, Lucide icons -- producing output that looks polished but generic. Getting a prototype to look and feel like <strong>your brand</strong> is a much harder problem, and that is exactly where design systems need to step up.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="Prototyping tools all converge on the same generic stack" loading="lazy"><figcaption>Prototyping tools all converge on the same generic stack</figcaption></figure>
+
+<hr>
+
+<h2>Who Owns the Frontend Now?</h2>
+
+<p>Jan poses the uncomfortable question directly: <strong>"As designers get access to working in code, who owns the frontend?"</strong> Is it still engineers? Do designers now share that responsibility? Do teams even need to sync back to traditional design tools, or can they work directly in code through AI agents?</p>
+
+<figure><img src="img/frame-0780.jpg" alt="As designers get access to working in code, who owns the frontend?" loading="lazy"><figcaption>As designers get access to working in code, who owns the frontend?</figcaption></figure>
+
+<p>The challenge is clear. Agents today struggle to make designs look like a specific system. If the system is public and well-known, agents can approximate it. But for <strong>private design systems</strong> -- the ones that define most companies' brands -- agents have no context to draw from. They take the path of least resistance, and the result looks like everyone else's product.</p>
+
+<hr>
+
+<h2>Why Agents Fail: Codebase Drift and Missing Context</h2>
+
+<p>Jan identifies the root causes of poor agent output. The first is <strong>existing codebase drift</strong>: conflicting CSS rules, deprecated components still in use, inconsistent spacing values, and stale code that has not been touched in years. He shows a devastating side-by-side: the design intent says <code>color-danger</code>, but what shipped is <code>#cb2431 (stale)</code>. The intent says <code>use ActionList</code>, but what shipped is the deprecated <code>&lt;Menu&gt;</code> component. The intent says <code>8px spacing</code>, but what shipped is <code>12px (overridden)</code>. A human encounters this and says "oh, ignore that." <strong>An agent copies it 40 times.</strong></p>
+
+<figure><img src="img/frame-0900.jpg" alt="Codebase drift -- design intent versus what actually shipped" loading="lazy"><figcaption>Codebase drift -- design intent versus what actually shipped</figcaption></figure>
+
+<p>The second problem is <strong>tribal knowledge</strong>. The information often exists, but not where the agent can find it. Status is communicated through color-coded badges that are visual-only signals LLMs cannot read. Usage guidelines are buried in Notion pages, wikis, and Slack threads. Unwritten rules are invisible to agents, and anything not documented is something they will <strong>hallucinate around</strong>.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Missing context -- information exists but not where the agent looks" loading="lazy"><figcaption>Missing context -- information exists but not where the agent looks</figcaption></figure>
+
+<hr>
+
+<h2>Making Your System Agent-Ready</h2>
+
+<p>Jan lays out a practical toolkit for making design systems legible to agents, organized as a progression from simple to advanced.</p>
+
+<p><strong>Co-locate everything the agent needs.</strong> Scattered documentation forces agents to miss context. A single folder per component -- or a mono-repo approach -- dramatically improves accuracy. When docs, tokens, and component code live together, the agent can find what it needs without traversing disconnected systems.</p>
+
+<p><strong>Use semantic token naming.</strong> <code>green-600</code> tells an agent nothing about intent. <code>color-danger-background</code> tells it everything, especially when colors change across light and dark modes. Semantic naming is not optional in an agent-driven world.</p>
+
+<p><strong>Write docs for agents, not just humans.</strong> Documentation is now primarily consumed by machines. That means structured frontmatter, machine-readable metadata, and avoiding visual-only elements like badge images that LLMs cannot parse.</p>
+
+<hr>
+
+<h2>Prototyping Close to Production</h2>
+
+<p>Jan advocates for building a <strong>prototyping environment that uses real components</strong> rather than generic UI kits. At GitHub, designers can spin up a lightweight sandbox using actual Primer components and tokens, explore ideas freely, and share branches for review -- all without polluting the production codebase.</p>
+
+<figure><img src="img/frame-1200.jpg" alt="Something that is close to production" loading="lazy"><figcaption>Something that is close to production</figcaption></figure>
+
+<p>He references a similar pattern at <strong>Notion</strong>, where the team built an internal prototyping playground that looks and feels like the real product, uses real Notion components, and makes it easy to push a branch and invite others for feedback. The key insight: once you set up the core of your design system in a prototyping environment -- components, tokens, basic page setup -- <strong>any designer or PM can come in and build ideas that feel real</strong>.</p>
+
+<p>Nathan Curtis's concept of <strong>"components as data"</strong> takes this further. If you define components in a platform-agnostic format -- anatomy, props, defaults, variants -- you can regenerate them for React, iOS, Android, or any future platform from a single source of truth. Component specs become that agnostic layer, including edge cases discovered during implementation.</p>
+
+<figure><img src="img/frame-1380.jpg" alt="Components as data -- an agnostic definition that generates across platforms" loading="lazy"><figcaption>Components as data -- an agnostic definition that generates across platforms</figcaption></figure>
+
+<hr>
+
+<h2>Instructions as a Router, Not a Dump</h2>
+
+<p>One of Jan's most practical recommendations is to <strong>treat agent instructions like a router</strong>. Instead of stuffing everything into a single massive instructions file, create a top-level file that points agents to specific sub-documents based on what they are working on: component specs, token rules, documentation guidelines, and so on.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="Rules as a router -- AGENTS.md pointing to specific sub-documents" loading="lazy"><figcaption>Rules as a router -- AGENTS.md pointing to specific sub-documents</figcaption></figure>
+
+<p>GitHub's <strong>Primer</strong> design system has public examples of this pattern. The instructions file says "for components, follow <code>.rules/components.md</code>; for tokens, follow <code>.rules/tokens.md</code>; for docs, follow <code>.rules/docs.md</code>." These rules also work for automated PR review agents, scoping specific instructions to specific file types.</p>
+
+<hr>
+
+<h2>MCPs, Skills, and Subagents</h2>
+
+<p>Moving further down the sophistication ladder, Jan covers three powerful patterns for extending agent capabilities.</p>
+
+<p><strong>MCPs and CLIs make your brand queryable.</strong> Instead of cluttering the repository with context, you can expose tokens, components, brand rules, and icons through dedicated MCPs that agents query on demand. A <strong>Tokens MCP</strong> answers "what are the dialog tokens?" A <strong>Components MCP</strong> answers "what is the import path?" A <strong>Brand Rules MCP</strong> returns the tone of voice. An <strong>Icons MCP</strong> lets agents search by name. GitHub's Primer MCP is a live, public example.</p>
+
+<figure><img src="img/frame-1560.jpg" alt="MCPs and CLIs -- your brand becomes queryable" loading="lazy"><figcaption>MCPs and CLIs -- your brand becomes queryable</figcaption></figure>
+
+<p><strong>Skills</strong> are reusable capabilities you give your agent -- processes it can invoke for repeated tasks. Jan recommends an underused technique: ask your agent to review its own recent sessions and suggest what should become a skill. The agent can identify its own repetitive patterns.</p>
+
+<p><strong>Subagents</strong> are different from skills in that they run in isolation. The main agent delegates a task to a subagent and only receives the result, keeping its own context window clean. A good use case is an <strong>accessibility review agent</strong> that analyzes components without cluttering the main agent's reasoning.</p>
+
+<figure><img src="img/frame-1680.jpg" alt="Subagents -- expert workers for a specific job" loading="lazy"><figcaption>Subagents -- expert workers for a specific job</figcaption></figure>
+
+<hr>
+
+<h2>Automated Agents for System Maintenance</h2>
+
+<p>Jan shows how <strong>cloud agents and automated workflows</strong> can handle design system maintenance without a human trigger. GitHub Agent Workflows, Cursor background agents, and Claude Code cloud agents can all run on a schedule -- daily audits that check if the system has degraded, review recent contributions, and create issues when something drifts.</p>
+
+<figure><img src="img/frame-1800.jpg" alt="GitHub Agent Workflows -- daily accessibility review running automatically" loading="lazy"><figcaption>GitHub Agent Workflows -- daily accessibility review running automatically</figcaption></figure>
+
+<p>He shows a concrete example: a <strong>daily accessibility review</strong> workflow that scans the repository against WCAG 2.2 guidelines and creates issues for any violations found. The key security principle is <strong>safe outputs</strong> -- restricting the automated agent to a single permitted action (like creating an issue) so that no unreviewed changes reach production.</p>
+
+<hr>
+
+<h2>The Progression: Start Simple, Go Deep</h2>
+
+<p>Jan frames the entire toolkit as a <strong>ladder of increasing investment</strong>. Start at the top with rules and custom instructions -- they are easy to set up and deliver immediate value. Then move to skills for repeated workflows. Then subagents for isolated expert work. Then MCPs and CLIs for queryable brand context. Each step requires more effort but compounds the return.</p>
+
+<figure><img src="img/frame-1860.jpg" alt="The progression from rules to skills to subagents to MCPs" loading="lazy"><figcaption>The progression from rules to skills to subagents to MCPs</figcaption></figure>
+
+<p>For ways of working, the same gradient applies: start with the <strong>CLI</strong> (Claude Code, GitHub Copilot CLI, OpenCode), graduate to <strong>desktop agents</strong> for a friendlier interface, then delegate to <strong>cloud agents</strong> for asynchronous work. The CLI may feel intimidating to designers, but it offers the most transparency into what the agent is doing. Jan urges people to push through the initial discomfort: <strong>"Instead of giving up, consider forcing yourself to only use this new way. There will be a moment where it clicks and you get good results. This is about going slow to go fast."</strong></p>
+
+<figure><img src="img/frame-1920.jpg" alt="Going slow to go fast -- the mindset shift" loading="lazy"><figcaption>Going slow to go fast -- the mindset shift</figcaption></figure>
+
+<hr>
+
+<h2>Demo: The Brand Core Agent</h2>
+
+<p>To make the vision concrete, Jan demonstrates a concept he calls the <strong>brand core agent</strong> -- not just an MCP that returns raw tokens, but a dedicated agent that aggregates tokens, voice guidelines, component docs, and brand rules into one coherent response for the main coding agent. This is the approach the <strong>Token Studio</strong> team is building.</p>
+
+<p>In the demo, a prompt asks "build a marketing landing page for Phosphor." The coding agent communicates with the brand core agent, which explores the project's tokens, tone of voice, documentation, and brand guidance. It returns not just data but strategic advice: which tokens to use, which components to apply, what the tone of voice should be. The agent then builds the page -- and the result actually <strong>looks and feels like the brand</strong> rather than a generic Tailwind template.</p>
+
+<figure><img src="img/frame-2100.jpg" alt="Demo -- brand core agent building a branded landing page via Token Studio" loading="lazy"><figcaption>Demo -- brand core agent building a branded landing page via Token Studio</figcaption></figure>
+
+<p>The demo also shows a <strong>self-review loop</strong>: after building the page, the agent calls back to the brand core agent to evaluate whether the result matches the brand guidelines, then iterates based on feedback. Agent talking to agent, with the brand system as the shared source of truth.</p>
+
+<hr>
+
+<h2>What to Do Next</h2>
+
+<p>Jan closes with three concrete next steps. First, <strong>audit your system</strong> -- go slow to go fast. Every day spent analyzing and cleaning drift, co-locating documentation, and writing specs will pay back exponentially once agents are working in the actual codebase. Second, <strong>make it real</strong> -- prototype new features in code (or in a dedicated prototype environment) rather than staying in design tools. Third, <strong>start discussions among engineering, product, and design</strong> about the change in roles that is already underway. More people can now play a part in building the frontend, and team structures need to evolve to make room for that.</p>
+
+<figure><img src="img/frame-2220.jpg" alt="What to do next -- audit, make it real, start role discussions" loading="lazy"><figcaption>What to do next -- audit, make it real, start role discussions</figcaption></figure>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On building custom MCPs</strong>: Jan recommends trying to build your own, even just to understand how they work. Agents can help you build one quickly. After building it, have the agent analyze the data the MCP returned and evaluate how helpful it was -- creating a feedback loop to improve the MCP itself.</p>
+
+<p><strong>On CLI versus desktop agents</strong>: Most desktop tools are wrappers around CLIs, abstracting away complexity. The CLI offers more transparency -- you can see exactly what the agent is doing -- but at the cost of occasionally feeling overwhelmed. Both are valid; it depends on the person and their comfort level.</p>
+
+<p><strong>On Storybook as a design tool</strong>: Jan increasingly starts his workflow in Storybook rather than Figma. He tells the agent to build a component in Storybook, pushes it to a PR that gets deployed to a preview environment, and invites others to review. The component itself becomes the source of truth for what is in production.</p>
+
+<p><strong>On structuring context for agents</strong>: Less is more. Overloading context makes agents worse, not better. Break larger features into multiple phases. Store past decisions as <strong>ADRs (Architecture Decision Records)</strong> so agents can understand why choices were made. Store future plans in the repository too, opening them up for feedback from others -- because agent-assisted planning is often a single-player activity that benefits from collaboration.</p>
+
+<p><strong>On where documentation should live</strong>: The same repository works when possible. For cross-repository systems, a dedicated context repository can help. An underused technique: start the CLI in a parent folder that spans multiple repositories, giving the agent access to context from both your production system and your prototype environment simultaneously.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Co-locate everything the agent needs -- scattered documentation is the primary cause of poor agent output.</strong> Jan showed how codebase drift (deprecated components still in use, conflicting CSS, stale code) and tribal knowledge (status communicated through visual-only badges, rules buried in Slack) cause agents to hallucinate or copy bad patterns 40 times over. A single folder per component with docs, tokens, and code together dramatically improves accuracy. Audit your system for where context lives versus where agents look.</p>
+
+<p><strong>Treat agent instructions like a router, not a dump.</strong> Instead of one massive instructions file, create a top-level AGENTS.md that points to specific sub-documents based on the task: component specs, token rules, documentation guidelines. GitHub's Primer design system uses this pattern publicly. This same routing structure works for automated PR review agents, scoping specific rules to specific file types.</p>
+
+<p><strong>Build a "brand core agent" that aggregates brand context for coding agents.</strong> Jan's Token Studio demo showed a dedicated agent that combines tokens, voice guidelines, component docs, and brand rules into one coherent response -- plus a self-review loop where the agent evaluates its own output against brand guidelines. The result actually looks like the brand instead of a generic Tailwind template. If your AI-generated prototypes all look the same, the missing piece is a queryable brand context layer.</p>
+
+<p><strong>Start with rules and custom instructions, then progress to skills, subagents, and MCPs.</strong> Jan frames the entire toolkit as a ladder of increasing investment. Rules and instructions are easy to set up with immediate value. Skills handle repeated workflows. Subagents (running in isolation) handle expert tasks like accessibility review without cluttering the main agent's context. MCPs make your brand queryable on demand. Each step compounds the return.</p>
+
+<p><strong>Set up automated cloud agents for daily design system maintenance.</strong> GitHub Agent Workflows, Cursor background agents, and Claude Code cloud agents can run on a schedule -- daily audits that check if the system has degraded, review recent contributions, and create issues when drift is detected. The key security principle: restrict automated agents to safe outputs only (like creating an issue) so no unreviewed changes reach production.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../221-encoding-governance-agentic-ds/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Encoding Governance</span></a><a class="nav-next" href="../225-vibe-coding-zero-drift/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Vibe Coding Zero Drift</span></a></nav>
+</body>
+</html>

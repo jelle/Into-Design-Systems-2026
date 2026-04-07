@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>210-spotify-design-system</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>A Design System That Enables Humans and Machines to Co-Create Production-Ready UI -- at Scale</h1>
+
+<p><strong>Speakers</strong>: Victoria Tholérus -- Web Engineer, Spotify (Encore team) AND Aleksander Djordjevic -- Senior Product Designer, Spotify (Encore team)</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 19 min</p>
+
+<hr>
+
+<h2>Encore: Spotify's Golden Technology</h2>
+
+<p>Victoria Tholérus and Aleksander Djordjevic open their talk from Spotify's own Stockholm office -- a venue they joke is usually much emptier thanks to the company's work-from-anywhere policy. They are both members of <strong>Encore</strong>, Spotify's design system, and they have come to share how the team is rethinking its role in a world where AI is rapidly becoming every employee's default collaborator.</p>
+
+<figure><img src="img/frame-0000.jpg" alt="Title slide: Design Systems at the Speed of Innovation" loading="lazy"><figcaption>Title slide: Design Systems at the Speed of Innovation</figcaption></figure>
+
+<p>Encore's mission has always been to balance consistency with flexibility so that product teams can move fast. The system provides a shared set of tokens, components, and guidelines across every platform Spotify runs on -- iOS, Android, web, but also TVs, watches, car dashboards, and even fridges. If Spotify runs there, Encore supports it.</p>
+
+<figure><img src="img/frame-0060.jpg" alt="Speaker introductions: Victoria Tholérus and Aleksander Djordjevic" loading="lazy"><figcaption>Speaker introductions: Victoria Tholérus and Aleksander Djordjevic</figcaption></figure>
+
+<p>The numbers tell a compelling story. Encore's shared styles have been used over <strong>220,000 times</strong>, representing more than 50% year-over-year growth. Components are referenced in <strong>86,000 places</strong> and still climbing. Developer satisfaction sits at <strong>93%</strong>, one of the highest scores among all of Spotify's so-called <strong>golden technologies</strong> -- the standardized, recommended tools that every team building at Spotify is guided to use from the start.</p>
+
+<figure><img src="img/frame-0120.jpg" alt="Encore adoption metrics: 220K shared styles, 86K component usages, 93% satisfaction" loading="lazy"><figcaption>Encore adoption metrics: 220K shared styles, 86K component usages, 93% satisfaction</figcaption></figure>
+
+<hr>
+
+<h2>The AI Challenge: What Happens When You're Bypassed?</h2>
+
+<p>Up until now, Encore has thrived in a world where humans come to the design system for help. The established flow is clear: engineers and designers work in their tools, consult the documentation site or ask questions in Slack, and get pointed toward the correct components and patterns. Encore owns and controls that entire communication path.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="The established human workflow: workspace, docs, and human support all flowing into the design system" loading="lazy"><figcaption>The established human workflow: workspace, docs, and human support all flowing into the design system</figcaption></figure>
+
+<p>But AI is not new to Spotify. Features like Discover Weekly and Daylist have long been powered by machine learning. Two years ago, the Encore team even tried building a GPT to handle support questions in Slack. Victoria shows a screenshot of the results -- the bot confidently responding "Sorry, I don't know" -- and the audience laughs. The early experiments produced mixed results at best.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="Enter AI: Encore's early GPT experiment with underwhelming results" loading="lazy"><figcaption>Enter AI: Encore's early GPT experiment with underwhelming results</figcaption></figure>
+
+<p>What has changed is that AI is no longer confined to ML engineers. Everyone at Spotify -- designers, engineers, product managers, even marketers -- is now using AI agents to produce prototypes and sometimes production-ready code. Djordjevic frames the central question bluntly, echoing a provocation from fellow speaker Jacob Stajberski: what happens when AI becomes the go-to teammate instead of your human colleagues? For Encore specifically, what happens to the design system when developers stop consulting the documentation and start asking Cursor instead?</p>
+
+<p>The risk is concrete. If AI agents are not aware of Encore's standards, they will generate code that drifts away from the system. Users end up on a different path -- one the design system team neither controls nor can correct. Encore does not just lose adoption; it loses relevance.</p>
+
+<hr>
+
+<h2>The Response: Two Working Tracks</h2>
+
+<p>Victoria summarizes the stakes. Encore powers Spotify at massive scale, supporting thousands of devices and dozens of teams. It drives speed, accessibility, and consistency across products. But if the team does not adapt, the system will be bypassed and forgotten.</p>
+
+<figure><img src="img/frame-0360.jpg" alt="Recap slide: Encore operates at massive scale, everyone is using AI" loading="lazy"><figcaption>Recap slide: Encore operates at massive scale, everyone is using AI</figcaption></figure>
+
+<p>Their response is organized into two parallel working tracks. The first asks: how do we <strong>embed Encore into AI</strong>, so that when agents write code or answer questions, the output is grounded in Encore's standards? The second asks: how do we <strong>rethink the component architecture</strong> so it works better for both humans and machines?</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Our response: enabling rapid innovation with thoughtful execution, for both machines and humans" loading="lazy"><figcaption>Our response: enabling rapid innovation with thoughtful execution, for both machines and humans</figcaption></figure>
+
+<hr>
+
+<h2>Track 1: Building the Encore MCP</h2>
+
+<p>Victoria takes the lead on the first track. Since developers and designers are increasingly turning to AI agents like Cursor for code solutions, it is crucial that the design system becomes part of that workflow rather than an afterthought. The team's answer is building their own <strong>Encore MCP</strong> -- a service built on the <strong>Model Context Protocol</strong> standard that makes Encore's documentation, component APIs, and design tokens available to any connected AI agent.</p>
+
+<figure><img src="img/frame-0480.jpg" alt="The AI workstream introduction" loading="lazy"><figcaption>The AI workstream introduction</figcaption></figure>
+
+<p>The architecture is straightforward. The Encore MCP sits between the LLM and Encore's component and token data. When a user prompts an agent -- say, "build a checkout flow" -- the model reaches through the MCP to access Encore's guidelines and generates output that follows the system's standards.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Encore MCP architecture: user prompt flows through agent with MCP context to produce Encore-driven output" loading="lazy"><figcaption>Encore MCP architecture: user prompt flows through agent with MCP context to produce Encore-driven output</figcaption></figure>
+
+<p>But shipping an MCP and hoping for the best is not enough. The team has built a dedicated <strong>testing framework</strong> to evaluate how different large language models respond to a given set of prompts. The evaluation pipeline sends the same prompt -- such as "build a checkout flow" -- to multiple models (Gemini 2.5 Pro, Gemini 2.0 Flash, Claude Sonnet 4, Claude 3.7 Sonnet) and then assesses the output against Encore's own components. It checks for lint errors, measures similarity scores, and compares the generated code against the canonical implementation.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="LLM evaluation framework: same prompt tested across multiple models with quality scoring" loading="lazy"><figcaption>LLM evaluation framework: same prompt tested across multiple models with quality scoring</figcaption></figure>
+
+<p>Victoria emphasizes that code correctness is only half the picture. Spotify operates through rapid prototyping, which means the visual output matters just as much as the underlying code. The team has therefore also built a <strong>visual testing tool</strong> that renders the AI-generated UIs and evaluates their visual fidelity against Encore's standards. On top of that, they compare different <strong>MCP tool configurations</strong> against each other -- for instance, Encore MCP alone versus Encore MCP combined with other tools, versus a Figma MCP -- to determine which setup delivers the most value to users.</p>
+
+<figure><img src="img/frame-0660.jpg" alt="Visual standards evaluation: comparing output across different MCP tool combinations" loading="lazy"><figcaption>Visual standards evaluation: comparing output across different MCP tool combinations</figcaption></figure>
+
+<hr>
+
+<h2>Track 2: The Layered Architecture</h2>
+
+<p>Djordjevic takes over for the second track. He argues that making AI understand Encore's documentation is only one part of the challenge. The other part is that the component system itself is not as flexible as it could be -- a limitation that affects human users and AI agents alike.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="Layered Architecture introduction slide" loading="lazy"><figcaption>Layered Architecture introduction slide</figcaption></figure>
+
+<p>He starts by showing how Encore's current component system works, a structure most design system practitioners will recognize. Components are <strong>bundles of behavior and styles</strong>, all rooted in a shared foundation of tokens for color, spacing, layout, borders, and typography. This is a proven model. It creates easily reusable components -- anyone can pick up a button and use it anywhere -- and the design system team retains full control over border radius, font size, and API structure.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="Current architecture: bundles of rigidity, where Button and ButtonToggle share styles but diverge on behavior" loading="lazy"><figcaption>Current architecture: bundles of rigidity, where Button and ButtonToggle share styles but diverge on behavior</figcaption></figure>
+
+<p>The problem is rigidity. For any minor variation -- say, adding toggle behavior to a button -- a user has three options: wait for the Encore team to prioritize and build it, build it themselves and submit a PR for approval, or hack around it. Given Spotify's rapid pace of innovation, the hack almost always wins. That is bad for the design system because people move outside it, and bad for users because they end up building on unstable ground.</p>
+
+<p>The solution is what the team calls the <strong>layered architecture</strong>. Instead of monolithic component bundles, every component is separated into three distinct layers: a <strong>foundation layer</strong> (tokens and shared styles), a <strong>component style layer</strong> (the visual identity of a specific component), and a <strong>component behavior layer</strong> (interaction logic, state management, keyboard handling). Users can consume a full component as before, or they can reach for just the style layer and wire up their own behavior, or take the standard component and swap in a different behavior module.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Layered architecture: enabling adaptability by separating styles and behaviors into composable layers" loading="lazy"><figcaption>Layered architecture: enabling adaptability by separating styles and behaviors into composable layers</figcaption></figure>
+
+<p>A crucial enabler is that the behavior layer is built on top of <strong>headless component systems</strong> like React ARIA and Base UI. These libraries provide keyboard interactions, accessibility handling, toggle states, and other interaction primitives out of the box. This lets the Encore team offload interaction plumbing to well-maintained open-source projects while focusing on what they truly care about: making everything look, feel, and act the way Spotify should.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="The layered architecture applied at scale across the full component library" loading="lazy"><figcaption>The layered architecture applied at scale across the full component library</figcaption></figure>
+
+<p>The benefits cascade in multiple directions. For human users, the layered model lets them work at the speed of innovation -- they no longer need to wait for the design system team to build every variant. For AI agents, it means <strong>smaller context bubbles</strong>: the model can understand foundation tokens independently, understand a component's style independently, and already has headless systems like React ARIA in its training data. The architecture removes hurdles for machines without sacrificing anything for humans. And for the Encore team itself, building on React ARIA and Base UI allows them to grow and extend component coverage more rapidly, to focus on the Spotify-specific layer of visual identity, and to create a clearer contribution model where contributors know exactly which layer they are adding to.</p>
+
+<hr>
+
+<h2>The Vision: Encore Everywhere</h2>
+
+<p>Djordjevic pulls the talk toward its closing with a reflection on what these two tracks mean for Encore's future. AI is not going away. In some form, anyone building at Spotify is going to use it. That means the design system's user base has suddenly expanded beyond designers and engineers to include product managers, marketers, and anyone with an idea and access to an AI agent.</p>
+
+<figure><img src="img/frame-1080.jpg" alt="What now? Looking ahead to Encore's expanded role" loading="lazy"><figcaption>What now? Looking ahead to Encore's expanded role</figcaption></figure>
+
+<p>This realization led the team to a broader ambition: Encore cannot just be another system of systems that people visit. It needs to be <strong>embedded wherever its users already are</strong>. That means a Slack AI helper that can answer support questions so the team spends less time on FAQ duty -- hopefully better than the first GPT attempt. It means a prototyping tool that lets anyone go from zero to one as fast as possible. It means a Figma agent where not just designers but engineers, product managers, or anyone else can build something with Encore components. The goal is to embed the design system into every part of the user's workflow, regardless of which tool they happen to be working in.</p>
+
+<figure><img src="img/frame-1140.jpg" alt="Encore everywhere: embedded across Slack, Figma, prototyping tools, and every platform Spotify supports" loading="lazy"><figcaption>Encore everywhere: embedded across Slack, Figma, prototyping tools, and every platform Spotify supports</figcaption></figure>
+
+<p>Victoria and Djordjevic close with their thesis statement for the future of Encore: a design system that enables humans and machines to co-create production-ready UI, faster than ever, at scale.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>The bypass threat is real — and measurable.</strong> Spotify's 93% satisfaction score means nothing if developers stop consulting the design system entirely. The moment AI agents become the first stop for code questions, any design system without an MCP or similar integration becomes invisible. If your team tracks adoption metrics, start tracking how many queries go to AI tools vs. your docs — that delta is your urgency signal.</p>
+
+<p><strong>Test AI output the way you test components.</strong> Spotify doesn't just ship an MCP and hope. They built a multi-model evaluation pipeline that tests the same prompt across Claude, Gemini, and others, scoring lint errors, similarity, and visual fidelity. This is a replicable pattern: define 20-30 canonical prompts ("build a checkout flow", "create a settings page"), run them against your MCP, and track quality over time. Treat it like a CI suite for your AI integration.</p>
+
+<p><strong>Headless + style layers = AI-friendly architecture.</strong> The layered architecture isn't just about flexibility for humans — it fundamentally changes how AI consumes your system. A monolithic Button component forces the model to understand everything at once. Separating foundation / style / behavior means the AI can reason about each layer independently, and headless libraries like React ARIA are already in training data. If you're planning a component refactor, this decomposition pattern pays double dividends.</p>
+
+<p><strong>Your new users don't read docs.</strong> The most provocative insight: Spotify's design system user base expanded overnight to include PMs, marketers, and "anyone with an idea." These people will never read component documentation. They will prompt an AI. If your system isn't embedded in the tools they already use (Slack, Figma, Cursor), it doesn't exist for them.</p>
+
+<p><strong>Start with the MCP, not the architecture.</strong> Both tracks matter, but the MCP is the quick win. You can ship a basic MCP that serves your existing component docs in days. The layered architecture is a multi-quarter effort. Don't let the perfect component model delay your AI integration — your users are already prompting without you.</p></details>
+
+<nav class="nav-bottom"><span></span><a class="nav-next" href="../214-prototyping-for-the-unknown/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Prototyping for the Unknown</span></a></nav>
+</body>
+</html>

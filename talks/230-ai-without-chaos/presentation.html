@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>230-ai-without-chaos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>AI Without the Chaos: Context-Based Design Systems to the Rescue</h1>
+
+<p><strong>Speakers</strong>: Brad Frost -- Design System Consultant, Brad Frost Web | Ian Frost -- Frontend Architect and Consultant, Brad Frost Web | TJ Pitre -- Founder &amp; CEO, Southleft</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 78 min</p>
+
+<hr>
+
+<h2>Setting the Stage: Why We Are Here</h2>
+
+<p>Brad Frost opens the closing session of the conference by zooming all the way out. He shows a photograph of Earth and reminds the audience that human beings are a social species, hard-wired to connect, communicate, and advance. Every major technological paradigm -- from the first tools to the first web server to the billions of glowing rectangles we carry in our pockets -- exists to serve those innate drives.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="We are here -- Earth from space with the human story in perspective" loading="lazy"><figcaption>We are here -- Earth from space with the human story in perspective</figcaption></figure>
+
+<p>The web, Brad argues, is one of the <strong>most noble technological paradigms</strong> humanity has produced: open, collaborative, empowering. And the people who build design systems sit at the intersection of that openness and the newest paradigm -- <strong>generative AI</strong>. The generative power of AI coupled with the thoughtful guardrails of design systems creates what Brad calls a "beautiful opportunity." But harnessing it requires more than enthusiasm; it requires structure, context, and tools that keep the chaos at bay.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="We create and wield technology -- a wall of ancient tools as metaphor" loading="lazy"><figcaption>We create and wield technology -- a wall of ancient tools as metaphor</figcaption></figure>
+
+<hr>
+
+<h2>Three Lenses for AI and Design Systems</h2>
+
+<p>Before diving into demos, the trio frames the entire talk around <strong>three use cases</strong> for how AI and design systems work together. The first lens is using AI to <strong>make design systems better</strong> -- pointing AI at design system assets to lint, audit, and catch drift. The second lens is using AI and design systems together to <strong>build better digital products</strong> -- generation with context. The third, and most speculative, is using the combination to <strong>build the future of user experience</strong> itself -- new interaction paradigms that were previously impossible.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Brad Frost's Atomic Design book and the design systems journey over the years" loading="lazy"><figcaption>Brad Frost's Atomic Design book and the design systems journey over the years</figcaption></figure>
+
+<p>These three lenses serve as the backbone of a new course the team is building at <strong>aianddesign.systems</strong>, a living, breathing curriculum for navigating the AI-meets-design-systems moment.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="AI and Design Systems course announcement" loading="lazy"><figcaption>AI and Design Systems course announcement</figcaption></figure>
+
+<hr>
+
+<h2>The Check Engine Light Problem</h2>
+
+<p>TJ Pitre introduces a metaphor that anchors the first half of the talk: the <strong>check engine light</strong>. Most organizations have a design system that mostly works. The car is running. But the check engine light has been on for a while, and nobody knows whether the gas cap is open or the alternator is about to die. Drift accumulates silently -- in tokens, components, metadata, layer names -- until something breaks expensively.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="A car with the check engine light on -- the metaphor for silent design system drift" loading="lazy"><figcaption>A car with the check engine light on -- the metaphor for silent design system drift</figcaption></figure>
+
+<p>On the development side, TJ notes, there are <strong>endless quality gates</strong>: linters, unit tests, regression tests, end-to-end tests with Playwright, pull request reviews, CI pipelines. Code cannot make it to production without passing through multiple checkpoints. On the design side? Almost nothing. The tedious, under-the-hood stuff that catches drift before it drifts too far simply does not exist in most design workflows. That gap is where <strong>FigmaLint</strong> was born.</p>
+
+<hr>
+
+<h2>FigmaLint: Automated Design Quality Gates</h2>
+
+<p>TJ built <strong>FigmaLint</strong> out of necessity. As an agency, Southleft regularly inherits Figma files from partner design teams before the development handoff. Those files often look beautiful on the surface but are riddled with problems underneath: buttons that are not actually components, hard-coded values instead of tokens, missing metadata, generic layer names like "Frame 47."</p>
+
+<figure><img src="img/frame-0900.jpg" alt="FigmaLint title slide" loading="lazy"><figcaption>FigmaLint title slide</figcaption></figure>
+
+<p>The plugin runs a <strong>two-part analysis</strong>. The first part is deterministic: it crawls through every component in a selection, checks properties, metadata, token usage, layer names, and interactive states against a set of rules. The second part is AI-powered: it runs the component through a <strong>Design Systems Assistant MCP</strong> that contains the major public design systems -- Polaris, Spectrum, Lightning, Carbon -- and pattern-matches against best practices.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="FigmaLint workflow diagram showing Figma Files as the input" loading="lazy"><figcaption>FigmaLint workflow diagram showing Figma Files as the input</figcaption></figure>
+
+<p>In the live demo, TJ selects a button component set that looks polished on the surface. FigmaLint gives it a score of <strong>26 out of 100</strong>. The breakdown is brutal: only 18 of 69 expected tokens are used, leaving 51 hard-coded values. There are 40 generic layer names. The component description field is empty. Touch targets and focus states pass, but the overall state is not ready for development.</p>
+
+<figure><img src="img/frame-1200.jpg" alt="FigmaLint demo showing a button component set with analysis results" loading="lazy"><figcaption>FigmaLint demo showing a button component set with analysis results</figcaption></figure>
+
+<p>The AI interpretation section tells the designer what the component looks like from the perspective of an AI that needs to translate it into code: what reads well, what is confusing, and what would need to be added before the component is <strong>AI-ready</strong> or <strong>MCP-ready</strong>. It also pulls description suggestions from the best-practices library, though TJ stresses that the human part -- writing the actual purpose and intent -- is irreplaceable.</p>
+
+<figure><img src="img/frame-1440.jpg" alt="FigmaLint AI interpretation panel showing what an AI expects from the component" loading="lazy"><figcaption>FigmaLint AI interpretation panel showing what an AI expects from the component</figcaption></figure>
+
+<p>TJ then demonstrates the <strong>fix-all</strong> workflow. Instead of manually correcting each issue, he batch-fixes all 40 generic layer names, all 51 hard-coded token values, and adds the component description. He re-runs the analysis. The score jumps to <strong>100 out of 100</strong>. FigmaLint is not just an analysis tool -- it is a tool that <strong>catches drift before it drifts too far</strong> and automates the fixes.</p>
+
+<figure><img src="img/frame-1560.jpg" alt="FigmaLint fix-all dialog renaming all 40 generic layers to semantic names" loading="lazy"><figcaption>FigmaLint fix-all dialog renaming all 40 generic layers to semantic names</figcaption></figure>
+
+<hr>
+
+<h2>Design-to-Code Parity Checks</h2>
+
+<p>TJ then introduces a deeper capability of <strong>Figma Console MCP</strong>: running a <strong>code parity check</strong> between a Figma component and its coded counterpart. The idea is straightforward -- pick a component in Figma, pick the same component in code, and measure exactly how far one has drifted from the other.</p>
+
+<figure><img src="img/frame-1980.jpg" alt="FigmaLint parity check results with a score of 30 out of 100" loading="lazy"><figcaption>FigmaLint parity check results with a score of 30 out of 100</figcaption></figure>
+
+<p>The critical insight is that the <strong>canonical source of truth is flexible</strong>. Sometimes design leads; sometimes code leads. What matters is knowing which direction to sync and having tooling to measure the gap. After a parity check, the tool offers multiple action paths: leave a <strong>Figma comment</strong> for the designer, file a <strong>GitHub issue</strong> for the developer, or just tell the AI to fix it directly. The right action depends on your role and your team's workflow.</p>
+
+<p>TJ emphasizes that these tools are meant to <strong>foster communication, not replace it</strong>. He shares the mental image of Spider-Man holding the two halves of the Staten Island ferry together -- that is what Figma Console MCP is trying to do between design and engineering.</p>
+
+<hr>
+
+<h2>Connected Ecosystems: The Lavender Theme Demo</h2>
+
+<p>Ian Frost takes over to demonstrate the <strong>connected product ecosystem</strong> that becomes possible when design tokens, Figma, Storybook, and application code are properly wired together. The demo starts with a course project -- an ice cream shop application -- running simultaneously in Figma, Storybook, and a React Native app.</p>
+
+<figure><img src="img/frame-1800.jpg" alt="Connected ecosystem: Figma, React Native app, and Storybook showing the ice cream theme" loading="lazy"><figcaption>Connected ecosystem: Figma, React Native app, and Storybook showing the ice cream theme</figcaption></figure>
+
+<p>The audience suggests "lavender" as a new ice cream flavor theme. Ian types a single prompt into Claude Code: <strong>"Create a new theme called lavender within Figma, Storybook, and React Native."</strong> The AI picks fonts, generates a color palette, builds a new design token theme in code, and pushes lavender variables into the Figma file -- all in a matter of minutes.</p>
+
+<figure><img src="img/frame-2700.jpg" alt="Lavender theme appearing across the connected ecosystem" loading="lazy"><figcaption>Lavender theme appearing across the connected ecosystem</figcaption></figure>
+
+<p>Brad jumps in to contextualize what just happened. For years, rolling out an additional theme -- dark mode, a rebrand, a seasonal variant -- has been a <strong>multi-million dollar affair</strong> at large organizations. It required manually updating every variable in Figma, changing JSON tokens in code, coordinating across teams. What they just demonstrated is the ability to snap your fingers and roll out a new mode across an entire connected product ecosystem, because the <strong>schemas and systems are already in place</strong>.</p>
+
+<hr>
+
+<h2>Cross-Library Component Pulling</h2>
+
+<p>TJ returns to demonstrate another capability of Figma Console MCP: <strong>pulling components from multiple shared libraries</strong> onto a single canvas. He prompts the tool to grab the button component from four different published Figma libraries, place them on a shared page, and label each one by source.</p>
+
+<figure><img src="img/frame-2400.jpg" alt="Figma Console MCP terminal showing connected libraries and navigation commands" loading="lazy"><figcaption>Figma Console MCP terminal showing connected libraries and navigation commands</figcaption></figure>
+
+<p>The tool navigates between files, searches each library, pulls the correct component instance, and drops them side by side with labels. When TJ clicks each button on the resulting canvas, the properties panel shows the correct source library and all inherited properties. This capability matters enormously for enterprise teams managing <strong>parent themes and child themes</strong> with shared components that need to stay aligned across multiple systems.</p>
+
+<hr>
+
+<h2>Story UI: AI-Powered Storybook Generation</h2>
+
+<p>The final tool demo is <strong>Story UI</strong>, a Storybook panel that uses AI to generate component stories on demand. TJ explains its origin in a classic agency problem: <strong>estimation</strong>. When estimating the cost of building a design system, foundational components are predictable. But composed structures -- recipes, layouts, pages -- have potentially infinite variations. A search page at zero results, with faceted filters, with pagination, without pagination, with a million results. If you charge per variation, scope can blow.</p>
+
+<figure><img src="img/frame-3000.jpg" alt="Story UI title slide" loading="lazy"><figcaption>Story UI title slide</figcaption></figure>
+
+<p>Story UI solves this by leveraging the <strong>context-based design system</strong> workflow. Because every component in Storybook already has rich context -- purpose, constraints, usage rules, properties -- the AI can generate correct variations without hallucinating. TJ asks it to show all variations of a button component. Within seconds, it generates stories for every variant: filled, light, outline, subtle, default, gradient, transparent, white. Then sizes, colors, icon combinations, icon-only variants, states, full-width options, radius variants, button groups, and a complete inventory showcase.</p>
+
+<figure><img src="img/frame-3300.jpg" alt="Story UI generating all button variations in Storybook" loading="lazy"><figcaption>Story UI generating all button variations in Storybook</figcaption></figure>
+
+<p>He then pushes further: "Create a basic card component for a lifestyle publication about surfing on the West Coast." Story UI does not just compose components mechanically -- it <strong>infers intent</strong> from the description, choosing teal and coastal blue colors, selecting appropriate imagery, and generating multiple layout options including an inset variant.</p>
+
+<figure><img src="img/frame-3600.jpg" alt="Story UI generating a surf lifestyle card with voice input" loading="lazy"><figcaption>Story UI generating a surf lifestyle card with voice input</figcaption></figure>
+
+<p>The most striking part is the <strong>voice input</strong> capability. TJ switches to speech-to-text and verbally instructs the tool to generate a card for a home for sale in New Orleans, then iteratively refines it by speaking commands to move elements and change button text. The tool processes the voice input, generates new stories, and updates the canvas in real time.</p>
+
+<hr>
+
+<h2>The Future: No More Linear Processes</h2>
+
+<p>Brad returns to make the philosophical point that ties all the demos together. There is no right way of doing anything anymore. The linear progression -- from jQuery to React, from Sketch to Figma, from one process to the next -- is over. Everything is up in the air simultaneously.</p>
+
+<figure><img src="img/frame-3900.jpg" alt="The Into Design Systems conference website being restyled live by AI" loading="lazy"><figcaption>The Into Design Systems conference website being restyled live by AI</figcaption></figure>
+
+<p>He demonstrates this by <strong>live-restyling the Into Design Systems conference website</strong> using voice commands and their design token system. He scrapes Romina's talk transcript and asks the AI to generate a visual based on it -- a half hour of work done while building the presentation itself. He builds a Chrome plugin that replaces the styling of any website with his own design system. He nukes the visual clutter on Amazon to show only what matters. All of it is powered by design tokens, all of it is immediate, all of it was previously inconceivable.</p>
+
+<p>The audience is not just watching someone use AI efficiently -- they are watching the <strong>process itself dissolve</strong>. Brad makes the point that the presentation they are watching was itself built live, with the AI generating slides as the speakers progressed. Even Keynote has been rebuilt.</p>
+
+<hr>
+
+<h2>What Is All This For?</h2>
+
+<p>Brad zooms out one final time. He puts a single question on screen: <strong>"What's all this for?"</strong></p>
+
+<figure><img src="img/frame-4200.jpg" alt="What's all this for? -- the central question on a dark slide" loading="lazy"><figcaption>What's all this for? -- the central question on a dark slide</figcaption></figure>
+
+<p>He speaks directly to the discomfort many practitioners feel watching AI produce in two minutes what takes them two weeks. The characters you type, the rectangles you draw -- those are not your value. Quoting Jared Spool, Brad reminds the audience that <strong>design is the rendering of intent</strong>. The question is not how fast we can render, but what we intend to build.</p>
+
+<p>The tools, the JSON files, the MCPs, the markdown contracts, the flow charts -- all of it is plumbing. The question that matters is whether we use this plumbing to build things that make the world better. Design systems practitioners, Brad argues, are uniquely positioned to answer that question well. They are systems people who care about quality, who put infrastructure in place so that everyone benefits, who are wired for cooperation rather than self-preservation.</p>
+
+<figure><img src="img/frame-4500.jpg" alt="We are here -- the closing slide returning to Earth, now with a blue circle" loading="lazy"><figcaption>We are here -- the closing slide returning to Earth, now with a blue circle</figcaption></figure>
+
+<hr>
+
+<h2>Tying Your Shoes and Looking Up</h2>
+
+<p>Brad closes with a final metaphor. For the last decade, design systems practitioners have been <strong>tying their shoes</strong> -- heads down, meticulously making sure the left shoe matches the right, that tokens align, that components are consistent. It is time to finish tying those shoes, look up, and figure out where to go. There are big problems to solve, and the tools are finally powerful enough to tackle them.</p>
+
+<p>The web community, Brad says, represents one of the <strong>high water marks of human cooperation</strong> -- a global network of people who share freely, contribute to open source, and model what it looks like to collaborate across borders and disciplines. In the words of conference organizer Sill: "Let's fucking go."</p>
+
+<figure><img src="img/frame-0000.jpg" alt="Title card: AI Without the Chaos -- Brad Frost, Ian Frost, TJ Pitre" loading="lazy"><figcaption>Title card: AI Without the Chaos -- Brad Frost, Ian Frost, TJ Pitre</figcaption></figure>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Use FigmaLint to catch design drift before it reaches development.</strong> TJ's plugin runs a two-part analysis -- deterministic checks (tokens, metadata, layer names, interactive states) plus AI-powered pattern-matching against best-practice libraries. A polished-looking button scored 26/100 due to 51 hard-coded values and 40 generic layer names. After batch-fixing, it scored 100/100. If your design files look good on the surface but lack proper token bindings and metadata, you are shipping drift to every downstream consumer. Establish quality gates on the design side comparable to what already exists in code.</p>
+
+<p><strong>Wire design tokens across Figma, Storybook, and application code to enable instant theming.</strong> Ian demonstrated creating a "lavender" theme across the entire connected ecosystem with a single prompt. What used to be a multi-million dollar affair -- manually updating every variable in Figma, changing JSON tokens in code, coordinating across teams -- becomes a snap of the fingers when schemas and token systems are properly connected. If rolling out a new theme or dark mode is still a months-long project for your team, the bottleneck is your token infrastructure.</p>
+
+<p><strong>Run design-to-code parity checks to measure exactly how far your system has drifted.</strong> TJ's Figma Console MCP compares a Figma component with its coded counterpart and produces a scored report. The canonical source of truth can be flexible -- sometimes design leads, sometimes code leads -- but knowing which direction to sync and having tooling to measure the gap is what prevents silent divergence. After a parity check, the tool offers multiple action paths: Figma comment, GitHub issue, or direct AI fix.</p>
+
+<p><strong>Use AI to generate component story variations on demand rather than hand-writing them.</strong> Story UI leverages the rich context already present in Storybook components to generate correct variations without hallucinating -- every variant, size, color, icon combination, and state. This solves the agency estimation problem where composed structures have potentially infinite variations. Feed the AI your component context and let it generate the inventory; then curate what matters.</p>
+
+<p><strong>Stop tying your shoes and look up -- the tools are powerful enough to tackle real problems now.</strong> Brad's closing metaphor captures the moment: design systems practitioners have spent a decade making sure the left shoe matches the right. The consistency infrastructure is mature. The question now is what you do with that foundation. Design systems plus AI is not about making tokens propagate faster -- it is about directing that power toward experiences that genuinely help people.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../229-designers-who-ship-48hr-plugin/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Designers Who Ship (48hr Plugin)</span></a><span></span></nav>
+</body>
+</html>

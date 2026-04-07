@@ -31,7 +31,7 @@ COOKIES = [
 async def capture_video_frames(page_id, title_slug, interval=20):
     output_dir = os.path.join(
         os.path.dirname(os.path.dirname(__file__)),
-        "outputs", "into-design-systems-2026", "slides", f"{page_id}-{title_slug}"
+        "talks", f"{page_id}-{title_slug}", "img"
     )
     os.makedirs(output_dir, exist_ok=True)
 

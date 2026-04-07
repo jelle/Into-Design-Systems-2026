@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>219-designers-ship-code</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>I'm Not an Engineer but I Ship Code: How Designers Can Ship Production Code and Work Like an Engineer</h1>
+
+<p><strong>Speaker</strong>: Freya Stockman -- Product Designer, Relevance AI</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 52 min</p>
+
+<hr>
+
+<h2>The Double Diamond Is Expanding</h2>
+
+<p>Freya Stockman opens with a bold claim: <strong>2026 is the tipping point for designer-engineers.</strong> The traditional double diamond of problem definition and UX solutioning is no longer the whole picture. Designers are now handling <strong>technical scoping</strong>, doing product management, writing tickets for engineers to break work into bite-sized chunks, and in some cases owning <strong>full front-end implementation and pull requests</strong>.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="The expanding double diamond: from problem definition and UX/UI solution to technical scoping, product management, and frontend implementation" loading="lazy"><figcaption>The expanding double diamond: from problem definition and UX/UI solution to technical scoping, product management, and frontend implementation</figcaption></figure>
+
+<p>She is careful to frame this not as designers becoming engineers and stretching themselves thin, but as designers gaining <strong>more ownership</strong> when they need to build their own apps or products. Designers understand the customer deeply, and AI is now at a point where those skills can be combined with technical execution. The talk covers three pillars: developing an <strong>engineer mindset</strong>, a practical framework for <strong>shipping front-end code</strong>, and knowing <strong>when to hand over versus when to ship</strong>.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="Talk agenda: develop an engineer mindset, ship frontend code with the 70-20-10 framework, and know when to hand over versus ship" loading="lazy"><figcaption>Talk agenda: develop an engineer mindset, ship frontend code with the 70-20-10 framework, and know when to hand over versus ship</figcaption></figure>
+
+<hr>
+
+<h2>Sink or Swim: The Billboard Story</h2>
+
+<p>Freya takes the audience back to where her journey began -- a <strong>sink-or-swim moment</strong>. The stakes were real: a billboard in San Francisco was launching in seven days, none of the resources had been prepared, and she was the one assigned to deliver.</p>
+
+<figure><img src="img/frame-0300.jpg" alt="Sink or swim: my first time shipping frontend code like an engineer" loading="lazy"><figcaption>Sink or swim: my first time shipping frontend code like an engineer</figcaption></figure>
+
+<p>The task required her to <strong>design and vibe-code a desktop and mobile responsive onboarding flow</strong> for two different user types. She is a product designer with zero engineering background. The Relevance AI app is built on two separate codebases, and she had to stitch them together through the authentication flow and a chat application. One user journey served billboard visitors arriving via a specific URL, promoting a feature called Vibe Slides. The other was a general sign-up experience with standard onboarding. Both paths required conditional logic, working back-end integrations, and production-quality front-end code -- because this was the authentication flow, and it could not fail.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="The Relevance AI onboarding flow with billboard-specific and regular user journeys" loading="lazy"><figcaption>The Relevance AI onboarding flow with billboard-specific and regular user journeys</figcaption></figure>
+
+<p>She pulled it off. Since that moment in July of the previous year, she has made <strong>39 pull request contributions</strong> to the production codebases at work. Her recent work includes adding a minimize button to a complex side menu, building a feature for navigating agent escalations, and creating an onboarding flow with a holographic license card animation and confetti -- all implemented through React packages discovered and wired up via AI coding tools.</p>
+
+<hr>
+
+<h2>Everything on the Internet Is Just Text Files</h2>
+
+<p>Before diving into practical skills, Freya gives the audience a <strong>crash course in the engineering mindset</strong>. She introduces the core tools: <strong>Cursor</strong> as a command center for coding, <strong>Claude Code</strong> for terminal-based multi-agent work, <strong>local markdown files</strong> for documentation, and <strong>GitHub</strong> for version control and collaboration.</p>
+
+<figure><img src="img/frame-0660.jpg" alt="Cursor as a command center: view directly in preview, select elements, edit properties directly in code" loading="lazy"><figcaption>Cursor as a command center: view directly in preview, select elements, edit properties directly in code</figcaption></figure>
+
+<p>She explains <strong>APIs and MCPs</strong> by comparing them to a post office -- bridges between the designer and the platforms they already use. Every platform has an API key, and AI tools can talk directly to Notion, Linear, or anything else without ever switching apps. The designer just works from their command center.</p>
+
+<p>The single biggest takeaway she wants the audience to internalize is deceptively simple: <strong>all code, everything on the internet, everything on a mobile phone, is just text files.</strong> This reframe was her biggest unlock. She does not know how to technically code, but she knows how to write prompts and documentation. AI reads and writes text files. Text files become websites, apps, APIs, and automations. Without text files, websites are broken. By understanding this, she started <strong>working with text files intensely</strong> -- and that changed everything.</p>
+
+<figure><img src="img/frame-0840.jpg" alt="Text files are the bridge between AI tools and the world: .md, .json, .yaml, .tsx, .css, .html become websites, apps, APIs, automations" loading="lazy"><figcaption>Text files are the bridge between AI tools and the world: .md, .json, .yaml, .tsx, .css, .html become websites, apps, APIs, automations</figcaption></figure>
+
+<hr>
+
+<h2>GitHub Is Dropbox for Code</h2>
+
+<p>Freya demystifies <strong>GitHub</strong> with a series of plain-language analogies. A <strong>branch</strong> is a draft. A <strong>commit</strong> is a save point. A <strong>push</strong> uploads your branch to GitHub. A <strong>pull request</strong> means "pull my code and review it" -- literally proofreading for engineers. An engineer reviews, leaves comments, and the designer implements the feedback. Once approved, the code goes through end-to-end testing and gets merged for deployment.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="The workflow: branch, build, commit, push, pull request, review, merge, deploy" loading="lazy"><figcaption>The workflow: branch, build, commit, push, pull request, review, merge, deploy</figcaption></figure>
+
+<p>She shows the essential Git commands but immediately reassures the audience: <strong>you do not need to memorize these.</strong> You can just say "commit my changes" or "push my changes" in Cursor or Claude Code and the tool handles the rest. Understanding the process is enough.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="AI coding tools as the bridge: you describe in English, Cursor writes code locally, GitHub provides remote storage and deployment" loading="lazy"><figcaption>AI coding tools as the bridge: you describe in English, Cursor writes code locally, GitHub provides remote storage and deployment</figcaption></figure>
+
+<hr>
+
+<h2>The 70/20/10 Framework: Plan First, Build Later</h2>
+
+<p>This is the core methodology Freya uses to ship at engineering quality. The <strong>70/20/10 rule</strong> allocates <strong>70% of time to planning and documentation</strong>, 20% to implementation, and 10% to polish. The heavy upfront investment in understanding the codebase prevents the bugs and failed builds that plague less disciplined vibe coding.</p>
+
+<p>Every new project -- whether a small feature uplift or a major feature -- becomes <strong>a folder on the computer</strong>, filled with markdown files that serve as the AI's context system. She exports Figma frames as images, adds voice-to-text narration explaining each step of the flow, and then asks the AI to write it all into a structured markdown file. This gives AI rich, persistent context it can reference at any time.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Every design brief becomes a folder: project context is stored in text files for AI to read" loading="lazy"><figcaption>Every design brief becomes a folder: project context is stored in text files for AI to read</figcaption></figure>
+
+<p>The markdown files do double duty. When AI writes back its interpretation of the flow, it starts thinking in engineering terms -- URLs, redirects, data dependencies. The designer reads this back and catches discrepancies. She describes this as <strong>thinking like a solution architect</strong>: mapping current components, identifying risks, understanding downstream impacts, and documenting back-end dependencies that must be tested.</p>
+
+<figure><img src="img/frame-1080.jpg" alt="A markdown file documenting the user journey with engineering context: URLs, API flows, and test scenarios" loading="lazy"><figcaption>A markdown file documenting the user journey with engineering context: URLs, API flows, and test scenarios</figcaption></figure>
+
+<p>She then has <strong>different AI models review each other's plans</strong>. By switching models inside Cursor, she gets fresh perspectives on the phased implementation plan. Before building anything, she runs tests to verify that back-end dependencies work, API connections are live, and the flow makes sense end to end. She shows a test summary markdown file with pass/fail results for each critical integration point.</p>
+
+<figure><img src="img/frame-1320.jpg" alt="Test summary markdown file showing passed validation tests for API data processes and modal triggers" loading="lazy"><figcaption>Test summary markdown file showing passed validation tests for API data processes and modal triggers</figcaption></figure>
+
+<hr>
+
+<h2>Build in Stages, Tag the Don't File</h2>
+
+<p>Implementation follows the plan <strong>phase by phase</strong> in bite-sized chunks. Each stage is small enough that when something goes wrong, the problem is easy to diagnose. If you try to one-shot something complex, AI goes in circles trying to fix issues it cannot isolate.</p>
+
+<p>She highlights a critical insight about AI context: <strong>each new terminal is like a baby respawning.</strong> AI gets progressively dumber the longer a conversation runs. By starting fresh chats and tagging the markdown documentation files, the new agent immediately has full context about what has been done, what passed, and what to do next. The upfront planning pays off precisely because it makes context-switching fast.</p>
+
+<figure><img src="img/frame-1440.jpg" alt="Each terminal is like a baby respawning -- you have to remind it by directing it to read MD files" loading="lazy"><figcaption>Each terminal is like a baby respawning -- you have to remind it by directing it to read MD files</figcaption></figure>
+
+<p>Freya then reveals what she calls <strong>the secret sauce for shipping at engineering quality</strong>: the "don't file." This is a large text file listing everything the AI should not do -- bad coding habits, shortcuts that engineers will reject, patterns that introduce technical debt. No matter what model is used, AI always tries to take the fastest route, and the fastest route usually means bad coding practices. Before pushing to GitHub, she references the don't file and asks the AI to audit its own work. Almost every time, it catches something it should not have done.</p>
+
+<p>Beyond the don't file, her engineering team has created <strong>custom commands and skills</strong> -- <code>/create-plan</code>, <code>/research-codebase</code>, <code>/implement-plan</code>, <code>/validate-plan</code>, <code>/debug</code> -- that encode high-quality engineering workflows into reusable prompts. These sit on top of the built-in plan, agent, and debug modes that Cursor and Claude Code already offer.</p>
+
+<figure><img src="img/frame-1680.jpg" alt="Custom commands and skills: /create-plan, /research-codebase, /implement-plan, /validate-plan, /debug, /commit, /local-review" loading="lazy"><figcaption>Custom commands and skills: /create-plan, /research-codebase, /implement-plan, /validate-plan, /debug, /commit, /local-review</figcaption></figure>
+
+<hr>
+
+<h2>Know When to Ship and When to Hand Over</h2>
+
+<p>Freya is emphatic that having these skills does not mean designers should do everything. The decisive question is simple: <strong>does this need back-end work?</strong> If the answer is yes -- new APIs, database changes, anything that does not already exist -- the designer should prototype, write it up in tickets with milestones, and hand it to an engineer. If the work is purely front-end and can leverage existing APIs and data, the designer can and should own it.</p>
+
+<figure><img src="img/frame-1740.jpg" alt="Ask yourself one question: does this need backend work? No means ship it yourself, yes means handover with context" loading="lazy"><figcaption>Ask yourself one question: does this need backend work? No means ship it yourself, yes means handover with context</figcaption></figure>
+
+<p>She shows an advanced prototype she built in Cursor for an analytics dashboard at Relevance AI. The dashboard has real data, dozens of interactions, and complex visualizations -- but it is a prototype because the back-end work required is far beyond what she can tackle. An engineer is now building it out from the tickets and milestones she created. Even when handing over, the prototyping skills make the handoff dramatically smoother and more precise than static designs ever could.</p>
+
+<figure><img src="img/frame-2100.jpg" alt="Advanced analytics dashboard prototype built in Cursor with real data, handed over to engineering with project milestones" loading="lazy"><figcaption>Advanced analytics dashboard prototype built in Cursor with real data, handed over to engineering with project milestones</figcaption></figure>
+
+<hr>
+
+<h2>The Limit Does Not Exist</h2>
+
+<p>Freya closes by surveying the landscape of what becomes possible once a designer develops these skills. Beyond shipping features, she has been doing <strong>API connections, running A/B experiments from Claude Code, analyzing technical architecture</strong>, and using the codebase to write better copy for complex enterprise features. She even built her own custom slide presentation tool -- the very slides the audience is watching run on a locally hosted app she created herself.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="The limit does not exist: technical architecture, data tracking, API connection, technical implementation, A/B test experiments" loading="lazy"><figcaption>The limit does not exist: technical architecture, data tracking, API connection, technical implementation, A/B test experiments</figcaption></figure>
+
+<p>Her key takeaways are direct. First, <strong>stop prompting alone</strong> -- AI's first language is code and its second language is text files, so build rich context systems for every project. Second, use the codebase and Cursor to <strong>understand the infrastructure</strong> and make better UX decisions. Third, <strong>plan in depth</strong> -- thorough upfront planning reduces the risk of bugs when shipping production code.</p>
+
+<p>She announces a web app she has built called <strong>Augmented Designer</strong>, a course platform covering everything from getting started with AI coding tools to shipping at engineering quality and building autonomous workflows. The platform itself, naturally, was built using the exact skills she just taught.</p>
+
+<figure><img src="img/frame-1980.jpg" alt="The Augmented Designer web app: course levels from basics through shipping at engineering quality to building autonomous systems" loading="lazy"><figcaption>The Augmented Designer web app: course levels from basics through shipping at engineering quality to building autonomous systems</figcaption></figure>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On design exploration</strong>: Freya still uses <strong>Figma for high-level flows, ideation, and stakeholder communication</strong>. She does not jump straight into Cursor. She interviews stakeholders, generates questions to untangle ambiguity, and creates scrappy happy-path mockups in Figma first. Only then does she move to Cursor for prototyping complex interactions. She stresses that designers should not stop documenting flows in Figma just because they can now ship code -- documentation tells the story that a pull request alone cannot.</p>
+
+<p><strong>On translating Figma flows to markdown</strong>: She exports Figma frames as images, then uses <strong>voice-to-text dictation</strong> to narrate the user journey over each screen. The combination of images and spoken context gets fed to AI, which writes a structured markdown file. She then reads the AI's interpretation back and corrects any misunderstandings -- a feedback loop that replaces the traditional design review but with AI as an additional participant.</p>
+
+<p><strong>On the engineering review process</strong>: She slots into the <strong>same pull request review workflow</strong> as engineers. She pushes code to GitHub, an engineer reviews it and leaves comments, and she implements the feedback. When the comments are technical and she does not fully understand them, she copies them into Cursor and asks it to fix the issues. The cycle repeats until the PR is approved and merged.</p>
+
+<p><strong>On the don't file</strong>: She offered to share a PDF flyer with the audience, generated live in Cursor during the Q&amp;A, containing template questions designers can ask their engineering teams to help set up a don't file tailored to their codebase.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Spend 70% of your time planning, 20% building, 10% polishing.</strong> Freya's 70/20/10 framework flips the typical vibe coding approach. Every project starts as a folder of markdown files: exported Figma frames, voice-to-text narration of the user journey, API dependencies, test scenarios. This heavy upfront investment prevents the bugs and failed builds that plague less disciplined AI-assisted coding. If your AI-generated code keeps breaking, you are probably under-investing in planning.</p>
+
+<p><strong>Create a "don't file" to prevent AI from taking shortcuts.</strong> This large text file lists every bad coding practice the AI should avoid -- patterns that introduce technical debt, shortcuts engineers will reject, habits that break production. Before pushing to GitHub, ask the AI to audit its own work against the don't file. Almost every time, it catches something it should not have done. Ask your engineering team what the top 20 anti-patterns in your codebase are and start there.</p>
+
+<p><strong>Each new AI terminal is a blank slate -- use markdown files as persistent memory.</strong> AI gets progressively worse the longer a conversation runs. Freya starts fresh chats frequently and points each new agent to the markdown documentation files that contain full context about what has been done, what passed, and what to do next. The upfront planning pays off precisely because it makes context-switching fast and lossless.</p>
+
+<p><strong>Ask one question before deciding to ship or hand over: does this need back-end work?</strong> If the task requires new APIs, database changes, or anything that does not already exist, prototype it, write it up in tickets with milestones, and hand it to an engineer. If the work is purely front-end and can leverage existing APIs and data, own it yourself. This simple heuristic keeps designers productive without overstepping into risky territory.</p>
+
+<p><strong>Use different AI models to cross-review each other's plans.</strong> By switching models inside Cursor, Freya gets fresh perspectives on her implementation plans before writing any code. One model might catch dependencies another missed. This cross-referential approach mirrors Baldwin's technique from the prototyping talk and consistently produces more robust plans than relying on a single model.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../218-agentic-design-systems/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Agentic Design Systems</span></a><a class="nav-next" href="../220-context-probability-ds-ai-infra/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Context > Probability</span></a></nav>
+</body>
+</html>

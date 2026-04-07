@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>217-ai-enabled-design-system-miro</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>The Path to an AI-Enabled Design System: Our Approach and Lessons Learned</h1>
+
+<p><strong>Speakers</strong>: Andressa Lombardo -- Design Systems Lead, Miro &amp; Eddie Machado -- Systems Designer, Miro</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 50 min</p>
+
+<hr>
+
+<h2>The Threat That Came From Within</h2>
+
+<p>Andressa Lombardo opens with a question that lands hard: how many people in the audience have sat in a meeting where a senior leader asked "can't we just use AI for this?" -- and the thing they wanted to replace was the design system team itself. At Miro, that question was not hypothetical.</p>
+
+<figure><img src="img/frame-0000.jpg" alt="Title slide: The path to an AI enabled design system" loading="lazy"><figcaption>Title slide: The path to an AI enabled design system</figcaption></figure>
+
+<p>The Miro design system team is not the large, well-resourced operation people might assume. Andressa introduces the roster: herself as design system lead, Eddie as design engineer (and birthday boy -- the talk falls on his birthday), one engineering manager, and three engineers. That is the entire team, serving <strong>48 product teams</strong>. Small, but mighty -- and very much figuring things out as they go.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="Team composition: 1 EM, 3 Engineers, serving 48 teams" loading="lazy"><figcaption>Team composition: 1 EM, 3 Engineers, serving 48 teams</figcaption></figure>
+
+<p>Miro is a <strong>canvas-based product</strong>, which means it is not a typical web application. It runs on two tech stacks: React for the standard web UI, and <strong>Surface SDK</strong>, Miro's proprietary on-canvas technology. The Surface SDK was, until recently, almost entirely undocumented from a design systems perspective. This matters, because when AI tools started proliferating across the company, nobody was coming to the design system team to ask how to integrate them.</p>
+
+<hr>
+
+<h2>"The Incident"</h2>
+
+<p>Eddie takes over to describe the moment that changed everything. He calls it <strong>"The Incident."</strong> It happened on Andressa's very first day at Miro, during a team offsite in Berlin. At the same time, the leadership team was also in Berlin, discussing plans for a new feature that would let teams upload brand guidelines to prototype inside Miro.</p>
+
+<figure><img src="img/frame-0360.jpg" alt="The Incident slide" loading="lazy"><figcaption>The Incident slide</figcaption></figure>
+
+<p>The question floating around leadership was whether they could use AI to <strong>auto-generate a design system</strong> inside of Miro -- just point AI at someone's brand guidelines and have it spit out components. The problem was not the idea itself. The problem was that <strong>they never consulted the internal design system team</strong>. They went directly to AI to see if it was possible. The implication was clear: if the design system team did not figure out how to make AI work within their system, someone else was going to do it without them.</p>
+
+<hr>
+
+<h2>AI as a New Hire</h2>
+
+<p>That realization drove everything that followed. Andressa and Eddie kept coming back to one question: <strong>what does an AI-enabled design system look like?</strong> The answer came through a reframe. AI was not a tool to be plugged in. It was a <strong>new team member that needed to be onboarded</strong> -- one who was extremely enthusiastic, very capable, extremely literal, and knew absolutely nothing about Miro's conventions. They gave her a name: <strong>Aura</strong>.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="What does an AI enabled design system look like?" loading="lazy"><figcaption>What does an AI enabled design system look like?</figcaption></figure>
+
+<p>Aura is not a single agent or a single tool. She is what the team started calling their <strong>AI practice</strong> -- a collection of integration scripts, documentation, and workflows built over the past year. She got her own illustrated personality in the slides, and the talk follows her onboarding journey as a narrative device. But the underlying point is serious: Aura is eager and will attempt anything you throw at her, but she knows nothing about the team's decisions, their icon conventions, or their token architecture. And at Miro, onboarding has historically meant throwing people into the deep end.</p>
+
+<p>The root cause of that problem is <strong>lack of documentation</strong>. Everything lived in people's heads -- design decisions, infrastructure knowledge, best practices, linting processes, contribution models. Every new hire (human or AI) would ask the same questions over and over. Before writing anything down, the team stepped back and established three onboarding principles.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="Three onboarding principles: Show don't tell, Be consistent, Room to experiment" loading="lazy"><figcaption>Three onboarding principles: Show don't tell, Be consistent, Room to experiment</figcaption></figure>
+
+<p><strong>Show, don't tell</strong>: explain not just why, but also why not. <strong>Be consistent</strong>: mixed messages break reasoning for humans and machines alike. <strong>Room to experiment</strong>: the best learning comes from having space to try, fail, and self-correct.</p>
+
+<hr>
+
+<h2>The Icon Problem: Confidently Wrong</h2>
+
+<p>With principles in hand, they gave Aura her first task: build a simple toolbar with four common actions (text styles, text alignment, text color, highlight color) and an overflow menu. Aura was confident. She chose icons, picked tokens, selected the right components. On first glance, the team was impressed. But on closer inspection, <strong>she was wrong</strong> -- and not randomly wrong, but confidently wrong.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="Aura's icon naming confusion: before and after" loading="lazy"><figcaption>Aura's icon naming confusion: before and after</figcaption></figure>
+
+<p>The icon she picked for "text styles" was actually named <code>icon-text-styles</code> in the library, which sounds right. But at Miro, that icon is used for <strong>font styles</strong> (serif vs. sans-serif), not text styling actions. The actual icon for text styles was <code>text-b-bold-italic-underlined</code>. This distinction was obvious to Andressa and Eddie, who had inherited and internalized the naming conventions, but to any newcomer it was impenetrable.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="Icon descriptions expanded with visual description, use case, and category" loading="lazy"><figcaption>Icon descriptions expanded with visual description, use case, and category</figcaption></figure>
+
+<p>The fix was not to blame Aura. It was to <strong>enrich the icon metadata</strong>. They added visual descriptions, use cases, and explicit "do not use for" guidance. The description for the font styles icon now reads: "represents font style like serif or sans-serif, do not use to represent text style like bold, italic, underline." When they translated this to the JSON files powering the icon library, Aura nailed the task on the next attempt.</p>
+
+<hr>
+
+<h2>The Token Problem: Two Shades of White</h2>
+
+<p>Icons were not the only issue. Even when Aura got the icons right, she picked a <strong>deprecated background token</strong>. The token had been recently replaced, and she had no way to know that.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Token ambiguity: two white tokens, and the fix with rich descriptions" loading="lazy"><figcaption>Token ambiguity: two white tokens, and the fix with rich descriptions</figcaption></figure>
+
+<p>Eddie shows the data Aura was working with: two tokens, both with the value "white," both with completely ambiguous usage descriptions. The fix followed the same pattern as the icons -- add clear descriptions stating that <code>background-layout</code> is "the background for toolbars, panels, and dropdowns; do not use for cards or flat content; use background-surface instead." The token architecture itself was inherited and imperfect, but <strong>adding context was faster than refactoring the entire token system</strong>.</p>
+
+<p>After these enrichments, Aura got the full toolbar right. The team's takeaway was not that AI had a problem. It was that <strong>they</strong> had a documentation problem. The technical work of adding metadata was hard and time-consuming, but the harder work was everything that preceded it -- the unglamorous auditing, writing, and enrichment of information that had never been written down.</p>
+
+<hr>
+
+<h2>Prove the Concept First, Explain It Second</h2>
+
+<p>Andressa shares a candid moment. Every two weeks, Miro runs a show-and-tell for all product teams. Other teams were shipping flashy AI features. The design system team was writing icon descriptions and adding component metadata. It did not make senior leadership's eyes sparkle.</p>
+
+<figure><img src="img/frame-1080.jpg" alt="Lesson learned: Prove the concept first, explain it second" loading="lazy"><figcaption>Lesson learned: Prove the concept first, explain it second</figcaption></figure>
+
+<p>She was told directly by senior leadership that <strong>there was no value in documentation</strong>, that nobody reads it, and that if this was the best the team could do, they deserved a 4 out of 10 for impact. The lesson she draws: sometimes you have to <strong>ask for forgiveness rather than permission</strong>. They kept going because they knew the MCP they were building would only be as good as what Aura could read. Without written documentation, no AI integration would produce good results.</p>
+
+<hr>
+
+<h2>Building the MCP: Control Output When You Cannot Control Input</h2>
+
+<p>Eddie transitions into the technical work. The core insight: <strong>humans prompt unpredictably</strong>. One person writes detailed instructions, another (Eddie admits he falls in this camp) prompts like a sixth grader. If you cannot control the input, you have to control the output. The answer was to build a <strong>custom MCP server</strong> for the design system.</p>
+
+<figure><img src="img/frame-1320.jpg" alt="Starting simple: two MCP tools -- list-components and get-component-docs" loading="lazy"><figcaption>Starting simple: two MCP tools -- list-components and get-component-docs</figcaption></figure>
+
+<p>They started with just two tools: <strong>list-components</strong> (returns a simple list of available components) and <strong>get-component-docs</strong> (finds and returns the documentation file for a specific component). That was it. They wanted to start simple and see where optimization was needed. They added instructions to their team's root CLAUDE.md file so that when anyone addressed Aura, she would call the design system MCP directly. This single integration <strong>dropped support questions in their Slack channel by 70-80%</strong>.</p>
+
+<p>But the initial metadata still was not enough. Aura struggled to find the icon and token libraries because documentation links were embedded in React components, not in markdown that an LLM could read. She would end up in loops, eventually finding answers by randomly searching the codebase -- which is exactly how hallucinations happen.</p>
+
+<figure><img src="img/frame-1380.jpg" alt="Metadata won't save you: search-tokens and search-icons tools" loading="lazy"><figcaption>Metadata won't save you: search-tokens and search-icons tools</figcaption></figure>
+
+<p>So they built two more tools: <strong>search-icons</strong> and <strong>search-tokens</strong>. But instead of building MCP tools directly, Eddie built them as <strong>Claude Code skills</strong> first. Skills are simpler to create, faster to iterate on, and compressible. Using Claude's <code>/simplify</code> command, he got one skill from <strong>33,000 tokens down to 410 tokens</strong> -- a 98% reduction. These are the kinds of metrics that leadership actually responds to.</p>
+
+<figure><img src="img/frame-1440.jpg" alt="Skills vs MCP Tools comparison: 98% fewer tokens, 150-300x faster" loading="lazy"><figcaption>Skills vs MCP Tools comparison: 98% fewer tokens, 150-300x faster</figcaption></figure>
+
+<hr>
+
+<h2>The Wrap-Up Skill: Standardizing Contributions</h2>
+
+<p>Another skill the team built is called <strong>wrap-up</strong>. Before submitting a PR, the wrap-up skill runs the linter, checks code quality against a checklist, verifies accessibility and localization, writes a description for each commit, and structures the PR based on a template. Creating PRs is, as Eddie puts it, "the worst part of vibe coding." The wrap-up skill removes that friction entirely, and the team has seen <strong>more contributions</strong> coming in because the barrier to submit is lower.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="The wrap-up skill: contribution checklist and PR template" loading="lazy"><figcaption>The wrap-up skill: contribution checklist and PR template</figcaption></figure>
+
+<p>They test all new scripts and skills internally for one to two weeks before rolling them out. A rogue script that introduces even one unexpected line into a CLAUDE.md file can diverge Aura's guidelines. Internal testing is how they catch those issues.</p>
+
+<hr>
+
+<h2>Aura's First Day on Bug Duty: 17 PRs in One Hour</h2>
+
+<p>With the foundation in place, the team started tagging Jira tickets as <strong>"Aura ready."</strong> Aura scans tagged tickets, reads the Jira description, does the work, runs the wrap-up skill, and submits a PR. On her first day working on bugs, she created <strong>17 PRs in one hour</strong>.</p>
+
+<figure><img src="img/frame-1620.jpg" alt="Aura's roadmap: Bug fixes, Tokens, Icons, Components, Docs" loading="lazy"><figcaption>Aura's roadmap: Bug fixes, Tokens, Icons, Components, Docs</figcaption></figure>
+
+<p>The roadmap extends beyond bug fixes. Aura is being prepared to handle <strong>token renaming</strong> (the inherited naming structure is outdated, and doing it manually would take months), <strong>icon cleanup</strong> (who better to fix the naming that confused her?), and eventually <strong>component replacement</strong> -- though components are trickier because they carry logic. They have also explored <strong>component generation from specs</strong>, asking Claude to analyze existing components, extract a "recipe" of patterns and standards, and use that recipe to generate new components that meet the same quality bar.</p>
+
+<figure><img src="img/frame-1680.jpg" alt="Component replacement workflow" loading="lazy"><figcaption>Component replacement workflow</figcaption></figure>
+
+<p>The best part, Eddie notes, is that when changes are made, Aura can keep documentation up to date automatically. A script similar to wrap-up detects component changes, finds the related documentation file, and updates it. This closes the loop that has historically broken every design system: <strong>documentation drift</strong>.</p>
+
+<hr>
+
+<h2>The Visibility Paradox</h2>
+
+<p>Andressa returns to a problem that might sound counterintuitive: when the MCP became frictionless, they <strong>lost visibility</strong>. Aura was working silently in the background -- which meant adoption was high, but the team could not easily measure how many calls were being made. The lesson: <strong>any figure is better than no figure</strong>. Even approximate numbers, qualitative testimonials from engineers about time saved, or before-and-after quality comparisons help build the case. You want to build from what you have, not wait for perfect analytics.</p>
+
+<figure><img src="img/frame-1200.jpg" alt="Lesson learned: Any figure is better than no figure" loading="lazy"><figcaption>Lesson learned: Any figure is better than no figure</figcaption></figure>
+
+<hr>
+
+<h2>Lessons Learned: You Don't Need a Perfect System</h2>
+
+<p>Andressa closes the talk with a final lesson that encapsulates the entire journey. There is no need to resist AI, and there is no need to panic about it. The answer is to <strong>be the person who onboards the new team member</strong>. That person is you, because you wrote the rules. Someone has to know how the system works and be able to teach it. That has always been the design system team's job -- to document, to govern, to guide. AI does not change that. It makes it more urgent.</p>
+
+<figure><img src="img/frame-1860.jpg" alt="Lessons learned" loading="lazy"><figcaption>Lessons learned</figcaption></figure>
+
+<p>And if you take nothing else from the talk: <strong>you don't need a perfect system. You need a system that is legible enough to teach.</strong> Even if it is not glamorous work, invest in metadata, documentation, and extracting everything that lives in your heads into files. That is the foundation everything else is built on.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On building skills</strong>: Eddie recommends starting with Claude's skill creator skill, which can generate and test a skill end-to-end. He describes his own process as iterative: explain the problem, generate the skill, test it repeatedly, and after each run ask "what can we improve?" Over time the skill slowly improves itself until results become consistent.</p>
+
+<p><strong>On getting engineers on board</strong>: The team initially faced resistance from their own engineers, who argued that AI-generated code was not production-ready and created more review work. They found <strong>one ally</strong> on the engineering team who influenced the others. Two of their engineers are now in the top 10 of token usage across the entire company.</p>
+
+<p><strong>On designer contributions</strong>: Designers across Miro were already experimenting with Claude Code, Cursor, Replit, and Lovable, producing prototypes that engineers did not know what to do with. The team built a script that takes those assets, maps them to the design system's tokens, and produces a strict markdown file with all property mappings -- so AI can work from that instead of the raw prototype output.</p>
+
+<p><strong>On dark mode</strong>: The reason Miro does not have dark mode yet is not a design system limitation -- it is a canvas problem. If Andressa turns on dark mode, what does her collaborator see? That shared-canvas interaction model has to be solved before dark mode can ship.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Treat AI as a new team member that needs onboarding, not a tool that needs configuration.</strong> Miro's team reframed AI adoption by asking "how would we onboard a new hire who knows nothing about our conventions?" This led them to surface all the tribal knowledge -- icon naming rationale, token usage rules, contribution processes -- that had never been written down. Apply the same test: if a smart new hire could not figure out your system from documentation alone, your AI agent cannot either.</p>
+
+<p><strong>Enrich metadata before building MCP tools.</strong> Miro's AI ("Aura") confidently picked the wrong icons and deprecated tokens because the metadata lacked context. Adding visual descriptions, use cases, and explicit "do not use for" guidance to icon and token definitions fixed the problem. This unglamorous audit-and-enrich work is the prerequisite that makes every downstream AI integration work. Budget time for it even when leadership does not see the sparkle.</p>
+
+<p><strong>Build Claude Code skills first, then graduate to MCP tools.</strong> Eddie built search-icons and search-tokens as Claude Code skills before converting them to MCP endpoints. Skills are simpler to create, faster to iterate on, and dramatically more token-efficient -- one skill went from 33,000 tokens down to 410 (98% reduction). Start with skills for rapid iteration, and only move to MCP when you need shared, managed access across teams.</p>
+
+<p><strong>Automate the PR submission process to increase contributions.</strong> Miro's "wrap-up" skill runs the linter, checks code quality, verifies accessibility and localization, writes commit descriptions, and structures the PR from a template. This removed the most tedious part of contributing to the design system and directly increased the number of incoming contributions. If your contribution rate is low, look at whether submission friction -- not willingness -- is the bottleneck.</p>
+
+<p><strong>Track adoption metrics even when they are imperfect.</strong> When Miro's MCP became frictionless, the team lost visibility into how much it was being used. Andressa's lesson: any figure is better than no figure. Collect approximate usage numbers, qualitative testimonials, before-and-after quality comparisons -- whatever you can get. Waiting for perfect analytics means you have no story to tell leadership when budget decisions arrive.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../216-product-primitives/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Product Primitives</span></a><a class="nav-next" href="../218-agentic-design-systems/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Agentic Design Systems</span></a></nav>
+</body>
+</html>

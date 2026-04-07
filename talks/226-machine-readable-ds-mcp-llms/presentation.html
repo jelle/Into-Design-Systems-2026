@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>226-machine-readable-ds-mcp-llms</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>Machine-Readable Design Systems for MCP and LLMs</h1>
+
+<p><strong>Speaker</strong>: Diana Wolosin -- Sr. Design System Designer, Indeed</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 46 min</p>
+
+<hr>
+
+<h2>The Starting Question: What Does It Take to Build for AI?</h2>
+
+<p>Diana Wolosin opens with a simple but far-reaching premise. At Indeed -- the world's number one job site, serving hundreds of designers and developers across its job-seeker and employer platforms -- AI exploration was emerging everywhere. Teams were experimenting with <strong>AI-assisted prototyping</strong>, AI-powered personas, and design-to-code workflows. The company had invested in tools like Cursor, Gemini, and Anthropic, and given teams the autonomy to experiment. The design system team saw the opportunity: if everyone was going to build with AI, the design system needed to be ready to serve them.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="Title slide: Machine-Readable Design Systems for MCP and LLMs" loading="lazy"><figcaption>Title slide: Machine-Readable Design Systems for MCP and LLMs</figcaption></figure>
+
+<p>That realization sent Diana down a rabbit hole. She made a big pot of coffee and started researching. There were barely any resources on the subject. Nobody was really talking about how to make design systems work for AI. She found a few pioneers -- Romina, TJ Pitre, Yesenia Perez-Cruz -- and had many late-night conversations with ChatGPT, Claude, and Gemini. Through all of it, she arrived at something fundamental: <strong>AI is a new user of your design system.</strong> And just like human users, this new user needs the knowledge delivered in a format it can actually understand.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="The journey begins -- researching how to make design systems machine-readable" loading="lazy"><figcaption>The journey begins -- researching how to make design systems machine-readable</figcaption></figure>
+
+<p>That format has a specific term: <strong>machine-readable</strong>. It means codifying design system knowledge into structured data -- metadata, JSON, explicit constraints -- so an LLM can parse it, reason over it, and use it programmatically. But how? Diana is a designer, not a developer. Technical infrastructure is not her domain. The answer, it turned out, was to start experimenting with AI itself.</p>
+
+<hr>
+
+<h2>The Breakthrough: From Spreadsheet to Structured Metadata</h2>
+
+<p>Diana's first breakthrough was surprisingly low-tech: a <strong>Google Spreadsheet</strong>. She took the design system documentation and broke it down into rows and columns, establishing a schema that could be turned into a JSON snippet per component. Designers could then copy-paste these JSON snippets into AI tools to generate prototypes using Indeed's components. But they had to copy one component, one token, and one pattern at a time -- not exactly enterprise-grade.</p>
+
+<figure><img src="img/frame-0300.jpg" alt="The Google Spreadsheet approach -- early metadata experiment" loading="lazy"><figcaption>The Google Spreadsheet approach -- early metadata experiment</figcaption></figure>
+
+<p>She thought she had cracked the code. But Indeed's design technology team was already building a far more sophisticated AI prototyping solution, and the spreadsheet was not dynamic, not scalable, and -- most importantly -- not easy to integrate with an agent or an MCP server. The spreadsheet was a valid mechanism for proving the concept, but at least it confirmed one crucial insight: <strong>the format matters.</strong> The format you feed to an LLM directly impacts its reasoning and its output.</p>
+
+<hr>
+
+<h2>How MCP Works: The Librarian Analogy</h2>
+
+<p>Before diving into the experiments, Diana walks the audience through <strong>how Model Context Protocol actually works</strong>. A human sends a prompt from the context window. The LLM receives it and selects keywords to compile into a query. That query gets sent to the MCP server. Inside the MCP, <strong>Retrieval-Augmented Generation (RAG) acts like a librarian</strong> -- it goes to the vector database and searches for semantic similarities between the query and the stored metadata. The vector database returns a specific set of results, which flow back through the MCP to the LLM. The LLM then reasons over those results and, in a tool like Cursor, prototypes experiences.</p>
+
+<figure><img src="img/frame-0480.jpg" alt="How MCP works -- from prompt to vector database and back" loading="lazy"><figcaption>How MCP works -- from prompt to vector database and back</figcaption></figure>
+
+<p>The fundamental question, Diana argues, is not whether to use an MCP -- it is <strong>what is the best way to add your design system knowledge into the vector database</strong>. Some people suggest simply connecting existing documentation and calling it a day. But the reality is that this new AI user needs structured, machine-readable metadata, not documentation written for humans. Instead of guessing, Diana built a benchmark.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="What is the best way to add design system knowledge into the vector database?" loading="lazy"><figcaption>What is the best way to add design system knowledge into the vector database?</figcaption></figure>
+
+<hr>
+
+<h2>Demo 1: Transforming Human Docs into Structured Metadata</h2>
+
+<p>Diana switches to a live demo in Cursor with Claude Sonnet 4.5. She shows Indeed's design system repository, where all component documentation is stored in <strong>MDX</strong> -- a flavor of Markdown that renders beautifully for websites and HTML. The button component, for instance, has separate MDX files for accessibility, design, development, content, and localization. This documentation feeds the <strong>Lunchbox Design System</strong> website, where product teams come to "pack their lunchbox."</p>
+
+<figure><img src="img/frame-0600.jpg" alt="Indeed's design system repository with MDX documentation files" loading="lazy"><figcaption>Indeed's design system repository with MDX documentation files</figcaption></figure>
+
+<p>The challenge is distributing this same knowledge to LLMs. Diana shows how Cursor helped her create a set of <strong>JavaScript parsers</strong> -- one for each knowledge domain (accessibility, development, localization, design). Each parser creates a JSON object, and a consolidation script merges them all into a single JSON file per component. The hard part was that human-written documentation is inconsistent and full of edge cases, but after many prompts and rounds of back-and-forth with Cursor, she covered every edge case across Indeed's 77 components.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="Parsers transforming MDX documentation into structured JSON metadata" loading="lazy"><figcaption>Parsers transforming MDX documentation into structured JSON metadata</figcaption></figure>
+
+<p>The result is a structured JSON object that contains the full component API in a way an LLM can reason over and build with -- component identity, prop definitions, variants, sizes, states, accessibility utilities, import statements, and usage guidelines.</p>
+
+<figure><img src="img/frame-0840.jpg" alt="Structured JSON metadata for the button component" loading="lazy"><figcaption>Structured JSON metadata for the button component</figcaption></figure>
+
+<hr>
+
+<h2>Demo 2: MCP Ingestion and Configurations</h2>
+
+<p>In the second demo, Diana reveals the engine room. Her developer partner, <strong>Pierre Tony Rucker</strong>, built the infrastructure that made it possible to duplicate the MCP server seven times, creating eight total MCP configurations for testing. Inside the MCP server sits an ingestion folder containing a <strong>chunker, a filter, and an indexer</strong> for each experiment.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="MCP server structure with ingestion pipeline -- chunker, filter, indexer" loading="lazy"><figcaption>MCP server structure with ingestion pipeline -- chunker, filter, indexer</figcaption></figure>
+
+<p>She walks through the three-step ingestion process. First, the metadata gets <strong>ingested</strong>. Then it goes through <strong>chunking</strong> -- breaking the data into sharp, well-defined chunks so the vector similarity search returns the most relevant context. Finally, the chunks get <strong>indexed</strong> into the vector database. The indexing step transforms the documentation into numeric vectors. When RAG hits the MCP looking for metadata about a button, it comes to these vectors, finds semantic similarity, and returns the matching metadata.</p>
+
+<p>Diana ran this process for all eight MCP configurations, each using a different metadata format: the original MDX, plain Markdown, a hybrid of Markdown plus JSON, multiple JSON variations (pre-chunked, domain-separated, deterministic), and even <strong>TSON</strong> -- a token-oriented object notation format created specifically for AI consumption.</p>
+
+<hr>
+
+<h2>Demo 3: The Benchmark -- 1,056 Prompts Across 8 Configurations</h2>
+
+<p>The benchmark itself is a piece of vibe-coded engineering. Diana built an MCP quality benchmark tool that tests multiple configurations head-to-head, measuring the balance between <strong>LLM comprehension and token efficiency</strong>. She designed 22 prompts across different query categories -- props, complex queries, code snippets, and simple lookups -- and ran each prompt three times per configuration, measuring both input (what the MCP returns) and output (what the LLM does with it). That adds up to <strong>1,056 total prompts</strong>.</p>
+
+<figure><img src="img/frame-1200.jpg" alt="Lunchbox MCP Quality Benchmark -- testing all eight configurations" loading="lazy"><figcaption>Lunchbox MCP Quality Benchmark -- testing all eight configurations</figcaption></figure>
+
+<p>The benchmark measures two dimensions. <strong>Token efficiency</strong> captures what the MCP returns to the LLM: how many tokens, how relevant, how much query coverage. <strong>LLM accuracy</strong> captures what happens after the LLM reasons over those results: coverage of correct answers, hallucination count, and prop-form accuracy. Cursor also helped Diana create the formulas, purification logic, and metrics under the hood.</p>
+
+<figure><img src="img/frame-1080.jpg" alt="Evaluation criteria: token efficiency vs. LLM accuracy" loading="lazy"><figcaption>Evaluation criteria: token efficiency vs. LLM accuracy</figcaption></figure>
+
+<hr>
+
+<h2>The Findings: Five Data-Driven Lessons</h2>
+
+<p><strong>Finding 1: The MCP is deterministic; the LLM is stochastic.</strong> Running the same query against an MCP returns the same result every time. But when the LLM receives those same results and reasons over them, it produces a different response every time. Same input, different output.</p>
+
+<figure><img src="img/frame-1380.jpg" alt="Finding 1 -- MCP response is deterministic, LLM response is stochastic" loading="lazy"><figcaption>Finding 1 -- MCP response is deterministic, LLM response is stochastic</figcaption></figure>
+
+<p><strong>Finding 2: Structured data mitigates AI uncertainty.</strong> Even though the LLM responds differently each time, some MCP configurations produced far more consistent responses than others. The hybrid Markdown-plus-JSON format showed the most variation -- completely unreliable. JSON showed the most consistency across three runs. Structured data reduces the randomness of LLM responses.</p>
+
+<p><strong>Finding 3: LLM accuracy is superior with structured data.</strong> When every LLM response was verified against the actual documentation, JSON matched the highest. Structured metadata produced the most accurate responses compared to the real design system knowledge.</p>
+
+<p><strong>Finding 4: Structured data produces superior token efficiency.</strong> The hybrid MCP burned around 30,000 tokens per set of queries. JSON achieved the same or better accuracy with <strong>80% fewer tokens</strong>. Structured data is not just more accurate -- it is dramatically more efficient.</p>
+
+<figure><img src="img/frame-1440.jpg" alt="Finding 4 -- JSON uses a fraction of the tokens compared to other formats" loading="lazy"><figcaption>Finding 4 -- JSON uses a fraction of the tokens compared to other formats</figcaption></figure>
+
+<p><strong>Finding 5: Structure saves money at scale.</strong> Scaling to 1,000 queries per month across hundreds of users, MDX-based documentation would cost roughly $125 per month ($1,500 per year), while JSON would cost just $25 per month ($300 per year). Same design system, same components, five times cheaper.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="Finding 5 -- cost comparison at scale: MDX at $1,500/year vs. JSON at $300/year" loading="lazy"><figcaption>Finding 5 -- cost comparison at scale: MDX at $1,500/year vs. JSON at $300/year</figcaption></figure>
+
+<p>The winner is clear: <strong>JSON</strong>. It functions like a contract -- explicit keys, explicit values, explicit boundaries, no ambiguity. JSON tells the LLM exactly what it sees and how to use it.</p>
+
+<hr>
+
+<h2>The Real-World Test: 4,389 AI-Generated Prototypes</h2>
+
+<p>Indeed launched the MCP with JSON in August 2025. From August to December, they ran a pilot on an internal AI prototyping tool powered by the design system MCP. The results were staggering: <strong>4,389 prototypes</strong> generated using React, design system components, and Indeed's visual language. Not just engineers -- product managers, researchers, and content designers were creating prototypes too. None of them used Figma or hand-written CSS.</p>
+
+<figure><img src="img/frame-1620.jpg" alt="4,389 AI-generated prototypes powered by the design system MCP" loading="lazy"><figcaption>4,389 AI-generated prototypes powered by the design system MCP</figcaption></figure>
+
+<p>But not everything was perfect. A design system compliance audit -- led by designer Keith Weston, who reviewed a sample of those thousands of prototypes -- uncovered <strong>multiple infractions</strong>. The LLM was placing H2 headings in a smaller size than body text. It was overlapping text with broken spacing. It invented a color palette that the design system team had never seen. It was skipping color tokens for graphs, using emojis instead of icons, and misusing the tag component entirely. The components worked, but the <strong>foundations were breaking</strong>.</p>
+
+<figure><img src="img/frame-1680.jpg" alt="AI prototype audit revealing design system infractions" loading="lazy"><figcaption>AI prototype audit revealing design system infractions</figcaption></figure>
+
+<hr>
+
+<h2>The MCP Has Blind Spots: Why Foundations Need to Be Always-Present</h2>
+
+<p>The root cause was architectural. The MCP is <strong>on-demand</strong> -- it only returns data about what the prompt asks for. If the prompt says "build me a card," the MCP returns information about the card component and a button. It completely ignores spacing, typography, and color because that foundational knowledge, even though it exists in the vector database, was never called for in the prompt. The LLM fills the gap with its own assumptions, and those assumptions are often wrong.</p>
+
+<figure><img src="img/frame-1740.jpg" alt="The MCP has blind spots -- on-demand vs. always-present knowledge" loading="lazy"><figcaption>The MCP has blind spots -- on-demand vs. always-present knowledge</figcaption></figure>
+
+<p>Foundational knowledge like spacing tokens, color tokens, typography rules, breakpoints, grid rules, and icon conventions needs to be <strong>always present</strong> in the context, not delivered on demand. This insight led Indeed to adopt a concept Diana calls a <strong>design system plugin</strong> -- a layered package of knowledge that can be plugged into any agent.</p>
+
+<hr>
+
+<h2>Progressive Disclosure: The Load Strategy for AI Context</h2>
+
+<p>A machine-readable design system is not just an MCP. It is <strong>multiple layers of context working together</strong>, following a principle from artificial intelligence called <strong>progressive disclosure</strong>. The most critical knowledge is always present; the rest appears when the context calls for it.</p>
+
+<figure><img src="img/frame-1800.jpg" alt="Context distribution -- the design system plugin with progressive disclosure" loading="lazy"><figcaption>Context distribution -- the design system plugin with progressive disclosure</figcaption></figure>
+
+<p>Diana breaks down the layers. <strong>Rules files</strong> (always in context) serve as the safety net -- spacing, color, typography constraints that are impossible for the LLM to skip. The <strong>MCP</strong> is the on-demand retrieval layer, serving component APIs, props, variants, and code examples when prompted. <strong>AGENT.md</strong> is the orchestration layer -- it tells agents what knowledge exists and where to find it. Together, rules, MCP, and AGENT.md form a <strong>plugin</strong>, which is the convention that Cursor and Claude Code are currently adopting. Beyond these, skills, docs, and agents themselves add further layers of context that load progressively as needed.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On MDX vs. JSON for human documentation</strong>: Diana would love to go pure JSON and have the website pull from it directly -- as some speakers at the conference demonstrated -- but Indeed's design system is mature and large. Ripping out MDX is not feasible. The parsers bridge the gap by transforming MDX into JSON automatically.</p>
+
+<p><strong>On keeping the MCP fresh</strong>: Tony Rucker built a <strong>CI/CD pipeline</strong> triggered on every documentation commit. When maintainers update the MDX, the pipeline runs the parsers, regenerates the JSON, and re-ingests it into the MCP. The metadata users receive is always current.</p>
+
+<p><strong>On token budgets</strong>: AI tool providers are not enforcing hard token limits today, but that will change. Diana advises teams to start measuring input and output tokens per MCP query now, so they are not caught off guard when pricing tightens.</p>
+
+<p><strong>On getting started as a designer</strong>: Diana's advice is direct -- sit down in front of Cursor and say "I want to create an MCP, show me how to do it." She learned by doing. The three-month benchmarking effort (November 2025 to January 2026) was entirely vibe-coded. No engineering background is required to get started.</p>
+
+<p><strong>On stakeholder buy-in</strong>: Diana organically grew into this role by investigating early, writing articles on Medium, and reaching out to pioneers in the space. Her advice: frame AI as a new user of the design system, and the urgency becomes self-evident.</p>
+
+<figure><img src="img/frame-2400.jpg" alt="Diana Wolosin answering audience questions from Cartagena, Colombia" loading="lazy"><figcaption>Diana Wolosin answering audience questions from Cartagena, Colombia</figcaption></figure>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>JSON is the clear winner for feeding design system knowledge to LLMs.</strong> Diana's benchmark across 1,056 prompts and 8 MCP configurations showed that JSON achieved the highest LLM accuracy, the most consistent responses across repeated runs, and used 80% fewer tokens than hybrid Markdown-plus-JSON formats. At scale (1,000 queries/month), JSON costs $300/year versus $1,500/year for MDX. If you are building an MCP, invest in structured JSON metadata -- it functions like a contract with explicit keys, values, and boundaries.</p>
+
+<p><strong>The MCP has blind spots -- foundational knowledge must be always-present, not on-demand.</strong> Indeed's 4,389 AI-generated prototypes revealed that the LLM was inventing color palettes, misusing typography, and skipping spacing tokens because the MCP only returned data about what the prompt explicitly asked for. Spacing, color, typography, and grid rules need to be in the context every time, not just when requested. Use rules files as an always-present safety net alongside your on-demand MCP.</p>
+
+<p><strong>Build parsers to transform human documentation into structured metadata automatically.</strong> Diana created JavaScript parsers for each knowledge domain (accessibility, development, localization, design) that convert MDX documentation into JSON. A CI/CD pipeline triggers on every documentation commit to regenerate the JSON and re-ingest it into the MCP. This approach lets you keep your human-readable docs while maintaining a parallel machine-readable layer that stays automatically in sync.</p>
+
+<p><strong>Benchmark your MCP configurations before committing to one.</strong> Diana ran 22 prompts across 8 different metadata formats, measuring both token efficiency (what the MCP returns) and LLM accuracy (what the LLM does with it). The hybrid Markdown-plus-JSON format -- which many teams might default to -- was the least reliable. Without benchmarking, you would never know. Build a repeatable test suite for your MCP and run it whenever you change the metadata format.</p>
+
+<p><strong>Use progressive disclosure for AI context -- layer rules, MCP, and AGENT.md together.</strong> A machine-readable design system is not just an MCP. Rules files (always in context) serve as the safety net. The MCP is the on-demand retrieval layer for component APIs and code examples. AGENT.md is the orchestration layer telling agents what knowledge exists and where to find it. Together they form a "design system plugin" -- the convention that Cursor and Claude Code are currently adopting.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../225-vibe-coding-zero-drift/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Vibe Coding Zero Drift</span></a><a class="nav-next" href="../227-markdown-to-real-problems/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">From Markdown to Real Problems</span></a></nav>
+</body>
+</html>

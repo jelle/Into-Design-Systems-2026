@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>227-markdown-to-real-problems</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>From Falling for Markdown to Solving Real Problems with Scripts</h1>
+
+<p><strong>Laura Fehre</strong> -- Designer Advocate, Figma | Into Design Systems AI Conference 2026 | 49 min</p>
+
+<hr>
+
+<h2>The Ambitious Plan</h2>
+
+<p>Laura Fehre opens with a confession. In her day job at Figma, customers constantly ask the same question: <strong>Figma Make supports React, but what about SwiftUI? What about Bootstrap?</strong> She decided to find out for herself. Having learned SwiftUI during her time at HelloFresh, she picked Apple's Notes app as a target and mapped out an ambitious pipeline: turn the Human Interface Guidelines into an npm package, create markdown guideline files, map HIG components to the base training data of large language models, redesign the UI in Figma, prompt the interactions in Figma Make, use an MCP server, have Claude write a conversion script, and magically turn React into Swift.</p>
+
+<figure><img src="img/frame-0360.jpg" alt="The ambitious multi-step plan from HIG to SwiftUI, met with a wall of errors" loading="lazy"><figcaption>The ambitious multi-step plan from HIG to SwiftUI, met with a wall of errors</figcaption></figure>
+
+<p>The plan looked tidy on paper. In practice, each step introduced compounding errors. Inconsistent naming in Figma files led to broken code. The React-to-SwiftUI conversion got close but fell apart on fine details like SF Symbols, icon mapping, and the native feel of iOS. Laura's takeaway was blunt: <strong>the tool chain is powerful, but many steps still require human judgment</strong> -- and messy inputs produce messy outputs, no matter how capable the AI.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="Screenshots of the Apple Notes app used as the design target" loading="lazy"><figcaption>Screenshots of the Apple Notes app used as the design target</figcaption></figure>
+
+<hr>
+
+<h2>Design Still Matters</h2>
+
+<p>Before diving into the AI-heavy material, Laura pauses to anchor the talk in something she cares about deeply. The last twenty years of her career have been spent <strong>fighting against silos</strong> -- getting designers, engineers, and product managers to collaborate in shared spaces. But when everyone retreats to their local machine and their personal AI agent, those silos return. Working with Cursor or Claude Code in isolation recreates exactly the fragmentation that design systems spent years tearing down.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Design removes the silos -- collaborative workflow from terminal to Figma" loading="lazy"><figcaption>Design removes the silos -- collaborative workflow from terminal to Figma</figcaption></figure>
+
+<p>She also warns against <strong>tunnel vision</strong>. Sitting in front of an agent, prompting yes-no-yes-no on a single screen, is a narrow way to work. Mixing tools and approaches -- paper prototypes, Figma canvases, code editors, AI agents -- produces richer outcomes. And there are things Laura simply does not want AI to do. Choosing a button color, for instance, involves emotion and instinct. She prefers the color wheel. <strong>Designing has something to do with emotions</strong>, she says, and a prompt box cannot replicate that feeling.</p>
+
+<figure><img src="img/frame-0480.jpg" alt="Design avoids tunnel vision -- one direction, one screen at a time" loading="lazy"><figcaption>Design avoids tunnel vision -- one direction, one screen at a time</figcaption></figure>
+
+<hr>
+
+<h2>A Love Letter to Plain Text</h2>
+
+<p>The heart of the talk is a personal narrative about markdown. For five years, Laura's partner has insisted there is only one right way to write things down: <strong>markdown</strong>. He would say things like "plain text is freedom." She never bought it. She is a designer. She likes her thoughts with a little bit of typography.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="Plain text is freedom" loading="lazy"><figcaption>Plain text is freedom</figcaption></figure>
+
+<p>Then AI changed what she values. When your collaborator is a machine, vibes stop working. The winks do not translate. But <strong>structure does</strong>. That is when it clicked. Markdown is not about formatting -- it is about <strong>communication</strong>. It is about making intent visible and building something that both humans and machines can agree on. In very simple terms, markdown is just plain text with a signing set of symbols that tells words how to behave. It is not sparkly, it does not ship vibes, and it definitely does not try to be cute.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="Whimsical illustration of a love letter to markdown" loading="lazy"><figcaption>Whimsical illustration of a love letter to markdown</figcaption></figure>
+
+<hr>
+
+<h2>A Brief History of Structured Text</h2>
+
+<p>Laura takes the audience through a quick genealogy. <strong>HTML</strong> gave the web its bones -- headlines meant something, paragraphs meant something, links were relationships. <strong>YAML</strong> made configurations readable and let systems interpret what they were meant to be. Then in 2004, <strong>markdown</strong> arrived with a radically simple philosophy: a markdown document should read like a normal text document even before it is rendered. Formatting should feel like light choreography, not intense custom changes.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="Illustrated history of HTML" loading="lazy"><figcaption>Illustrated history of HTML</figcaption></figure>
+
+<p>That philosophy is why markdown took off so heavily. It matched what people were already doing in emails and message boards -- asterisks for emphasis, dashes for lists, plain brackets for links. It solved a 2004 problem for the web, and the world quietly built enormous infrastructure on top of it.</p>
+
+<hr>
+
+<h2>Documentation Has Two Audiences Now</h2>
+
+<p>For a very long time, design system documentation had one primary audience: <strong>humans</strong> -- mostly tired, skimming for answers, scrolling through documentation boards. Then a second audience moved in: <strong>machines</strong> that read, interpret, and act. AI does not get the gist. It does not infer intent from tone the way a teammate does. It works best when information is clear, structured, explicit, modular, and predictable.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Apple HIG button documentation -- human-readable guidelines" loading="lazy"><figcaption>Apple HIG button documentation -- human-readable guidelines</figcaption></figure>
+
+<p>This is the shift Laura keeps returning to: <strong>documentation is not just explanation anymore -- it is instruction</strong>. It is closer to choreography, or a cooking recipe. There is a difference between "you know what I mean" and "here is what I need, here is what I do not, and here is what done looks like." For everyone who has worked in design systems and struggled with the policing dynamic, markdown can help. It turns good-luck-and-have-fun prompts into repeatable outcomes without turning the creative process into a policy document.</p>
+
+<hr>
+
+<h2>Structuring Markdown for AI Consumption</h2>
+
+<p>Laura shares a concrete file structure for guideline documentation. The key principle: <strong>split your markdown across multiple smaller files</strong> rather than cramming everything into one. A single monolithic document overstretches the context window of an AI agent and leads to mistakes. Smaller files enable the agent to recall details accurately.</p>
+
+<figure><img src="img/frame-1080.jpg" alt="Recommended multi-file guideline structure with overview, foundations, components, and compositions" loading="lazy"><figcaption>Recommended multi-file guideline structure with overview, foundations, components, and compositions</figcaption></figure>
+
+<p>The structure she recommends breaks documentation into clear categories: an overview file with product character and cross-cutting rules, a setup file for providers and CSS imports, foundation files for color, spacing, typography, shadows, and layout, component files with a full catalog and alternative names, and composition files for patterns like text alignment, button heights, grid alignment, layering, and content stacking.</p>
+
+<hr>
+
+<h2>Live Demo: From Guidelines to Figma Make</h2>
+
+<p>Laura switches to a live demo, showing two approaches to creating markdown guideline files. The first is simple: take an existing design system's online documentation -- she uses Material Design as an example -- fetch the URL, and ask Cursor to create a <strong>machine-readable document</strong> based on those guidelines. The AI generates a structured markdown file for the button component with all its variants, states, and usage rules.</p>
+
+<figure><img src="img/frame-1260.jpg" alt="Claude Code creating a markdown file from Material Design's button guidelines" loading="lazy"><figcaption>Claude Code creating a markdown file from Material Design's button guidelines</figcaption></figure>
+
+<p>The second approach is faster for teams that already have a design system in code: point an agent at the repository and ask it to generate documentation from the existing codebase. Laura also recommends <strong>Obsidian</strong> as a companion tool for building a mental model of the design system. Its linked-note graph mirrors how language models connect concepts, making it a natural way to structure and navigate component relationships.</p>
+
+<p>She then demonstrates how to load these guidelines into <strong>Figma Make</strong>. Rather than starting with a prompt, she switches to the code editor tab and navigates to the guidelines section. The key technique: you can drag and drop an entire folder of markdown files into Figma Make's code editor without consuming any prompt credits. This loads all component documentation, compositions, foundations, and mapping files into the environment at once.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="Figma Make code editor with guidelines folder structure and mapping files" loading="lazy"><figcaption>Figma Make code editor with guidelines folder structure and mapping files</figcaption></figure>
+
+<hr>
+
+<h2>Building the NPM Package</h2>
+
+<p>With guidelines in place, Laura turns to creating the actual component library as an npm package. She pulls components from the iOS community file in Figma onto a single page and feeds the Figma link into Cursor's planning mode, asking it to build a React-based npm package compatible with Figma Make.</p>
+
+<p>The first attempt produces inconsistent code -- a direct consequence of the <strong>messy Figma file</strong> she started with. She restructures the source file, tries again, and gets better results. She builds a Storybook from the components to validate them visually, showing typography, shadows, materials, and the infamous liquid glass effect from iOS -- which, she notes, is a real pain to implement.</p>
+
+<figure><img src="img/frame-1860.jpg" alt="Storybook showing the iOS design system with tokens, materials, and liquid glass variables" loading="lazy"><figcaption>Storybook showing the iOS design system with tokens, materials, and liquid glass variables</figcaption></figure>
+
+<p>The Figma Make prototype of the Notes app gets close. The search works, notes are clickable, content is editable. But it is <strong>not quite Apple</strong>. Icons do not map correctly because SF Symbols work differently from standard icon sets. The native feel is off in subtle ways. Laura's honest assessment: the quality bar she wants has not been reached yet, but the experiment continues.</p>
+
+<figure><img src="img/frame-2100.jpg" alt="Figma Make prototype of the Notes app with search and note interaction" loading="lazy"><figcaption>Figma Make prototype of the Notes app with search and note interaction</figcaption></figure>
+
+<hr>
+
+<h2>Techniques for Better Guidelines</h2>
+
+<p>Laura shares several cross-cutting techniques that make guidelines significantly more effective for AI consumption.</p>
+
+<p><strong>Usage frequency</strong> is the first. When documenting spacing tokens, she annotates each value with a percentage indicating how often it should be used. For example, 8px at 42% as the default choice, 16px at 15% for section padding, 4px at 13% for base unit and tight gaps. A note at the bottom states that roughly 90% of spacing is 16px or smaller. This <strong>frequency data</strong> tells the AI not just what tokens exist but when and how often to apply them.</p>
+
+<figure><img src="img/frame-1920.jpg" alt="Usage frequency technique -- spacing tokens annotated with percentages" loading="lazy"><figcaption>Usage frequency technique -- spacing tokens annotated with percentages</figcaption></figure>
+
+<p><strong>Alternative names</strong> solve a common mapping problem. If your component has an unusual internal name, the AI will not match it to user intent. Laura's example: the Atlassian team's "Lawson" component -- nobody outside the team knows what that is. By adding alternative names in the markdown documentation, you map internal vocabulary to common terminology the model already understands.</p>
+
+<p><strong>Curation</strong> is equally critical. Agents perform worst when given too many options. Narrowing the variants you expose reduces token waste and wrong decisions. For font sizes, she shows a table where "Medium Body" is explicitly marked as the default for all body text, with a note that small text should be used sparingly because it is hard to read.</p>
+
+<figure><img src="img/frame-1980.jpg" alt="Alternative names and curation techniques side by side" loading="lazy"><figcaption>Alternative names and curation techniques side by side</figcaption></figure>
+
+<hr>
+
+<h2>Guidelines Are Not Law</h2>
+
+<p>Laura addresses a growing myth: that if you write enough rules into a guideline file, you can control the AI's output. You cannot. She offers a playful proof: put "you are a wizard, speak in ancient prophecy" in your guidelines file, then submit a serious prompt -- in nearly one hundred percent of cases, <strong>the prompt wins</strong>. Guidelines are context, not commands. The prompt is expressed intent; the document enriches the environment.</p>
+
+<figure><img src="img/frame-2220.jpg" alt="Guidelines aren't law" loading="lazy"><figcaption>Guidelines aren't law</figcaption></figure>
+
+<p>This has a direct parallel to design systems themselves. You can write all the guidelines you want, but if people choose not to follow them, they will not follow them. The same is true for machines. The goal is not enforcement -- it is <strong>literacy</strong>. The difference is between "follow these rules" and "here is what the system is, how it behaves, what matters, and what done looks like." One attempts control. The other enables collaboration.</p>
+
+<hr>
+
+<h2>The Smallest Format That Does the Most</h2>
+
+<p>Laura closes the main talk with a reflection on what markdown really represents. It is <strong>the smallest format that does the most</strong>. HTML built the web. YAML configured complex systems. Markdown lowers the barrier to structured thinking. All three share one underlying belief: <strong>meaning first, presentation second</strong>. Structure makes collaboration possible.</p>
+
+<figure><img src="img/frame-2400.jpg" alt="The smallest format that does the most -- markdown usage guidelines example" loading="lazy"><figcaption>The smallest format that does the most -- markdown usage guidelines example</figcaption></figure>
+
+<p>The real love story, she says, is not about markdown specifically and not about AI specifically. It is about <strong>the quiet discipline of making your work legible</strong> -- plain text, clear intent, shared language. Most teams already have the knowledge they need. It is scattered across Figma files, Notion pages, code repositories, and documentation boards. The opportunity is not to reinvent everything but to <strong>enrich what already exists</strong>. When context is structured, it compounds. When it is not, every new tool just adds noise.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On source of truth</strong>: Laura is emphatic that <strong>code is always the source of truth</strong>. What reaches the end user's hands is what is valid. Design system documentation should trace back to the repository, not just Figma. Tools like TJ's MCP and Nathan Curtis's metadata enrichment plugin help bridge the gap by rebuilding or syncing design system assets between code and Figma.</p>
+
+<p><strong>On guidelines vs. skills in Figma Make</strong>: Guidelines load every time you submit a prompt because the AI reads through all the documents. Skills are loaded only once. By structuring important guidelines as skills, you can save loading time and credits while still injecting the context that matters.</p>
+
+<p><strong>On not losing the designer's instinct</strong>: Laura returns to her opening theme. AI can automate pipelines -- component updates, token propagation, documentation generation. But <strong>problem-solving should not be outsourced</strong>. During her experiment, she hit a wall and went back to her Figma canvas to design by hand. With that design as input, the AI-generated output improved dramatically. The lesson: start with design, not with prompts.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Split your markdown documentation across multiple smaller files, not one monolith.</strong> A single large document overstretches the AI's context window and leads to mistakes. Laura recommends separate files for overview, setup, foundations (color, spacing, typography), component catalog, and composition patterns. This structure lets the agent recall details accurately because it loads only what it needs for a given task.</p>
+
+<p><strong>Annotate tokens with usage frequency to guide AI decisions.</strong> When documenting spacing tokens, Laura adds percentages: 8px at 42% as the default, 16px at 15% for section padding, 4px at 13% for tight gaps, with a note that 90% of spacing is 16px or smaller. This frequency data tells the AI not just what tokens exist but how often each should appear. Without it, the AI distributes values arbitrarily. Apply the same technique to typography, color, and any token with a "most common" use case.</p>
+
+<p><strong>Add alternative names to components so AI can match internal vocabulary to common terminology.</strong> If your component has an unusual internal name (Laura's example: Atlassian's "Lawson"), the AI cannot connect it to user intent. By listing alternative names in the markdown metadata, you bridge the gap between your internal naming and the terms the model already understands. This is a quick win that dramatically improves component selection accuracy.</p>
+
+<p><strong>Guidelines are context, not commands -- the prompt always wins.</strong> Laura demonstrated that putting "you are a wizard, speak in ancient prophecy" in a guidelines file gets overridden by a serious prompt nearly every time. Guidelines enrich the environment; they do not enforce behavior. This parallels how design systems work with humans: you can write all the rules you want, but if people choose not to follow them, they will not. Aim for literacy, not control.</p>
+
+<p><strong>Start with design, not with prompts -- problem-solving should not be outsourced.</strong> Laura hit a wall during her HIG-to-SwiftUI experiment and went back to Figma to design by hand. With that design as input, the AI output improved dramatically. Mixing tools and approaches -- paper prototypes, Figma canvases, code editors, AI agents -- produces richer outcomes than sitting in front of an agent prompting yes-no-yes-no on a single screen. Do not let the prompt box replace your design instinct.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../226-machine-readable-ds-mcp-llms/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Machine-Readable DS for MCP/LLMs</span></a><a class="nav-next" href="../228-ship-it-vibe-coding-figma-plugin/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Ship It! Figma Plugin</span></a></nav>
+</body>
+</html>

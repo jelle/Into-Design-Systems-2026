@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>215-whatsapp-vibe-coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>WhatsApp Web: Reclaiming UI Excellence through Vibe Coding</h1>
+
+<p><strong>Speaker</strong>: Sebastian Rousseau -- Senior Product Designer, Design Systems, WhatsApp</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 45 min</p>
+
+<hr>
+
+<h2>A Product Is What Your Code Says It Is</h2>
+
+<p>Sebastian Rousseau opens with a reframe borrowed from branding. The famous Marty Neumeier line -- "a brand is not what you say it is, it's what they say it is" -- shifted branding from intention to perception. He argues the same rethinking is now happening in product design.</p>
+
+<figure><img src="img/frame-0060.jpg" alt="Title slide: WhatsApp Web -- Reclaiming UI Excellence Through Vibe Coding" loading="lazy"><figcaption>Title slide: WhatsApp Web -- Reclaiming UI Excellence Through Vibe Coding</figcaption></figure>
+
+<p><strong>A design system is not what your guidelines say it is -- it's what your code says it is.</strong> Or put more broadly: a product is not what your Figma file says it is, it's what your code says it is. One shows intent, the other shows what users actually experience. On paper this sounds obvious, but in practice designers have never had the tools to truly work on code at the level they can now. AI coding, he argues, is the shift that closes that gap.</p>
+
+<figure><img src="img/frame-0120.jpg" alt="Slide: A design system is not what your guidelines say it is -- it's what your code says it is" loading="lazy"><figcaption>Slide: A design system is not what your guidelines say it is -- it's what your code says it is</figcaption></figure>
+
+<hr>
+
+<h2>The Challenge: 400 Million Users, One Engineer, One Designer</h2>
+
+<p>When Sebastian joined <strong>WhatsApp</strong> in 2024, his job was to bring the design system to web. The <strong>WhatsApp Design System (WDS)</strong> already existed for Android and iOS, serving roughly 3 billion users. But web -- used by <strong>400 million monthly active users</strong> -- was running a ten-year-old experience that was visually disconnected from the mobile apps.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="WhatsApp Web before and after: Android native app compared to the old web experience" loading="lazy"><figcaption>WhatsApp Web before and after: Android native app compared to the old web experience</figcaption></figure>
+
+<p>The team had concepts for a redesign based on the Android app, plus a hard deadline for <strong>European Accessibility Act (EAA)</strong> compliance within six months. The constraint that forced everything: the web design system team consisted of <strong>one engineer and Sebastian himself</strong> as the designer. He had to fundamentally rethink how to lead a design system with that kind of staffing.</p>
+
+<p>A year later, WhatsApp Web shipped <strong>13 components</strong>, achieving <strong>64% parity with mobile</strong>, and brought icons, illustrations, and tokens from mobile to web while ensuring <strong>WCAG 2.2 compliance</strong>. The team added missing paradigms like proper focus management and keyboard navigation that the mobile-centric design system had never needed.</p>
+
+<hr>
+
+<h2>Three Pillars: Consolidate, Collaborate, Enable AI</h2>
+
+<p>Sebastian's approach rested on three strategies, revealed progressively during the talk.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Three pillars: Consolidate (Clean Codebase), Collaborate (Build Quality Code), Enable AI (Ship Faster)" loading="lazy"><figcaption>Three pillars: Consolidate (Clean Codebase), Collaborate (Build Quality Code), Enable AI (Ship Faster)</figcaption></figure>
+
+<p>The first was to <strong>consolidate</strong> toward a cross-platform design system. WhatsApp's design philosophy is deeply rooted in platform nativeness -- iOS should feel like iOS, Android like Android. But Sebastian removed as much duplication as possible, consolidating assets so that one person could manage them. This alone saved an estimated <strong>450 hours per year</strong> of maintenance. More importantly for AI adoption, a cleaner codebase means <strong>quality in, quality out</strong> -- fewer conflicting sources of truth and outdated assets for AI agents to reproduce.</p>
+
+<p>The second pillar was to <strong>collaborate</strong> cross-org. He established a contribution model where he created a backlog of design specs that engineers from other teams could pick up. This approach quadrupled their output: of the 13 shipped components, <strong>10 came from cross-org contributions</strong>. At this stage, engineers were using AI to speed themselves up, not the other way around.</p>
+
+<p>The third was to <strong>enable AI</strong> by ensuring all assets and documentation were in <strong>machine-readable formats</strong> with proper <strong>MCP connections</strong>. This allowed the team to adopt AI tools from the start -- not just for engineers, but for product designers, content designers changing strings, and even PMs illustrating feature ideas more quickly.</p>
+
+<hr>
+
+<h2>The Designer's Tech Stack</h2>
+
+<p>Sebastian walks through his daily workflow, which revolves around three tools connected in a pipeline.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Tech stack: Figma (Explore) to VS Code (Prompt) to Chrome (Before/After)" loading="lazy"><figcaption>Tech stack: Figma (Explore) to VS Code (Prompt) to Chrome (Before/After)</figcaption></figure>
+
+<p><strong>Figma</strong> remains his sandbox for visual exploration -- trying color combinations, sketching layouts -- but he never goes as far as building a full prototype or complete screen anymore. He describes his Figma work as creating a <strong>"visual prompt"</strong>: just enough fidelity to articulate the direction.</p>
+
+<p><strong>VS Code</strong> with <strong>Claude Code</strong> is where the real work happens. He feeds his Figma draft as context alongside a text description of what he wants, sometimes dictated via Whisper for speed. From there, he iterates entirely in code.</p>
+
+<p><strong>Chrome</strong> with two tabs open -- the internal build and his working branch -- lets him instantly compare before and after states. An internal browser plugin he built ties this all together, which he demonstrates live later in the talk.</p>
+
+<hr>
+
+<h2>Use Case 1: Auditing the Codebase Before Designing</h2>
+
+<p>The first and perhaps most surprising use case is not about creating anything -- it is about <strong>understanding the existing product</strong> before touching a design.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="Use case icons: Auditing highlighted" loading="lazy"><figcaption>Use case icons: Auditing highlighted</figcaption></figure>
+
+<p>Previously, understanding the problem space meant reading documentation, searching Figma, asking engineers, and taking screenshots of the app to map what was intended versus what actually shipped. Now, Sebastian simply asks <strong>Claude Code</strong> questions like: "Find all edit icon instances and tell me where they get displayed," or "What is currently used in code for the profile photo component, what properties does it support, and where is it used in the app?"</p>
+
+<figure><img src="img/frame-0660.jpg" alt="VS Code prompt: Find all asset name instances and tell me where they get displayed" loading="lazy"><figcaption>VS Code prompt: Find all asset name instances and tell me where they get displayed</figcaption></figure>
+
+<p>The output gives him the <strong>file name</strong> (surfacing legacy naming conventions that engineers use internally), the <strong>properties</strong> the component supports (ID, size, type, shape), and <strong>where the component appears</strong> in the app with step-by-step navigation instructions. He calls this a vital tool for answering increasingly abstract questions about the product before attempting to design for them, catching issues and concerns before they occur.</p>
+
+<p>An unexpected benefit: working in the codebase breaks down the <strong>translation barrier</strong> between designers and engineers. When a feature was renamed years ago but the code was never updated, designers who only work in Figma never discover these discrepancies. AI-assisted auditing exposes them naturally.</p>
+
+<hr>
+
+<h2>Use Case 2: Exploring Designs in Code, Not Figma</h2>
+
+<p>The second use case addresses a core limitation of design tools. Figma is excellent for freeform visual exploration, but it is <strong>impossible to get a real feel</strong> for sizes, proportions, and especially how <strong>muscle memory changes</strong> play out day to day.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="Use case icons: Exploring highlighted" loading="lazy"><figcaption>Use case icons: Exploring highlighted</figcaption></figure>
+
+<p>Sebastian gives a concrete example. His team was implementing the <strong>WDS Menu component</strong>, and he wanted to replace a dialog with a more lightweight sub-menu for notification muting options. In the old workflow, he would have prototyped this in Figma, then handed specs to an engineer. Instead, he prompted Claude Code directly.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Figma sketch and VS Code prompt for the mute notifications sub-menu replacement" loading="lazy"><figcaption>Figma sketch and VS Code prompt for the mute notifications sub-menu replacement</figcaption></figure>
+
+<p>Within minutes he had a <strong>fully functioning implementation</strong> that he could stress-test against real scenarios: Does the toast appear when clicking an option? What happens when a status is already set? How does the unmute flow feel? He tested responsiveness, animation, and keyboard navigation -- interactions that are essentially impossible to evaluate in a static prototype.</p>
+
+<p>Most importantly, he was able to <strong>set this implementation as his default for several days</strong> and simply live with it. This "sitting with the design" phase is where critical muscle-memory judgments happen: Does this button repositioning actually feel right after three days of use? He ended up shipping this change himself, with engineers serving as reviewers rather than implementers.</p>
+
+<hr>
+
+<h2>Use Case 3: Shipping Code as a Designer</h2>
+
+<p>The third use case is the most provocative: <strong>designers directly shipping code</strong> to production. Sebastian frames the entry point carefully -- not features, but fixes.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Use case icons: Shipping highlighted" loading="lazy"><figcaption>Use case icons: Shipping highlighted</figcaption></figure>
+
+<p>The easy starting points are <strong>color token corrections</strong>, <strong>icon swaps</strong>, and <strong>component migrations</strong>. These are the kind of small visual inconsistencies that are nearly impossible to justify as standalone engineering tasks. A slightly off color here, a wrong icon there -- each one is a paper cut. But accumulated across a product, they erode the perceived quality of the experience. Sebastian calls this <strong>"death by a thousand cuts."</strong></p>
+
+<p>He then transitions to a live demo of WhatsApp Web, revealing the internal tool that makes this practical at scale.</p>
+
+<hr>
+
+<h2>Live Demo: The Visual Prompting Plugin</h2>
+
+<p>For the demo, Sebastian has his internal development build of WhatsApp Web open in Chrome alongside VS Code with Claude Code. But the key piece is a <strong>custom browser plugin</strong> his team built internally.</p>
+
+<figure><img src="img/frame-1140.jpg" alt="Live demo: WhatsApp Web internal build with the visual prompting plugin overlay" loading="lazy"><figcaption>Live demo: WhatsApp Web internal build with the visual prompting plugin overlay</figcaption></figure>
+
+<p>The plugin lets anyone <strong>hover over any UI element</strong> and fire a prompt with the full <strong>React component context</strong> automatically attached. He demonstrates two fixes: changing a menu item to use a destructive (red) style for the "Block" action, and swapping an icon on a button. Each action sends a prompt to VS Code with the React node context and his instructions, and Claude Code begins implementing the changes in the background.</p>
+
+<p>While waiting for the AI to process, he shows a case study from the <strong>WhatsApp Web status view</strong>. The old experience had small, poorly spaced elements, inaccessible hover states, and outdated typography. Step by step, he migrated buttons to the design system, added tooltips, fixed spacing, created a slimmer progress bar, and updated the typography -- then submitted the changes for review.</p>
+
+<figure><img src="img/frame-1260.jpg" alt="Status view voice message before and after redesign" loading="lazy"><figcaption>Status view voice message before and after redesign</figcaption></figure>
+
+<p>Over the preceding months, he shipped <strong>over 100 of these seemingly small fixes</strong> by himself. With the old process, each fix would have required a design spec, an engineer finding time, and the task competing with feature work in a backlog. Now, as more team members adopt the workflow, the <strong>cumulative velocity of polish</strong> is accelerating across the entire product.</p>
+
+<hr>
+
+<h2>Things to Be Mindful Of</h2>
+
+<p>Sebastian is careful to balance the enthusiasm with pragmatism, offering three cautions illustrated with WhatsApp's own animated stickers.</p>
+
+<figure><img src="img/frame-1380.jpg" alt="Slide: Take It Slow, Mind Time Sinks, Review" loading="lazy"><figcaption>Slide: Take It Slow, Mind Time Sinks, Review</figcaption></figure>
+
+<p><strong>Take it slow.</strong> At enterprise scale, the startup mentality of "go wild" does not apply. He advises starting with color changes, then icons, then component migrations, then features. Stability for users matters more than speed, especially when onboarding a team to new workflows.</p>
+
+<p><strong>Mind time sinks.</strong> Non-engineers are not always aware of how something that looks simple to fix can cascade into unexpected bugs. Sebastian admits he abandoned significant amounts of code early on when he stretched too far. AI is not a magic bullet -- it is a powerful tool that still requires judgment about scope.</p>
+
+<p><strong>Review everything.</strong> Every code change goes through multiple layers: Sebastian pre-checks the output himself, automated linters flag issues like hard-coded values that should be tokens, and a <strong>human engineer approves</strong> every diff before it ships. He also insists on maintaining <strong>design reviews</strong> even when the designer is the one writing the code. The temptation to skip review when you can ship directly is real, but alignment matters.</p>
+
+<p>He uses a memorable metaphor for the reading-versus-writing distinction: <strong>you can understand a language you cannot yet speak.</strong> Designers do not need to have written the code themselves, but they must be able to read and comprehend what the AI produced before submitting it for review.</p>
+
+<hr>
+
+<h2>The Expanding Designer Role</h2>
+
+<p>Sebastian closes by reflecting on what this shift means for the design profession and team dynamics.</p>
+
+<figure><img src="img/frame-1560.jpg" alt="Recap slide: Auditing, Exploring, Shipping -- all three use cases highlighted" loading="lazy"><figcaption>Recap slide: Auditing, Exploring, Shipping -- all three use cases highlighted</figcaption></figure>
+
+<p><strong>The designer's role expands</strong> to cover more parts of the process. Per feature, a designer may spend somewhat more time, because they are now involved in implementation. But the organization as a whole moves <strong>much faster</strong>, because engineers are no longer blocked waiting on specs and handoffs, and designers are no longer blocked waiting for implementation capacity.</p>
+
+<p>The question of <strong>where design decisions live</strong> is shifting too. Design files go stale and are expensive to keep in sync. Sebastian's personal conviction: <strong>code is becoming the source of truth.</strong> If you make a design decision, add a comment in the code. The closer you treat code as the authoritative record of design choices, the better it serves every role on the team.</p>
+
+<figure><img src="img/frame-1680.jpg" alt="Thank you slide: Sebastian Rousseau with LinkedIn QR code" loading="lazy"><figcaption>Thank you slide: Sebastian Rousseau with LinkedIn QR code</figcaption></figure>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On the internal plugin</strong>: The visual prompting tool is an internal WhatsApp build and not publicly available. It works by letting anyone hover over a UI element in Chrome and auto-attaching the React component context to a prompt sent to Claude Code in VS Code.</p>
+
+<p><strong>On connecting Figma to VS Code</strong>: Sebastian runs Claude Code in the terminal with an <strong>MCP connection to Figma</strong>. He treats the AI like an intern -- he prompts, it executes, he reviews and corrects, and over time it builds up <strong>markdown skill files</strong> that improve its output. A "second brain" of accumulated context.</p>
+
+<p><strong>On auditing as a design tool</strong>: Beyond creating prototypes, AI-assisted codebase exploration is invaluable for understanding component properties, usage patterns, and ripple effects before designing. Claude Code generates <strong>ASCII property trees</strong> and maps of how a component behaves, which Sebastian reviews before moving to any visual work.</p>
+
+<p><strong>On quality safeguards</strong>: Multiple layers protect against AI-generated regressions -- automated linters checking for token usage, human engineer review of every diff, and continued design reviews. The design system itself acts as a guardrail: components and tokens make the <strong>path of least resistance</strong> the path of consistency.</p>
+
+<p><strong>On whether designers should learn to code</strong>: Sebastian is biased toward yes, having started as a web designer himself. But the bar is lower than it sounds -- you need to be able to <strong>read the language, not speak it.</strong> Get a rough understanding of what you are producing, and the tools will handle the rest.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Start shipping code by fixing paper cuts, not building features.</strong> Sebastian shipped over 100 small fixes himself -- color token corrections, icon swaps, component migrations -- the kind of polish work that never survives a backlog prioritization meeting. These individually tiny changes compound into a dramatically better product experience. Identify the visual inconsistencies in your product that engineers will never prioritize, and start fixing them yourself with AI coding tools.</p>
+
+<p><strong>Use AI to audit the codebase before designing.</strong> Before touching a design, Sebastian asks Claude Code questions like "find all instances of this icon and tell me where they appear" or "what properties does this component support?" This surfaces legacy naming, undocumented states, and design-code discrepancies that Figma-only workflows would never reveal. Make codebase auditing a standard step in your design process -- it catches issues before they become handoff surprises.</p>
+
+<p><strong>Consolidate assets to make AI effective -- quality in, quality out.</strong> Sebastian saved an estimated 450 hours per year by consolidating WhatsApp's cross-platform design assets so one person could manage them. A cleaner, more unified codebase means fewer conflicting sources of truth for AI to reproduce. Before investing in AI tooling, invest in reducing duplication and removing outdated assets from your system.</p>
+
+<p><strong>Treat Figma as a visual prompt, not a final deliverable.</strong> Sebastian never builds full prototypes in Figma anymore. He creates just enough visual fidelity to articulate direction, then moves to code where he can stress-test responsiveness, animation, keyboard navigation, and muscle memory over days of actual use. If you are still producing high-fidelity Figma prototypes, consider whether that time would be better spent exploring in code.</p>
+
+<p><strong>Layer multiple review gates even when designers ship code directly.</strong> Every change Sebastian ships goes through self-review, automated linters checking for hard-coded values, and human engineer approval. He also maintains design reviews even when he is the one writing the code. The temptation to skip review when you can ship directly is real, but enterprise-scale products need stability over speed.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../214-prototyping-for-the-unknown/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Prototyping for the Unknown</span></a><a class="nav-next" href="../216-product-primitives/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Product Primitives</span></a></nav>
+</body>
+</html>

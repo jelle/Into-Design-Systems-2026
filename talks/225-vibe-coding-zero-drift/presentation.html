@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>225-vibe-coding-zero-drift</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>Vibe Coding with Zero Drift -- from Figma to Storybook to Production</h1>
+
+<p><strong>Speaker</strong>: Shuaiqi (Mr.Biscuit) Sun -- Design System Architect, Independent | Co-creator of Variable Visualizer</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 76 min</p>
+
+<hr>
+
+<h2>The Promise: Zero Drift from Design to Code</h2>
+
+<p>Mr. Biscuit opens with a bold claim that has been met with skepticism in prior sessions: it is possible to ship <strong>production-ready code as a designer</strong> with zero visual drift between Figma and the final product. The methodology is straightforward in principle -- build components in Figma with fully bound variables, use the <strong>Figma MCP</strong> to land them in Storybook, then move from Storybook to production. The session is 90% live demo, walking through every step from an empty Figma file to a working React application.</p>
+
+<figure><img src="img/frame-0000.jpg" alt="Title slide: Vibe Coding from Figma to Storybook to Production with 0 drift" loading="lazy"><figcaption>Title slide: Vibe Coding from Figma to Storybook to Production with 0 drift</figcaption></figure>
+
+<p>The pipeline has three stages. In <strong>Figma</strong>, the designer defines the component structure, creates multi-dimensional variable collections, binds those variables to component elements, and partially defines the API. In <strong>Storybook</strong>, those variable bindings are translated into code via the Figma MCP, the full API definition is completed, and interactivity and UI logic are layered on. In <strong>Production</strong>, the verified components from Storybook are assembled into screens by feeding the component definitions and their props to an LLM.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="The three-stage pipeline: Figma Comps to Storybook to Production" loading="lazy"><figcaption>The three-stage pipeline: Figma Comps to Storybook to Production</figcaption></figure>
+
+<hr>
+
+<h2>The Problem: Picking the Right Component Is Unsolvable</h2>
+
+<p>Before diving into the demo, Mr. Biscuit frames the core problem he is solving. <strong>Components that look visually similar are trivially misused</strong> -- by both humans and LLMs. He uses Figma's own UI3 design system as his example and runs a rapid-fire quiz with the audience.</p>
+
+<figure><img src="img/frame-0240.jpg" alt="The problem: how to pick the right components to use" loading="lazy"><figcaption>The problem: how to pick the right components to use</figcaption></figure>
+
+<p>First, he shows two nearly identical elements and asks the audience to identify them. One turns out to be a <strong>chip</strong>, the other a <strong>navigation tab</strong>. They look almost the same, but their functions are entirely different -- one triggers a dropdown, the other navigates to a different view. Next, he shows a small icon-like element that could be a favorite icon or a button. It turns out one is a fave icon and the other is the button used to advance his own presentation slides.</p>
+
+<figure><img src="img/frame-0300.jpg" alt="Chip vs. navigation tab -- visually similar, functionally different" loading="lazy"><figcaption>Chip vs. navigation tab -- visually similar, functionally different</figcaption></figure>
+
+<p>The final quiz is the most revealing. He shows four list-item elements from different parts of the Figma interface: a <strong>page list item</strong>, a <strong>layer list item</strong>, an <strong>asset list item</strong>, and a <strong>home sidebar item</strong>. They all look broadly similar -- text with optional icons in a row. Yet they have different icon sizes, different gaps, different padding, and different font weights. In a traditional design system, each would be a separate component with its own documentation page and its own API surface that a human or LLM would need to learn.</p>
+
+<figure><img src="img/frame-0360.jpg" alt="Four visually similar list items from different Figma panels" loading="lazy"><figcaption>Four visually similar list items from different Figma panels</figcaption></figure>
+
+<hr>
+
+<h2>The Solution: Make Components Behave Themselves</h2>
+
+<p>Mr. Biscuit quotes Steve Jobs: "The line of code that never breaks is the line of code the developer never had to write." His solution follows the same logic. If components that share the same <strong>function</strong> can morph into the correct visual appearance based on the <strong>context</strong> they live in, then neither humans nor LLMs ever need to choose between them. The number of components drops dramatically, and the surface area for misuse shrinks to near zero.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Solution: make components behave themselves so we don't have to pick" loading="lazy"><figcaption>Solution: make components behave themselves so we don't have to pick</figcaption></figure>
+
+<p>The approach has three steps. First, <strong>categorize components by function</strong> -- not by visual appearance, but by what happens when a user interacts with them. Second, <strong>merge the components</strong> that share the same function and a similar layout into a single, smarter component. Third, give that merged component <strong>contextual awareness</strong> so it can morph its appearance based on the container it lives in.</p>
+
+<hr>
+
+<h2>Demo Part 1: Building Multi-Modal Variables from Scratch</h2>
+
+<p>The bulk of the session is a live Figma demo where Mr. Biscuit builds a <strong>sidebar row item</strong> component entirely from scratch. He starts with a bare-bone structure -- a container with a leading icon slot, a text label, and a trailing icon slot -- and no variables whatsoever.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Setting up the initial component structure with Variable Visualizer" loading="lazy"><figcaption>Setting up the initial component structure with Variable Visualizer</figcaption></figure>
+
+<p>He creates a new variable collection specifically for this component and introduces what he calls <strong>multi-modal variables</strong>. The first collection handles color mode. He creates three variables: <strong>background (BG)</strong>, <strong>foreground (FG)</strong>, and <strong>inner background (inner BG)</strong>. Each is aliased to primitives from Figma's UI3 color tokens. He binds background to the container fill, foreground to the text and icon fills, and inner background to the inner highlight area.</p>
+
+<p>The instant he binds the first variable, the side-by-side instance on canvas updates in real time. He sets the instance to dark mode while the main component stays in light mode, and the colors flip correctly. This is <strong>contextual awareness level one</strong>: a parent container can dictate color mode to all its children. When a component drops into a dark-mode container, it knows to switch.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="First level of contextual awareness: light and dark mode via variable binding" loading="lazy"><figcaption>First level of contextual awareness: light and dark mode via variable binding</figcaption></figure>
+
+<hr>
+
+<h2>Demo Part 2: Stacking Interactive State as a Second Modality</h2>
+
+<p>Next, Mr. Biscuit adds a second variable collection called <strong>interactive state</strong> with three modes: idle, hover, and active. He connects the inner background variable to this new collection. In idle state, the inner background stays transparent. On hover, it aliases to the hover background token. On active (selected), it aliases to the selected background token.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Building the interactive state collection with idle, hover, and active modes" loading="lazy"><figcaption>Building the interactive state collection with idle, hover, and active modes</figcaption></figure>
+
+<p>Now the component responds to two independent dimensions simultaneously. In dark mode with hover state, it shows one color. In light mode with active state, it shows another. The crucial insight is that these layers <strong>stack</strong> -- the color mode collection and the interactive state collection do not interfere with each other. The final resolved value flows through both.</p>
+
+<hr>
+
+<h2>Demo Part 3: Panel Context as a Third Modality</h2>
+
+<p>The third level of contextual awareness is the most powerful. Mr. Biscuit creates a <strong>panel</strong> collection with modes for each context the component might appear in: layer panel, page panel, asset panel, and dashboard sidebar. This collection controls <strong>visibility</strong>, <strong>spacing</strong>, <strong>icon size</strong>, and <strong>font weight</strong> -- not just color.</p>
+
+<p>For the page panel, leading and trailing icons are set to hidden, because Figma's page list items do not show icons. For the asset panel, the gap between elements is tighter. For the dashboard sidebar, the icon is larger and the padding is different. All of this is encoded as <strong>variable logic in Figma</strong>, not as separate component variants.</p>
+
+<figure><img src="img/frame-1200.jpg" alt="Controlling trailing icon visibility based on panel context" loading="lazy"><figcaption>Controlling trailing icon visibility based on panel context</figcaption></figure>
+
+<p>He demonstrates a particularly elegant interaction: the trailing icon's visibility depends on <strong>both</strong> the panel type and the interactive state. In the layer panel, the trailing icon is hidden by default but becomes visible on hover -- exactly how Figma's own layer panel works. In the page panel, the trailing icon never appears regardless of hover state, because the panel-level variable overrides the interaction-level one.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="Font weight and visibility stacking across panel and interactive state collections" loading="lazy"><figcaption>Font weight and visibility stacking across panel and interactive state collections</figcaption></figure>
+
+<p>The font weight follows the same pattern. In the page panel, the active state renders text at 600 weight (bold), while the layer panel keeps it at 400. This mirrors the actual Figma UI behavior where selected page names appear bolder than selected layer names.</p>
+
+<hr>
+
+<h2>The Payoff: One Component, Many Contexts</h2>
+
+<p>Mr. Biscuit steps back to show the full picture. A single <strong>sidebar row item</strong> component, when placed into different containers, automatically morphs into the correct visual representation. Dropped into the component panel, it turns purple (matching Figma's component panel styling). Dropped into the layer panel, it shows lock and visibility trailing icons on hover. Dropped into the page panel, icons disappear and selected text goes bold. Dropped into the dashboard sidebar, the icon grows larger and padding adjusts.</p>
+
+<figure><img src="img/frame-1800.jpg" alt="One component morphing across different panel contexts" loading="lazy"><figcaption>One component morphing across different panel contexts</figcaption></figure>
+
+<p>The library that previously needed dozens of visually similar but functionally identical components now needs far fewer. The component count drops dramatically, and with it the cognitive load on both humans and LLMs. Mr. Biscuit emphasizes that this is not about combining everything -- the <strong>dropdown menu item</strong>, which looks similar but triggers a function rather than navigating, remains a separate component. The merge criterion is always <strong>shared function</strong>, never just shared appearance.</p>
+
+<hr>
+
+<h2>The Variable Visualizer: Seeing What Flows Where</h2>
+
+<p>At scale, Figma's built-in variable tables break down. When aliasing spans three or four collections simultaneously, it becomes impossible to track which value flows where. Mr. Biscuit's <strong>Variable Visualizer</strong> plugin provides a graph view that shows the full dependency chain across all collections without leaving Figma.</p>
+
+<figure><img src="img/frame-2400.jpg" alt="Variable Visualizer showing the full token dependency graph" loading="lazy"><figcaption>Variable Visualizer showing the full token dependency graph</figcaption></figure>
+
+<p>The graph view makes it clear how a single design decision -- changing a primitive color token -- cascades through alias chains, through component-specific collections, through interactive states, and through panel contexts. This visibility is what makes the multi-modal approach manageable at scale.</p>
+
+<hr>
+
+<h2>From Figma to Code: The Figma MCP Bridge</h2>
+
+<p>With all variables built and bound, Mr. Biscuit transitions to the code side. He opens the <strong>Variable Visualizer</strong> plugin and pushes all the variable logic to a GitHub repository. This exports the complete design token definitions, their values, relationships, and a resolver file that computes the actual resolved value for any token given a set of active modes.</p>
+
+<figure><img src="img/frame-3000.jpg" alt="Pushing variable logic to GitHub via Variable Visualizer" loading="lazy"><figcaption>Pushing variable logic to GitHub via Variable Visualizer</figcaption></figure>
+
+<p>In Cursor, he enables the <strong>Figma Desktop MCP</strong> server, copies the Figma component link, and sends it to the LLM with a prompt that instructs it to call the Figma MCP's <strong>get_variable_defs</strong> tool. This tool tells the LLM exactly which variables are bound to the component, preserving the variable names as CSS custom properties in the generated code.</p>
+
+<figure><img src="img/frame-3180.jpg" alt="Cursor with Figma MCP generating the sidebar row item component" loading="lazy"><figcaption>Cursor with Figma MCP generating the sidebar row item component</figcaption></figure>
+
+<p>He notes one important limitation: the <strong>Figma MCP does not yet pass which modes are explicitly set on individual layers</strong>. It knows which variables are bound, but not which mode overrides are applied at the layer level. This is why he built a custom plugin called <strong>Better LLM Context</strong> that exports the full variable logic as XML, including every mode override on every layer. For component-level code generation, the Figma MCP works well. For screen-level composition, the XML export is essential.</p>
+
+<hr>
+
+<h2>Storybook as the Verification Layer</h2>
+
+<p>The generated component lands in <strong>Storybook</strong> first, never directly in production. Storybook serves as the verification layer where every mode combination is tested. Mr. Biscuit toggles through the controls: dark mode works, hover shows the correct color, active shows the selected state, the layer panel variant shows trailing icons, the page panel hides them.</p>
+
+<figure><img src="img/frame-3360.jpg" alt="Storybook verification: testing the component across all mode combinations" loading="lazy"><figcaption>Storybook verification: testing the component across all mode combinations</figcaption></figure>
+
+<p>He adds interactivity iteratively through additional prompts: hover state triggers on mouse enter, click selects the item and deselects siblings within the same panel. Each round of prompting takes the LLM about 10-30 minutes in his experience (a practical bottleneck he openly acknowledges), but the styling decisions are already locked in from Figma. The code-side work is almost entirely about <strong>wiring up interactions and fixing small bugs</strong>, not about making visual decisions.</p>
+
+<figure><img src="img/frame-3900.jpg" alt="Adding interactivity: hover states and click selection in Cursor" loading="lazy"><figcaption>Adding interactivity: hover states and click selection in Cursor</figcaption></figure>
+
+<hr>
+
+<h2>From Storybook to Production</h2>
+
+<p>The final step assembles verified Storybook components into a real page. Mr. Biscuit instructs the LLM to create a demo page with two <strong>SubPanel</strong> components -- one in page mode and one in layer mode. The modes propagate recursively: the SubPanel passes its panel mode to all its children, and each sidebar row item automatically adapts.</p>
+
+<figure><img src="img/frame-3900.jpg" alt="Building the production demo page with two SubPanel instances" loading="lazy"><figcaption>Building the production demo page with two SubPanel instances</figcaption></figure>
+
+<p>The result is a working React application running on localhost. The left sidebar shows a pages section (no icons, bold on select) and a layers section (icons visible on hover, trailing actions on hover). All styling traces back to the Figma variables. The drift is zero because <strong>Figma is the single source of truth</strong> for every visual decision, and the code merely wires up the variable references.</p>
+
+<figure><img src="img/frame-4200.jpg" alt="The final production result: a working sidebar with pages and layers panels" loading="lazy"><figcaption>The final production result: a working sidebar with pages and layers panels</figcaption></figure>
+
+<hr>
+
+<h2>Looking Ahead: JIT Composition and Component Origination</h2>
+
+<p>In the closing section, Mr. Biscuit connects his approach to the broader trajectory of AI-generated interfaces. He references Yesenia Perez-Cruz's talk from earlier in the conference on <strong>just-in-time (JIT) composition</strong> -- the idea that AI will generate screens on demand for each user rather than serving static layouts.</p>
+
+<p>He argues that a <strong>lightweight, contextually-aware component library</strong> is the ideal foundation for JIT composition. Bloated libraries with hundreds of components will struggle because they fill up the LLM's context window, with hallucination risk increasing well before the window is technically full. His multi-modal approach keeps the component count low while preserving full visual fidelity.</p>
+
+<p>He also introduces the concept of <strong>JIT component origination</strong> -- the idea that AI will need to generate not just screens but entirely new molecule and pattern-level components from atomic building blocks. Keeping the atom layer lean and well-structured is the prerequisite for this. The sweet spot for what to feed LLMs is <strong>atomic components and molecules with bound tokens</strong>, not raw tokens alone (too easy to misuse) and not full screens (too expensive to index).</p>
+
+<figure><img src="img/frame-2100.jpg" alt="Thank you slide with QR codes for LinkedIn and X" loading="lazy"><figcaption>Thank you slide with QR codes for LinkedIn and X</figcaption></figure>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On accessibility</strong>: Mr. Biscuit acknowledges that accessibility labels need to be added on the code side so screen readers can identify components correctly. The visual accessibility work -- contrast ratios, color checks -- is handled by visual designers at the companies he consults with, not by the variable system itself.</p>
+
+<p><strong>On the future of design systems</strong>: He predicts that design systems are not going away, but they need <strong>new blood</strong> -- specifically, they need to become lightweight enough to serve as the material for AI-generated compositions. A design system that is too bloated to fit in a context window will be left behind. The goal is a system where the LLM has everything it needs to compose screens that never existed before, at runtime, as the user requests them.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Categorize components by function, not appearance, then merge the ones that share the same job.</strong> Mr. Biscuit showed that visually similar elements (chips vs. navigation tabs, four different list items) are trivially misused by both humans and LLMs. By merging components that share the same function into a single smart component with contextual awareness, the library shrinks dramatically and the surface area for misuse approaches zero. Audit your library for components that look different but do the same thing -- those are merge candidates.</p>
+
+<p><strong>Use multi-modal Figma variables to make components morph by context.</strong> By stacking variable collections -- color mode, interactive state, and panel context -- a single sidebar row item automatically adapts its colors, spacing, icon visibility, and font weight based on where it lives. This eliminates the need for dozens of near-identical component variants. The key insight: these variable layers stack without interfering with each other, so the final resolved value flows through all of them.</p>
+
+<p><strong>Keep your component library lightweight enough to fit in an LLM context window.</strong> Bloated libraries with hundreds of components fill up context windows and increase hallucination risk well before the window is technically full. Mr. Biscuit's approach keeps the component count low while preserving full visual fidelity. If your design system cannot fit in a context window, it cannot serve as the material for AI-generated compositions -- and it will be left behind.</p>
+
+<p><strong>Use Storybook as the verification layer between Figma and production.</strong> Generated components land in Storybook first, never directly in production. Every mode combination is tested there before the component moves forward. The styling decisions are locked in from Figma; the code-side work is almost entirely about wiring up interactions and fixing small bugs. This three-stage pipeline (Figma to Storybook to Production) is what delivers zero drift.</p>
+
+<p><strong>Push variable logic to GitHub and use the Figma MCP to preserve variable names as CSS custom properties.</strong> Mr. Biscuit's Variable Visualizer plugin exports complete design token definitions, values, relationships, and a resolver file to a GitHub repository. When the Figma MCP generates code, it preserves variable bindings as CSS custom properties rather than hard-coded values. This is the mechanical link that maintains parity between design and code -- without it, drift is inevitable.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../224-building-real-ds-with-agents/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Building Real DS with Agents</span></a><a class="nav-next" href="../226-machine-readable-ds-mcp-llms/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Machine-Readable DS for MCP/LLMs</span></a></nav>
+</body>
+</html>

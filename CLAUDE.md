@@ -17,7 +17,8 @@ Into Design Systems 2026/
 │   ├── 216-product-primitives/
 │   │   ├── presentation.md    # Narrative source (markdown)
 │   │   ├── presentation.html  # Rendered for sharing
-│   │   └── frame-*.jpg        # Video screenshots
+│   │   └── img/
+│   │       └── frame-*.jpg    # Video screenshots
 │   └── transcripts/           # Raw transcripts (all talks)
 ├── outlines/              # Quick 10-15 bullet summaries per talk
 ├── slides/                # PDF slide decks (where available)
@@ -44,13 +45,13 @@ This is the premium artifact — a narrative article with embedded screenshots.
 - Requires Chrome DevTools MCP (Playwright can't bypass DRM)
 - Navigate to `https://videos.intodesignsystems.com/videos/<page_id>`
 - Seek every 60s, take screenshot of the `mux-player` element
-- Save as `talks/<id>-<slug>/frame-XXXX.jpg`
+- Save as `talks/<id>-<slug>/img/frame-XXXX.jpg`
 
 **Step 2: Write the narrative**
 - Read the full transcript from `talks/transcripts/`
 - View key screenshots to understand slide content
 - Write a coherent article (NOT a transcript dump) that follows the talk's arc
-- Use relative image paths: `![alt](frame-XXXX.jpg)`
+- Use relative image paths: `![alt](img/frame-XXXX.jpg)`
 - Save as `talks/<id>-<slug>/presentation.md`
 
 **Step 3: Render HTML**
@@ -63,7 +64,7 @@ This generates `presentation.html` next to the markdown, with images embedded.
 
 | ID | Title | Transcript | Outline | Presentation |
 |----|-------|-----------|---------|-------------|
-| 210 | Bonus: Spotify Design System | Yes | Yes | - |
+| 210 | Bonus: Spotify Design System | Yes | Yes | Done |
 | 211 | Bonus: Context-Based Design Systems | - | - | - |
 | 212 | Bonus: Escaping the AI pit of death | - | - | - |
 | 213 | Day 1 - Intro | Yes | - | - |

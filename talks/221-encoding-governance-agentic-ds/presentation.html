@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>221-encoding-governance-agentic-ds</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>Encoding Governance on Agentic Design Systems</h1>
+
+<p><strong>Speaker</strong>: Cristian Morales Achiardi -- Design Engineer, Enara Health</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 38 min</p>
+
+<hr>
+
+<h2>The Core Value: Cognitive Reallocation</h2>
+
+<p>Cristian opens with a foundational claim: the real value of a design system is not in its components. It is in <strong>cognitive reallocation</strong> -- the ability to remove solved problems from every consumer's mental load. Spacing, color, typography, component behavior -- these are decisions that should never require attention twice. When a design system works, it frees teams to redirect that attention toward the problems that actually matter.</p>
+
+<figure><img src="img/frame-0060.jpg" alt="Title slide: Encoding governance on agentic design systems" loading="lazy"><figcaption>Title slide: Encoding governance on agentic design systems</figcaption></figure>
+
+<p>But there is a catch. <strong>Governance has always been a luxury.</strong> The cost of enforcing standards manually exceeds what most teams can sustain. He cites the Zeroheight Design Systems Report, released just two days before this talk: the most common design system team size is three to five people, 60% have zero token pipeline automation, and 61% feel understaffed. Design system teams simply do not scale with company size.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="Statistics: 60% zero pipeline automation, 61% feel understaffed" loading="lazy"><figcaption>Statistics: 60% zero pipeline automation, 61% feel understaffed</figcaption></figure>
+
+<hr>
+
+<h2>The Source of Truth Problem</h2>
+
+<p>Different roles have different sources of truth. For designers, it might be Figma. For developers, Storybook or the codebase. For product managers, a spreadsheet. The problem, Cristian argues, is that <strong>these multiple "truths" inevitably diverge.</strong></p>
+
+<figure><img src="img/frame-0240.jpg" alt="The problem: multiple truths that diverge" loading="lazy"><figcaption>The problem: multiple truths that diverge</figcaption></figure>
+
+<p>His proposal: choose the source of truth that cannot die -- and make it explicit through <strong>code contracts</strong>. This is not about treating existing code as its own standard of correctness. It is about using infrastructure to ensure code follows a specification. The contracts encode <strong>normative decisions</strong> -- what are the correct tokens, the correct component structure, the correct composition patterns -- so that enforcement becomes automatic rather than aspirational.</p>
+
+<hr>
+
+<h2>Four Structural Layers of an Agentic Design System</h2>
+
+<p>Cristian introduces a four-layer architecture that forms the backbone of his approach. Each layer eliminates a specific category of AI failure, and each depends on the one below it.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Structural layers: tokenization, intent, indexing, strategies" loading="lazy"><figcaption>Structural layers: tokenization, intent, indexing, strategies</figcaption></figure>
+
+<p><strong>Layer 1: Tokenization</strong> provides values and definitions. Raw values become curated sets, eliminating the <strong>infinite decision space</strong> of arbitrary choices. <strong>Layer 2: Intent</strong> holds component metadata -- use cases, composition patterns, dos and don'ts, accessibility considerations. This eliminates <strong>interpretation</strong>, turning design decisions into contracts rather than prose. <strong>Layer 3: Indexing</strong> maps all relationships between components and tokens, giving the AI a complete map of the codebase. This eliminates <strong>exploration</strong> -- the AI consults the map instead of searching. <strong>Layer 4: Strategies</strong> contain agent instructions, rules, and skills. This eliminates <strong>improvisation</strong>, ensuring the agent follows an encoded methodology instead of inventing a new approach each time.</p>
+
+<p>If tokens are wrong, metadata describes wrong components. If metadata is missing, the index maps to nothing. If the index is incomplete, strategies cannot operate. The layers are a dependency chain.</p>
+
+<hr>
+
+<h2>Infrastructure and Tooling</h2>
+
+<p>He walks through the concrete infrastructure powering this at Enara Health. The strategy layer breaks into three parts: <strong>instructions</strong>, <strong>rules</strong>, and <strong>skills</strong>.</p>
+
+<figure><img src="img/frame-0540.jpg" alt="Instructions, rules, and skills breakdown" loading="lazy"><figcaption>Instructions, rules, and skills breakdown</figcaption></figure>
+
+<p><strong>Instructions</strong> are the global methodology -- they define when to load the codebase index, how to approach different types of queries, and what artifacts to produce. <strong>Rules</strong> are passive constraints loaded based on the task at hand: memory management strategies, the atomic design hierarchy, and a "deep tracing" methodology that maps the full component tree. <strong>Skills</strong> are reusable capabilities that perform specific operations -- scaffolding a component, auditing tokens, generating documentation. Skills are portable across projects; rules tend to be project-specific.</p>
+
+<hr>
+
+<h2>Consumer vs. Maintainer: Two Agent Roles</h2>
+
+<p>Cristian draws a critical distinction between two modes of interacting with a design system. A <strong>consumer</strong> -- whether human or AI -- reads documentation, understands a component, implements it, and moves forward. A <strong>maintainer</strong> audits the codebase structure, identifies technical debt and drift, proposes architectural improvements, and enforces contracts.</p>
+
+<figure><img src="img/frame-0600.jpg" alt="When does the system become agentic? Consumer vs. Maintainer roles" loading="lazy"><figcaption>When does the system become agentic? Consumer vs. Maintainer roles</figcaption></figure>
+
+<p>The system becomes truly <strong>agentic</strong> when both roles can be AI-assisted. It is not just a better-indexed component library. It is an environment where agents can autonomously maintain and enforce the standards that were encoded into the system.</p>
+
+<hr>
+
+<h2>Layer by Layer: The Implementation</h2>
+
+<p>Cristian switches from slides to a FigJam board to walk through each layer in detail.</p>
+
+<p><strong>The Tokenization Layer</strong> starts with a W3C-spec-compliant design token JSON file as the source of truth. From there, Style Dictionary exports tokens to whatever platform the product needs, and the same tokens sync into Figma. But the real differentiator is the <strong>token auditor skill</strong>. This is not a simple linter that checks whether a token is being used -- it checks whether the <strong>correct token</strong> is being used for a given context. Elevation hierarchy, semantic color models, and typography rules are encoded as explicit constraints.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="Tokenization layer: W3C tokens, Style Dictionary, token auditor" loading="lazy"><figcaption>Tokenization layer: W3C tokens, Style Dictionary, token auditor</figcaption></figure>
+
+<p>The auditor produces <strong>schematized reports</strong> -- every report follows the same structure, so you can compare reports over time and track whether the system is healing itself.</p>
+
+<figure><img src="img/frame-0780.jpg" alt="Token audit reports and self-healing suggestions" loading="lazy"><figcaption>Token audit reports and self-healing suggestions</figcaption></figure>
+
+<p><strong>The Intent Layer</strong> is where component metadata lives. Cristian uses a TypeScript schema to generate metadata files for each component. TypeScript is deliberate: it gives AI a structured header it can scan quickly before drilling into use cases, composition patterns, anti-patterns, and accessibility notes -- the same way a developer scans an API reference.</p>
+
+<figure><img src="img/frame-0840.jpg" alt="Metadata schema generating TypeScript metadata files" loading="lazy"><figcaption>Metadata schema generating TypeScript metadata files</figcaption></figure>
+
+<p>A related skill in this layer is the <strong>scaffold component</strong> skill. It enforces that every new component ships with five files: React component logic, a CSS module, a metadata file, unit tests, and barrel exports. This standardized structure means every component is documentation-ready from birth.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Scaffold component: five required files per component" loading="lazy"><figcaption>Scaffold component: five required files per component</figcaption></figure>
+
+<p><strong>The Indexing Layer</strong> uses a <strong>codebase index</strong> skill that runs a script to generate three artifacts: an <code>index.toon</code> file mapping the entire library, a <code>component-usage.toon</code> file tracking relationships between components, and a <code>design-tokens.toon</code> file mapping component-to-token relationships. Regenerating the entire world map takes about 10 seconds after any new component is added.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Codebase index: script generates three artifact files" loading="lazy"><figcaption>Codebase index: script generates three artifact files</figcaption></figure>
+
+<hr>
+
+<h2>Benchmarks: The Infrastructure Pays for Itself</h2>
+
+<p>Cristian shares benchmark data from testing his agentic infrastructure against a control group (the same system without any of the encoded layers).</p>
+
+<figure><img src="img/frame-1140.jpg" alt="Benchmark comparison table: with vs. without infrastructure" loading="lazy"><figcaption>Benchmark comparison table: with vs. without infrastructure</figcaption></figure>
+
+<p>The control group achieved 77% component completeness, 69% accuracy, 44% efficiency, and 65% overall quality. The agentic setup with optimized infrastructure hit <strong>100% completeness, 100% accuracy, 105% efficiency, and 102% overall quality</strong>. His initial hypothesis that the infrastructure would reduce token cost turned out to be wrong -- token usage was comparable (27,211 vs. 28,566). But the <strong>compounding savings</strong> are where it pays off. Because the infrastructure already knows where everything is, iteration cost drops dramatically. Each subsequent task benefits from the existing map.</p>
+
+<p>He gives a pointed example: a design system health report from a SaaS tool like Omlet costs around $169 per month. Running the same report through his agentic setup costs <strong>$0.20</strong> -- and produces a schematized, comparable output every time.</p>
+
+<figure><img src="img/frame-1320.jpg" alt="Design system health dashboard generated from code" loading="lazy"><figcaption>Design system health dashboard generated from code</figcaption></figure>
+
+<hr>
+
+<h2>Governance Becomes an Output</h2>
+
+<p>The entire documentation website at Enara Health is generated from the codebase. It is an Astro site that Claude built autonomously. No manual sync, no separate documentation effort. The documentation skill aggregates component logic, metadata, and design specs into a complete site.</p>
+
+<figure><img src="img/frame-1440.jpg" alt="One source of truth" loading="lazy"><figcaption>One source of truth</figcaption></figure>
+
+<p>Cristian closes the presentation portion with a reframe. Only 5% of design system teams measure ROI. But when the <strong>outputs</strong> of your system are component pipelines, automated documentation, self-auditing, real-time adoption reports, and a single enforceable source of truth, governance stops being a luxury. <strong>Governance becomes an output</strong> -- a natural byproduct of how the system is built.</p>
+
+<p>As a sole designer on a team of 11 developers, he does not need to fight for a seat at the table. He brings his own chair.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On setup time and ROI</strong>: Cristian started building this infrastructure when Claude Code launched, roughly eight to nine months before the talk. He spent a few months designing the system in Figma, then a single weekend standing up the repo, token system, documentation website, and first six components. Two weeks later, the team had 50 components built to spec -- because the specs were encoded into the skills.</p>
+
+<p><strong>On MCPs vs. skills</strong>: For Enara's team, MCPs do not make sense because everyone has direct codebase access. Skills are more efficient and portable -- he can point a skill at any project. MCPs make more sense for larger teams where access control matters, or when teams need a shared managed interface to tooling they cannot directly clone.</p>
+
+<p><strong>On Figma's role</strong>: Figma is now slowing him down. As the sole designer, he prototypes through branches, shows components directly, and builds in code. Figma has shifted to a tool for visual flow diagrams -- taking screenshots of prototypes and connecting them in Figma to visualize user flows, rather than designing components there.</p>
+
+<p><strong>On fixing legacy systems</strong>: He recommends the same approach -- set up guidelines, ask Claude to audit the codebase, generate a report, and iterate from there. The key warning: if your code is not well-structured, scaling an agentic approach will just scale the problems faster.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Build four structural layers to eliminate four categories of AI failure.</strong> Cristian's architecture stacks tokenization (eliminates arbitrary choices), intent metadata (eliminates interpretation), indexing (eliminates aimless exploration), and strategies (eliminates improvisation). Each layer depends on the one below it. If your tokens are wrong, metadata describes wrong components. If metadata is missing, the index maps to nothing. Start at the bottom and build up -- do not skip layers.</p>
+
+<p><strong>Enforce that every new component ships with five files from birth.</strong> Cristian's scaffold component skill requires React logic, a CSS module, a metadata file, unit tests, and barrel exports for every component. This standardized structure means every component is documentation-ready and agent-readable from day one, eliminating the common pattern of "we'll add docs later" that never happens. Encode this as a skill so the AI cannot create a component without all five pieces.</p>
+
+<p><strong>Use schematized audit reports to track system health over time.</strong> The token auditor does not just check whether a token is used -- it checks whether the correct token is used for a given context (elevation hierarchy, semantic color models, typography rules). Every report follows the same schema, so you can compare reports over time and track whether the system is healing. At $0.20 per health report versus $169/month for a SaaS equivalent, the economics are compelling.</p>
+
+<p><strong>Generate your documentation site directly from the codebase.</strong> Cristian's entire documentation website is an Astro site that Claude built autonomously by aggregating component logic, metadata, and design specs. No manual sync, no separate documentation effort. When you eliminate the gap between code and docs, documentation drift -- the silent killer of every design system -- simply stops happening.</p>
+
+<p><strong>Governance becomes an output, not a luxury, when you encode it into infrastructure.</strong> Only 5% of design system teams measure ROI. But when your system automatically produces component pipelines, self-auditing reports, real-time adoption data, and a single enforceable source of truth, the ROI becomes visible by default. Cristian set up his repo, token system, documentation site, and first six components in a single weekend, then had 50 components built to spec in two weeks -- because the specs were encoded into the skills.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../220-context-probability-ds-ai-infra/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Context > Probability</span></a><a class="nav-next" href="../224-building-real-ds-with-agents/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">Building Real DS with Agents</span></a></nav>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Into Design Systems AI Conference 2026 — Talk Recordings</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .intro {
+    max-width: 680px;
+    margin: 0 auto 2rem;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 700px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  .talk-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+
+  .talk-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .talk-card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  .talk-card .card-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .talk-card .card-id {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+
+  .talk-card .card-title {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .talk-card .card-speaker {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.8rem;
+    color: #757575;
+    line-height: 1.4;
+  }
+
+  .talk-card .card-meta {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-top: 0.4rem;
+  }
+
+  .section-label {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .missing {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .missing .card-meta::after {
+    content: " — coming soon";
+    color: #ccc;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #e0e0e0; }
+    h1 { color: #f0f0f0; }
+    h2 { color: #f0f0f0; }
+    .subtitle { color: #999; border-bottom-color: #333; }
+    .section-label { color: #666; }
+    hr { background: #333; }
+    p { color: #ccc; }
+    strong { color: #f0f0f0; }
+    .talk-card { border-color: #2a2a2a; background: #222; }
+    .talk-card:hover { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); }
+    .talk-card .card-title { color: #f0f0f0; }
+    .talk-card .card-id { color: #666; }
+    .talk-card .card-speaker { color: #999; }
+    .talk-card .card-meta { color: #555; }
+  }
+</style>
+</head>
+<body>
+
+<div class="intro">
+<h1>Into Design Systems AI Conference 2026</h1>
+<div class="subtitle">
+  <strong>March 19–20, 2026</strong> — 16 talks reconstructed as narrative articles with embedded screenshots. Click any talk to read the full presentation.
+</div>
+
+<p>These presentation articles reconstruct each conference talk as a readable narrative — combining video screenshots with the speaker's ideas, demos, and key takeaways. Share them with colleagues who couldn't attend.</p>
+</div>
+
+<hr>
+
+<div class="section-label">Day 1 — March 19</div>
+
+<div class="card-grid">
+<a class="talk-card" href="talks/210-spotify-design-system/presentation.html">
+  <img src="talks/210-spotify-design-system/img/frame-0000.jpg" alt="Spotify Design System talk">
+  <div class="card-body">
+    <div class="card-id">Bonus Talk</div>
+    <div class="card-title">A Design System That Enables Humans and Machines to Co-Create Production-Ready UI — at Scale</div>
+    <div class="card-speaker">Victoria Tholérus & Aleksander Djordjevic — Spotify (Encore)</div>
+    <div class="card-meta">19 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/214-prototyping-for-the-unknown/presentation.html">
+  <img src="talks/214-prototyping-for-the-unknown/img/frame-0000.jpg" alt="Prototyping for the Unknown talk">
+  <div class="card-body">
+    <div class="card-id">Talk 1</div>
+    <div class="card-title">Prototyping for the Unknown</div>
+    <div class="card-speaker">Nate Baldwin — Sr Staff Experience Designer, Adobe Spectrum</div>
+    <div class="card-meta">40 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/215-whatsapp-vibe-coding/presentation.html">
+  <img src="talks/215-whatsapp-vibe-coding/img/frame-0000.jpg" alt="WhatsApp Web Vibe Coding talk">
+  <div class="card-body">
+    <div class="card-id">Talk 2</div>
+    <div class="card-title">WhatsApp Web: Reclaiming UI Excellence through Vibe Coding</div>
+    <div class="card-speaker">Sebastian Rousseau — Senior Product Designer, WhatsApp</div>
+    <div class="card-meta">45 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/216-product-primitives/presentation.html">
+  <img src="talks/216-product-primitives/img/frame-0000.jpg" alt="Product Primitives talk">
+  <div class="card-body">
+    <div class="card-id">Talk 3</div>
+    <div class="card-title">Product Primitives: The New Material of Design Systems</div>
+    <div class="card-speaker">Yesenia Perez-Cruz — Design Systems Consultant, Expressive Design Systems</div>
+    <div class="card-meta">47 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/217-ai-enabled-design-system-miro/presentation.html">
+  <img src="talks/217-ai-enabled-design-system-miro/img/frame-0000.jpg" alt="Miro AI-Enabled Design System talk">
+  <div class="card-body">
+    <div class="card-id">Talk 4</div>
+    <div class="card-title">The Path to an AI-Enabled Design System: Our Approach and Lessons Learned</div>
+    <div class="card-speaker">Andressa Lombardo & Eddie Machado — Miro</div>
+    <div class="card-meta">50 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/218-agentic-design-systems/presentation.html">
+  <img src="talks/218-agentic-design-systems/img/frame-0000.jpg" alt="Agentic Design Systems talk">
+  <div class="card-body">
+    <div class="card-id">Talk 5</div>
+    <div class="card-title">Agentic Design Systems</div>
+    <div class="card-speaker">Romina Kavcic — Design System Lead, The Design System Guide</div>
+    <div class="card-meta">54 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/219-designers-ship-code/presentation.html">
+  <img src="talks/219-designers-ship-code/img/frame-0000.jpg" alt="Designers Ship Code talk">
+  <div class="card-body">
+    <div class="card-id">Talk 6</div>
+    <div class="card-title">I'm Not an Engineer but I Ship Code</div>
+    <div class="card-speaker">Freya Stockman — Product Designer, Relevance AI</div>
+    <div class="card-meta">52 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/220-context-probability-ds-ai-infra/presentation.html">
+  <img src="talks/220-context-probability-ds-ai-infra/img/frame-0000.jpg" alt="Context > Probability talk">
+  <div class="card-body">
+    <div class="card-id">Talk 7</div>
+    <div class="card-title">Context > Probability: Design Systems as AI Infrastructure</div>
+    <div class="card-speaker">Jesse Gardner — Director, User Research, New York State</div>
+    <div class="card-meta">54 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/221-encoding-governance-agentic-ds/presentation.html">
+  <img src="talks/221-encoding-governance-agentic-ds/img/frame-0000.jpg" alt="Encoding Governance talk">
+  <div class="card-body">
+    <div class="card-id">Talk 8</div>
+    <div class="card-title">Encoding Governance on Agentic Design Systems</div>
+    <div class="card-speaker">Cristian Morales Achiardi — Design Engineer, Enara Health</div>
+    <div class="card-meta">38 min</div>
+  </div>
+</a>
+</div>
+
+<hr>
+
+<div class="section-label">Day 2 — March 20</div>
+
+<div class="card-grid">
+<a class="talk-card" href="talks/224-building-real-ds-with-agents/presentation.html">
+  <img src="talks/224-building-real-ds-with-agents/img/frame-0000.jpg" alt="Building Real DS with Agents talk">
+  <div class="card-body">
+    <div class="card-id">Talk 9</div>
+    <div class="card-title">Building Real Design Systems with Agents</div>
+    <div class="card-speaker">Jan Six — Principal Product Designer, GitHub</div>
+    <div class="card-meta">49 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/225-vibe-coding-zero-drift/presentation.html">
+  <img src="talks/225-vibe-coding-zero-drift/img/frame-0000.jpg" alt="Vibe Coding Zero Drift talk">
+  <div class="card-body">
+    <div class="card-id">Talk 10</div>
+    <div class="card-title">Vibe Coding with Zero Drift — from Figma to Storybook to Production</div>
+    <div class="card-speaker">Shuaiqi (Mr.Biscuit) Sun — Design System Architect</div>
+    <div class="card-meta">76 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/226-machine-readable-ds-mcp-llms/presentation.html">
+  <img src="talks/226-machine-readable-ds-mcp-llms/img/frame-0000.jpg" alt="Machine-Readable DS talk">
+  <div class="card-body">
+    <div class="card-id">Talk 11</div>
+    <div class="card-title">Machine-Readable Design Systems for MCP and LLMs</div>
+    <div class="card-speaker">Diana Wolosin — Sr. Design System Designer, Indeed</div>
+    <div class="card-meta">46 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/227-markdown-to-real-problems/presentation.html">
+  <img src="talks/227-markdown-to-real-problems/img/frame-0000.jpg" alt="Markdown to Real Problems talk">
+  <div class="card-body">
+    <div class="card-id">Talk 12</div>
+    <div class="card-title">From Falling for Markdown to Solving Real Problems with Scripts</div>
+    <div class="card-speaker">Laura Fehre — Designer Advocate, Figma</div>
+    <div class="card-meta">49 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/228-ship-it-vibe-coding-figma-plugin/presentation.html">
+  <img src="talks/228-ship-it-vibe-coding-figma-plugin/img/frame-0000.jpg" alt="Ship It Figma Plugin talk">
+  <div class="card-body">
+    <div class="card-id">Talk 13</div>
+    <div class="card-title">Ship It! Vibe Coding Your First Figma Plugin</div>
+    <div class="card-speaker">Davy Fung — Lead Product Designer, Atlassian Design System</div>
+    <div class="card-meta">50 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/229-designers-who-ship-48hr-plugin/presentation.html">
+  <img src="talks/229-designers-who-ship-48hr-plugin/img/frame-0000.jpg" alt="Designers Who Ship talk">
+  <div class="card-body">
+    <div class="card-id">Talk 14</div>
+    <div class="card-title">Designers Who Ship: Building a Real Plugin in 48 Hours with AI</div>
+    <div class="card-speaker">Christoph Hellmuth, Raquel Pereira & Casandra Sandu</div>
+    <div class="card-meta">53 min</div>
+  </div>
+</a>
+
+<a class="talk-card" href="talks/230-ai-without-chaos/presentation.html">
+  <img src="talks/230-ai-without-chaos/img/frame-0000.jpg" alt="AI Without the Chaos talk">
+  <div class="card-body">
+    <div class="card-id">Talk 15</div>
+    <div class="card-title">AI Without the Chaos: Context-Based Design Systems to the Rescue</div>
+    <div class="card-speaker">Brad Frost, Ian Frost & TJ Pitre</div>
+    <div class="card-meta">78 min</div>
+  </div>
+</a>
+</div>
+
+<hr>
+
+<p style="font-family: Inter, -apple-system, sans-serif; font-size: 0.8rem; color: #999; text-align: center; margin-top: 2rem;">
+  Reconstructed from the Into Design Systems AI Conference 2026 video recordings. Each article combines video screenshots with a narrative reconstruction of the speaker's talk.
+</p>
+
+</body>
+</html>

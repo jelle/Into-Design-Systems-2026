@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>229-designers-who-ship-48hr-plugin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 125%;
+    line-height: 1.8;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  h4, h5, h6 {
+    font-family: Inter, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin: 1.25rem 0;
+    color: #292929;
+  }
+
+  a {
+    color: #1a8917;
+    text-decoration: underline;
+    text-decoration-color: rgba(26, 137, 23, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: #1a8917;
+  }
+
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+    background: #f2f2f2;
+    color: #1a1a1a;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  pre {
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e6e6e6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.6;
+  }
+
+  ul, ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin: 0.6rem 0;
+    color: #292929;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  th {
+    background: #f7f7f7;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: Inter, -apple-system, sans-serif;
+  }
+
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 3rem auto;
+    max-width: 100px;
+  }
+
+  blockquote {
+    border-left: 3px solid #1a1a1a;
+    padding: 0.25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  figure {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+
+  figure img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }
+
+  .insights[open] {
+    padding-bottom: 1.5rem;
+  }
+
+  .insights summary {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .insights summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .insights summary::after {
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }
+
+  .insights[open] summary::after {
+    content: "−";
+  }
+
+  .insights h2 {
+    display: none;
+  }
+
+  .insights-disclaimer {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .insights p {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* First paragraph after h1 = subtitle styling */
+  h1 + p {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 1.5rem;
+  }
+
+  .nav-back {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }
+
+  .nav-back a {
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  .nav-back a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bottom {
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-bottom a {
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }
+
+  .nav-bottom a:hover {
+    text-decoration: none;
+  }
+
+  .nav-bottom a:hover .nav-title {
+    text-decoration: underline;
+  }
+
+  .nav-bottom .nav-prev { text-align: left; }
+  .nav-bottom .nav-next { text-align: right; margin-left: auto; }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }
+
+  .nav-bottom a:hover .nav-label {
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #1a1a1a; color: #e0e0e0; }
+    h1, h2, h3, h4, h5, h6 { color: #f0f0f0; }
+    p, li { color: #ccc; }
+    strong { color: #f0f0f0; }
+    a { color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }
+    a:hover { text-decoration-color: #4ade80; }
+    code { background: #2a2a2a; color: #e0e0e0; }
+    pre { background: #222; border-color: #333; }
+    hr { background: #333; }
+    th { background: #252525; border-bottom-color: #444; }
+    td { border-bottom-color: #2a2a2a; }
+    blockquote { border-left-color: #666; color: #aaa; }
+    figure img { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+    figcaption { color: #999; }
+    .nav-back { background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }
+    .nav-back a { color: #e0e0e0; }
+    .nav-bottom { background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }
+    .nav-bottom a { color: #e0e0e0; }
+    .nav-label { color: #666; }
+    .insights { background: #222; }
+    .insights summary { color: #f0f0f0; }
+    .insights summary::after { color: #666; }
+    .insights-disclaimer { color: #666; border-bottom-color: #333; }
+    h1 + p { color: #999; border-bottom-color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="../../index.html">&larr; All talks</a></div>
+<h1>Designers Who Ship: Building a Real Plugin in 48 Hours with AI</h1>
+
+<p><strong>Speakers</strong>: Christoph Hellmuth -- Lead Product Designer, Design Systems, NordVPN | Raquel Pereira -- Lead UX Designer, Design System, Nokia | Casandra Sandu -- Design System Specialist, Trackunit</p>
+<p><strong>Conference</strong>: Into Design Systems AI Conference 2026 | 53 min</p>
+
+<hr>
+
+<h2>The Challenge: Ten Strangers, One Weekend, Zero Plugin Experience</h2>
+
+<p>The Into Design Systems online hackathon brought together 150 designers for a weekend of vibe coding with AI. Among them, a team of ten designers who had never met before -- scattered across Portugal, Denmark, Germany, and beyond -- won first place by building a fully functional Figma plugin called <strong>Swap Wizard</strong>. None of them had ever built a Figma plugin before.</p>
+
+<figure><img src="img/frame-0120.jpg" alt="Title slide: Designers Who Ship -- Building a Real Plugin in 48 Hours with AI" loading="lazy"><figcaption>Title slide: Designers Who Ship -- Building a Real Plugin in 48 Hours with AI</figcaption></figure>
+
+<p>Raquel, Cassandra, and Christoph take the stage to share not just what they built, but the process and principles that got them there. Their talk is part testimonial, part beginner's guide -- a practical look at what happens when designers stop waiting for engineers and start shipping code themselves.</p>
+
+<hr>
+
+<h2>The Problem: Library Swapping Breaks When Names Don't Match</h2>
+
+<p>The team identified a pain point that every design system practitioner knows well. <strong>Figma's built-in library swap only works when component names match exactly.</strong> The moment a name changes -- because a new design system uses different naming conventions, or because components have been detached and modified -- the swap fails, and designers are stuck replacing components one by one, manually.</p>
+
+<figure><img src="img/frame-0180.jpg" alt="The problem: Figma swap breaks when component names change" loading="lazy"><figcaption>The problem: Figma swap breaks when component names change</figcaption></figure>
+
+<p>Swap Wizard solves this by using <strong>AI-powered matching</strong> to suggest the best swap candidates even when names don't align. The plugin scans a selection or an entire page, fetches the target library, runs AI matching against component properties, and presents the designer with editable suggestions. The user reviews each match, can override suggestions at the component or variant level, sees a before-and-after preview, and then executes the swap in one click. A bonus discovery during development: the plugin could also <strong>reattach detached components</strong> by reading hidden metadata in the Figma API that remembers what a frame used to be.</p>
+
+<hr>
+
+<h2>Plan Before You Prompt</h2>
+
+<p>With a 48-hour deadline and AI tools at their fingertips, the natural instinct is to open Cursor immediately and start prompting. The team deliberately resisted that urge. They spent the first few hours without writing a single line of code, instead defining their <strong>product scope</strong> with surgical precision.</p>
+
+<figure><img src="img/frame-0420.jpg" alt="Product scope definition: must-have, nice-to-have, out of scope" loading="lazy"><figcaption>Product scope definition: must-have, nice-to-have, out of scope</figcaption></figure>
+
+<p>Every feature the team could imagine was sorted into three buckets: <strong>must-have, nice-to-have, and out of scope</strong>. If it wasn't a must-have, it could wait. This exercise, simple as it sounds, became the single most important decision of the hackathon. Every minute spent planning before prompting saved an hour of debugging later -- a mantra the team repeated throughout the talk.</p>
+
+<hr>
+
+<h2>Research First, Prompt Second</h2>
+
+<p>Before writing any prompts, the team mapped out the <strong>technical sequence</strong> their plugin needed to follow: scan components, fetch the new library via the REST API, run AI matching, let the user review and confirm mappings, create a safety snapshot, execute the swap, and audit the result.</p>
+
+<figure><img src="img/frame-0480.jpg" alt="Technical research flow and the critical API constraint discovery" loading="lazy"><figcaption>Technical research flow and the critical API constraint discovery</figcaption></figure>
+
+<p>During this research phase, they hit a <strong>critical constraint</strong>: the Figma Plugin API does not allow browsing external libraries from inside a plugin. Had they discovered this after hours of prompting, it would have been catastrophic. Instead, they found it early and designed two workarounds -- letting the user either select a component from the new library as a reference point, or provide a library URL and personal access token directly. This discovery alone justified the entire planning phase.</p>
+
+<hr>
+
+<h2>The Three Ingredients of a Good Prompt</h2>
+
+<p>Raquel distills the team's prompting philosophy into three ingredients: <strong>clarity, context, and constraints</strong>. Clarity means being specific about what you want. Context means giving the AI your tech stack, goals, and project background. Constraints means telling it what platform you're targeting, what patterns to follow, and what to avoid. If any one of these is missing, the AI guesses -- and guessing costs time and money.</p>
+
+<p>The team demonstrated this with a side-by-side comparison. A <strong>vague prompt</strong> forced the AI to read more files, reason longer, and produce a longer response -- costing roughly nine dollars over two minutes with low precision. A <strong>well-structured prompt</strong> with the right model cost almost nothing, responded in seconds, and was far more accurate. The vague prompt was <strong>500 times more expensive</strong> than the clear one.</p>
+
+<figure><img src="img/frame-0900.jpg" alt="Choosing the right model: pricing and capabilities comparison" loading="lazy"><figcaption>Choosing the right model: pricing and capabilities comparison</figcaption></figure>
+
+<p>The team also emphasized that <strong>the most expensive model does not automatically produce the best results</strong>. Fast models excel at quick edits and everyday tasks, while high-reasoning models are better reserved for deep analysis and complex problem solving. Cursor's auto mode, which selects the right model for each task automatically, saved them from having to make this decision constantly.</p>
+
+<hr>
+
+<h2>The Vibe Flow: A Disciplined Loop</h2>
+
+<p>Rather than treating AI-assisted coding as a free-for-all, the team established a disciplined workflow they call <strong>the vibe flow</strong>: add features step by step, one at a time. Start a new session for each new feature. Roll back immediately if something breaks. Test after every addition.</p>
+
+<figure><img src="img/frame-0720.jpg" alt="The vibe flow: add features, new sessions, roll back, test" loading="lazy"><figcaption>The vibe flow: add features, new sessions, roll back, test</figcaption></figure>
+
+<p>This loop sounds simple, but each step addresses a real failure mode. <strong>Mixing features in the same context window</strong> balloons token usage and degrades output quality. Failing to commit working code before each agent session means catastrophic failures take hours to recover from instead of seconds. Skipping tests after each addition means bugs compound invisibly until the whole system is tangled.</p>
+
+<p>Raquel also introduced a meta-prompting technique: <strong>use one AI to write prompts for another</strong>. If you're unsure how to structure a prompt, ask Claude or Gemini to write a comprehensive prompt with best practices, then feed that polished prompt into Cursor. The team found this particularly effective for generating well-structured prompts that considered accessibility, API design, and maintainability from the start.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Let AI help you to prompt: meta-prompting in practice" loading="lazy"><figcaption>Let AI help you to prompt: meta-prompting in practice</figcaption></figure>
+
+<hr>
+
+<h2>Cursor Modes in Practice</h2>
+
+<p>Cassandra walks through how the team used <strong>Cursor's four modes</strong> in practice, each for a distinct purpose. <strong>Plan mode</strong> was the starting point -- structuring ideas and breaking them into actionable steps before any code was written. Cassandra's initial prompt was deliberately simple: "I want to build a Figma plugin that can swap libraries of components." Plan mode asked clarifying questions, then generated a clear, reviewable plan.</p>
+
+<figure><img src="img/frame-1020.jpg" alt="Agent modes: Agent, Plan, Ask, and Debug" loading="lazy"><figcaption>Agent modes: Agent, Plan, Ask, and Debug</figcaption></figure>
+
+<p>From there, the team switched to <strong>agent mode</strong> for building, going back and forth with simple, precise prompts. They weren't trying to get everything perfect from the start. The goal was a working prototype -- no proper framework, no ideal structure, just something functional that could be tested immediately in Figma by importing the manifest file.</p>
+
+<p><strong>Ask mode</strong> served as a learning tool. When the team found the <code>detachedInfo</code> property in the Figma API documentation, they used ask mode to understand what it meant and whether it could be leveraged for their reattachment feature. The AI tools weren't just code generators -- they were <strong>powerful learning partners</strong> helping designers build real technical knowledge, prompt by prompt.</p>
+
+<hr>
+
+<h2>Async Collaboration at Scale</h2>
+
+<p>With ten people across multiple time zones, the team needed infrastructure that could handle truly asynchronous work. <strong>GitHub</strong> served as the code hub, with <strong>28 pull requests merged in under 48 hours</strong>, each reviewed before going into main. Slack handled communication, with bugs shared via video recordings and categorized by severity. Figma held the UI designs, test files, and the running plugin itself.</p>
+
+<figure><img src="img/frame-1500.jpg" alt="Async collaboration: 28 PRs merged, GitHub, Slack, and Figma working together" loading="lazy"><figcaption>Async collaboration: 28 PRs merged, GitHub, Slack, and Figma working together</figcaption></figure>
+
+<p>The team emphasizes that this structure matters even for solo builders. Tracking changes, documenting decisions, and keeping things organized creates a <strong>safe space to experiment and fail</strong>. When you know you can always roll back to a working state, you take bolder creative risks -- and that's where the best ideas come from.</p>
+
+<hr>
+
+<h2>Vibe Debugging: When Things Break</h2>
+
+<p>Christoph tackles the part of AI-assisted development that rarely gets discussed in tutorials: <strong>what happens when things break</strong>. And they will break. The familiar spiral starts optimistically -- polite prompts, quick results -- and degrades into frustration as bugs compound and the AI introduces new problems while trying to fix old ones.</p>
+
+<figure><img src="img/frame-1800.jpg" alt="How to vibe debug: backup, step by step, context, error logs" loading="lazy"><figcaption>How to vibe debug: backup, step by step, context, error logs</figcaption></figure>
+
+<p>The team's approach to <strong>vibe debugging</strong> has four principles. First, <strong>always commit working code before making changes</strong> -- version control is your safety net. Second, <strong>build and test one change at a time</strong> so bugs don't compound across features. Third, <strong>gather visual context first</strong> -- a screenshot of the broken state gives the AI far more to work with than a vague description. Fourth, <strong>use error logs</strong> -- tell the AI to add instrumentation before guessing at fixes, then copy the actual error output back into the prompt.</p>
+
+<figure><img src="img/frame-1620.jpg" alt="Debug mode in action: hypothesis generation and root cause analysis" loading="lazy"><figcaption>Debug mode in action: hypothesis generation and root cause analysis</figcaption></figure>
+
+<p>Cassandra demonstrated this with a real bug from the hackathon. Some components in their dropdown weren't displaying correctly -- properties were shown flat instead of grouped under component names. Instead of guessing, she switched to <strong>debug mode</strong>, provided a single screenshot of the broken state, and let the AI generate hypotheses, add temporary logs, gather evidence, and identify the root cause. The bug was resolved in one pass rather than through an expensive trial-and-error loop.</p>
+
+<hr>
+
+<h2>Agent Skills: From Generalist to Specialist</h2>
+
+<p>Christoph introduces <strong>AI skills</strong> as the mechanism that transforms a general-purpose agent into a domain expert. A skill is a structured, repeatable capability with three components: a <strong>trigger</strong> that defines when it should activate, <strong>instructions</strong> that provide step-by-step guidance, and <strong>tools</strong> that include reusable code snippets so the AI doesn't regenerate boilerplate each session.</p>
+
+<figure><img src="img/frame-1920.jpg" alt="Skills are modular, fast, and reliable: stack like LEGO, plug and play" loading="lazy"><figcaption>Skills are modular, fast, and reliable: stack like LEGO, plug and play</figcaption></figure>
+
+<p>For the hackathon, the team used a <strong>Figma Plugin Developer skill</strong> that gave Cursor deep knowledge of plugin development architecture, the Figma API, REST API patterns, sandbox architecture, and UI best practices. Instead of burning tokens re-teaching the agent these fundamentals in every session, the skill loaded instantly and made every subsequent prompt more precise.</p>
+
+<figure><img src="img/frame-2100.jpg" alt="Figma Plugin Developer Agent Skill for Claude Code" loading="lazy"><figcaption>Figma Plugin Developer Agent Skill for Claude Code</figcaption></figure>
+
+<p>Christoph also sounds a security warning: skills are powerful, but they execute code. A malicious skill could introduce prompt injection, expose API keys, or modify your git history. The team recommends <strong>reading every skill before installing it</strong> and running the skill file through an AI security check as a basic precaution.</p>
+
+<hr>
+
+<h2>The Great Refactor and the Road to Launch</h2>
+
+<p>After 48 hours of building, the team had a working prototype -- but also <strong>4,000 lines of code</strong> in a single file with no clear architecture. Christoph is candid about this: shipping a working prototype and then cleaning up separately is a valid strategy. The refactor is where the plugin becomes maintainable, and it happened after the hackathon using Claude to restructure the codebase.</p>
+
+<figure><img src="img/frame-2220.jpg" alt="The great refactor: cleaning up 4,000 lines of prototype code" loading="lazy"><figcaption>The great refactor: cleaning up 4,000 lines of prototype code</figcaption></figure>
+
+<p>For marketing, the team discovered a clever shortcut. The plugin's existing <strong>CSS and HTML styling</strong> already constituted a de facto brand guide. They fed these files into Lovable along with a meta-prompted marketing brief, and had a polished <strong>landing page in under an hour</strong> -- complete with newsletter signup -- requiring no design work from scratch. The plugin's visual identity simply carried over.</p>
+
+<figure><img src="img/frame-2340.jpg" alt="Optimizing the Figma community listing for plugin launch" loading="lazy"><figcaption>Optimizing the Figma community listing for plugin launch</figcaption></figure>
+
+<p>For the Figma community listing, the team optimized for discoverability: choosing the right category, including relevant keywords, and completing the data security section -- critical for enterprise users who need plugin approval before they can even install it.</p>
+
+<hr>
+
+<h2>Six Takeaways for Designers Who Want to Ship</h2>
+
+<p>Christoph closes with six principles that apply whether you're building a Figma plugin, a web app, or any other tool with AI assistance. <strong>Plan before you prompt</strong> -- every minute of planning saves an hour of debugging. <strong>Use the right modes</strong> -- plan mode for thinking, agent mode for building, ask mode for learning, debug mode for fixing. <strong>Test early and often</strong> -- the earlier you catch a bug, the easier it is to fix. <strong>Reuse your existing code for marketing</strong> -- your plugin CSS is your brand guide. <strong>Use agent modes effectively</strong> -- choose the best fitting mode for each goal. <strong>Explore agent skills</strong> -- transform your general AI into a specialized expert.</p>
+
+<figure><img src="img/frame-2400.jpg" alt="Six key takeaways: connecting it all together" loading="lazy"><figcaption>Six key takeaways: connecting it all together</figcaption></figure>
+
+<p>The specific tools will change, but the workflow stays the same. And the most important takeaway may be the simplest: <strong>none of these ten designers had ever built a Figma plugin before.</strong> If that's where you are now, this talk is proof that the barrier has fallen.</p>
+
+<hr>
+
+<h2>Q&amp;A Highlights</h2>
+
+<p><strong>On detached components</strong>: The Figma API retains metadata about what a detached frame used to be. Swap Wizard reads this hidden <code>detachedInfo</code> property to suggest correct reattachment targets. Content may be lost if it doesn't match the new component's structure, but the original component identity is preserved.</p>
+
+<p><strong>On UI design process</strong>: The team combined AI-generated UI variations with manual Figma design work. Some colleagues focused on branding and UI in Figma while others built the functional prototype in Cursor, then the visual polish was applied to the working plugin.</p>
+
+<p><strong>On the hackathon experience</strong>: Raquel credits the team's success to humility and honest communication from the start. Everyone found their natural role without stepping on each other, communicated extensively on Discord, and treated the weekend like a small agile team. The magic ingredient was not technical skill but team dynamics and planning discipline.</p>
+
+<hr>
+
+<details class="insights"><summary>Key Insights &amp; Takeaways</summary><p class="insights-disclaimer">AI-generated analysis based on the talk content. These insights are not from the speaker.</p><h2>Key Insights &amp; Takeaways</h2>
+
+<p><strong>Every minute of planning saves an hour of debugging.</strong> The team deliberately spent their first hours without writing a single line of code, instead sorting every feature into must-have, nice-to-have, and out of scope. During technical research, they discovered that the Figma Plugin API cannot browse external libraries -- a constraint that would have been catastrophic to find after hours of coding. If you are about to vibe-code something, resist the urge to open Cursor immediately and map the technical constraints first.</p>
+
+<p><strong>A well-structured prompt can be 500 times cheaper than a vague one.</strong> The team's side-by-side comparison showed that a vague prompt forced the AI to read more files, reason longer, and produce less precise output at dramatically higher cost. The three ingredients: clarity (be specific), context (tech stack, goals, project background), and constraints (platform, patterns to follow, what to avoid). If any one is missing, the AI guesses -- and guessing costs time and money.</p>
+
+<p><strong>Use the "vibe flow" discipline: one feature per session, commit before each change, test after every addition.</strong> Mixing features in the same context window balloons token usage and degrades output quality. Failing to commit working code before each agent session means catastrophic failures take hours to recover from. The team merged 28 PRs in under 48 hours using this loop, and it is equally valuable for solo builders.</p>
+
+<p><strong>Use debug mode with screenshots instead of guessing at fixes.</strong> When components were not displaying correctly, the team switched to debug mode, provided a single screenshot of the broken state, and let the AI generate hypotheses, add temporary logs, gather evidence, and identify the root cause in one pass. This visual-first debugging approach is dramatically more efficient than the trial-and-error spiral that AI-assisted coding typically devolves into.</p>
+
+<p><strong>Transform a general-purpose agent into a specialist using skills with triggers, instructions, and reusable code.</strong> The team used a Figma Plugin Developer skill that gave Cursor deep knowledge of plugin architecture, the Figma API, and UI best practices. Instead of burning tokens re-teaching fundamentals in every session, the skill loaded instantly and made every subsequent prompt more precise. Build skills for your team's most repeated workflows -- the upfront investment pays back in every session.</p></details>
+
+<nav class="nav-bottom"><a class="nav-prev" href="../228-ship-it-vibe-coding-figma-plugin/presentation.html"><span class="nav-label">&larr; Previous</span><span class="nav-title">Ship It! Figma Plugin</span></a><a class="nav-next" href="../230-ai-without-chaos/presentation.html"><span class="nav-label">Next &rarr;</span><span class="nav-title">AI Without the Chaos</span></a></nav>
+</body>
+</html>

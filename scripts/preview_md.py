@@ -132,7 +132,7 @@ def md_to_html(md_text):
     return html_out
 
 
-def build_html(title, body_html):
+def build_html(title, body_html, nav_top="", nav_bottom=""):
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,17 +143,25 @@ def build_html(title, body_html):
   @import url('https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  html {{ overflow-x: hidden; }}
 
   body {{
     font-family: Charter, Georgia, 'Times New Roman', serif;
     background: #fff;
     color: #1a1a1a;
-    font-size: 20px;
+    font-size: 125%;
     line-height: 1.8;
-    padding: 3rem 1.5rem;
-    max-width: 740px;
+    padding: 3rem 1.5rem 0;
+    max-width: 960px;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
+  }}
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, hr {{
+    max-width: 680px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left;
   }}
 
   h1 {{
@@ -291,21 +299,81 @@ def build_html(title, body_html):
   }}
 
   figure {{
-    margin: 2.5rem -16rem;
+    margin: 2.5rem 0;
     text-align: center;
   }}
 
   figure img {{
     width: 100%;
-    max-width: 1800px;
     border-radius: 8px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   }}
 
+  .insights {{
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 0 2rem 0.25rem;
+    margin: 3rem 0;
+  }}
+
+  .insights[open] {{
+    padding-bottom: 1.5rem;
+  }}
+
+  .insights summary {{
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }}
+
+  .insights summary::-webkit-details-marker {{
+    display: none;
+  }}
+
+  .insights summary::after {{
+    content: "+";
+    font-size: 2rem;
+    font-weight: 300;
+    color: #999;
+    line-height: 0;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+  }}
+
+  .insights[open] summary::after {{
+    content: "−";
+  }}
+
+  .insights h2 {{
+    display: none;
+  }}
+
+  .insights-disclaimer {{
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+  }}
+
+  .insights p {{
+    max-width: 100%;
+  }}
+
   figcaption {{
     font-family: Inter, -apple-system, sans-serif;
-    font-size: 0.8rem;
-    color: #999;
+    font-size: 0.85rem;
+    color: #666;
     margin-top: 0.75rem;
     font-style: normal;
   }}
@@ -321,13 +389,119 @@ def build_html(title, body_html):
     padding-bottom: 1.5rem;
   }}
 
+  .nav-back {{
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: -3rem calc(-50vw + 50%) 2rem;
+    padding: 0.8rem calc(50vw - 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: block;
+  }}
+
+  .nav-back a {{
+    color: #0a0a0a;
+    text-decoration: none;
+  }}
+
+  .nav-back a:hover {{
+    text-decoration: underline;
+  }}
+
+  .nav-bottom {{
+    font-family: Inter, -apple-system, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 3rem calc(-50vw + 50%) 0;
+    padding: 1rem calc(50vw - 50%) 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.85rem;
+    gap: 1rem;
+  }}
+
+  .nav-bottom a {{
+    color: #0a0a0a;
+    text-decoration: none;
+    max-width: 45%;
+    font-weight: 500;
+    padding: 0.4rem 0;
+  }}
+
+  .nav-bottom a:hover {{
+    text-decoration: none;
+  }}
+
+  .nav-bottom a:hover .nav-title {{
+    text-decoration: underline;
+  }}
+
+  .nav-bottom .nav-prev {{ text-align: left; }}
+  .nav-bottom .nav-next {{ text-align: right; margin-left: auto; }}
+
+  .nav-label {{
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: none !important;
+  }}
+
+  .nav-bottom a:hover .nav-label {{
+    text-decoration: none;
+  }}
+
   ::-webkit-scrollbar {{ width: 6px; }}
   ::-webkit-scrollbar-track {{ background: transparent; }}
   ::-webkit-scrollbar-thumb {{ background: #ccc; border-radius: 3px; }}
+
+  @media (prefers-color-scheme: dark) {{
+    html, body {{ background: #1a1a1a; color: #e0e0e0; }}
+    h1, h2, h3, h4, h5, h6 {{ color: #f0f0f0; }}
+    p, li {{ color: #ccc; }}
+    strong {{ color: #f0f0f0; }}
+    a {{ color: #4ade80; text-decoration-color: rgba(74, 222, 128, 0.3); }}
+    a:hover {{ text-decoration-color: #4ade80; }}
+    code {{ background: #2a2a2a; color: #e0e0e0; }}
+    pre {{ background: #222; border-color: #333; }}
+    hr {{ background: #333; }}
+    th {{ background: #252525; border-bottom-color: #444; }}
+    td {{ border-bottom-color: #2a2a2a; }}
+    blockquote {{ border-left-color: #666; color: #aaa; }}
+    figure img {{ box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }}
+    figcaption {{ color: #999; }}
+    .nav-back {{ background: rgba(26, 26, 26, 0.92); border-bottom-color: rgba(255, 255, 255, 0.06); }}
+    .nav-back a {{ color: #e0e0e0; }}
+    .nav-bottom {{ background: rgba(26, 26, 26, 0.92); border-top-color: rgba(255, 255, 255, 0.06); }}
+    .nav-bottom a {{ color: #e0e0e0; }}
+    .nav-label {{ color: #666; }}
+    .insights {{ background: #222; }}
+    .insights summary {{ color: #f0f0f0; }}
+    .insights summary::after {{ color: #666; }}
+    .insights-disclaimer {{ color: #666; border-bottom-color: #333; }}
+    h1 + p {{ color: #999; border-bottom-color: #333; }}
+  }}
 </style>
 </head>
 <body>
+{nav_top}
 {body_html}
+{nav_bottom}
 </body>
 </html>"""
 
